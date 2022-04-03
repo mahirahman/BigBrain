@@ -7,7 +7,7 @@ const fetchAPI = (path, method, body) => {
         method: method,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: (path === '/admin/auth/logout') ? undefined : authToken,
+          Authorization: `Bearer ${(path === '/admin/auth/logout' || path.includes('/admin/quiz') || path.includes('/admin/session')) ? undefined : authToken}`,
         },
         body: method === 'GET' ? undefined : JSON.stringify(body),
       };
