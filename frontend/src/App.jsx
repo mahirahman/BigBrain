@@ -1,29 +1,32 @@
-import React, { useState } from 'react';
-import { loginAPI } from './api.js';
+import React from 'react';
 import './App.css';
-
-/* eslint-disable */
+import { Login } from './components/Login';
+import { loginAPI } from './api.js';
 
 export let authToken = null;
 
-const loginUser = (email, password) => {
+export const loginUser = (email, password) => {
   loginAPI(email, password).then((data) => {
     authToken = data.token;
     console.log(data);
-})};
+    console.log(authToken);
+  })
+};
+
+// export const registerUser = (email, name, password) => {
+//   registerAPI(email, name, password).then((data) => {
+//     authToken = data.token;
+//     console.log(data);
+//     console.log(authToken);
+//   })
+// };
 
 function App () {
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
   return (
     <>
-      <input onChange={event => setEmail(event.target.value)} type="text" placeholder='Email'/><br/>
-      <input onChange={event => setPassword(event.target.value)} type="password" placeholder='Password'/><br/>
-      <button onClick={() => loginUser(email, password)}>Login</button>
+      <Login/>
     </>
   );
-};
+}
 
 export default App;
