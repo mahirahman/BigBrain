@@ -7,11 +7,13 @@ export function Login () {
   const navigate = useNavigate();
   return (
     <>
+    <div className="center">
       <h1>Sign in to your account</h1>
-        <LoginForm success={() => {
-          navigate('/quizzes');
-        }}/>
-        <div className="card"> New user? <a onClick={() => { navigate('/register') }} className="link pointer">Create an account</a></div>
+      <LoginForm success={() => {
+        navigate('/quizzes');
+      }}/>
+      <div className="card"> New user? <a onClick={() => { navigate('/register') }} className="link pointer">Create an account</a></div>
+    </div>
     </>
   );
 }
