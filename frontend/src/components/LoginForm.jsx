@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
-import { loginUser } from '../App';
+import { loginAPI } from '../api.js';
 
-export function LoginForm () {
+export function LoginForm ({ success }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const loginUser = async (email, password) => {
+    const data = await loginAPI(email, password)
+    if (data.error) {
+      alert(data.error);
+      return;
+    }
+    localStorage.setItem('authToken', data.token);
+    console.log(localStorage.getItem('authToken'));
+    success();
+  };
 
   return (
     <>
