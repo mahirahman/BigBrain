@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { loginAPI } from '../api.js';
 import PropTypes from 'prop-types';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function LoginForm ({ success }) {
   LoginForm.propTypes = {
