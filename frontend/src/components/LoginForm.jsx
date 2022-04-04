@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { loginAPI } from '../api.js';
+import PropTypes from 'prop-types';
 
 export function LoginForm ({ success }) {
+  LoginForm.propTypes = {
+    success: PropTypes.func.isRequired
+  };
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -18,9 +23,15 @@ export function LoginForm ({ success }) {
 
   return (
     <>
-      <input onChange={event => setEmail(event.target.value)} type="text" placeholder='Email'/><br/>
-      <input onChange={event => setPassword(event.target.value)} type="password" placeholder='Password'/><br/>
-      <button onClick={() => loginUser(email, password)}>Login</button>
+      <div className='card'>
+        <div className="card-body">
+          <h5 className="card-title">Email Address</h5>
+          <input onChange={event => setEmail(event.target.value)} type="text" placeholder='Email'/>
+          <h5 className="card-title">Password</h5>
+          <input onChange={event => setPassword(event.target.value)} type="password" placeholder='Password'/>
+          <button onClick={() => loginUser(email, password)} className='btn btn-success'>Login</button>
+        </div>
+      </div>
     </>
   );
 }
