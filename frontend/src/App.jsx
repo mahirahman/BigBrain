@@ -1,30 +1,27 @@
 import React from 'react';
 import './App.css';
-import { Login } from './components/Login';
+import { LoginForm } from './components/LoginForm';
 import { loginAPI } from './api.js';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
-export let authToken = null;
-
-export const loginUser = (email, password) => {
-  loginAPI(email, password).then((data) => {
-    authToken = data.token;
-    console.log(data);
-    console.log(authToken);
-  })
+export const loginUser = async (email, password) => {
+  const data = await loginAPI(email, password)
+  console.log(data);
+  localStorage.setItem('authToken', data.token);
+  console.log(localStorage.getItem('authToken'));
 };
-
-// export const registerUser = (email, name, password) => {
-//   registerAPI(email, name, password).then((data) => {
-//     authToken = data.token;
-//     console.log(data);
-//     console.log(authToken);
-//   })
-// };
 
 function App () {
   return (
     <>
-      <Login/>
+      <BrowserRouter>
+        <nav>
+          <Link to='/login'>Login</Link>
+        </nav>
+        <Routes>
+          <Route path='/login' element={<LoginForm />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

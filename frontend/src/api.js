@@ -1,30 +1,24 @@
-import { authToken } from './App';
+const fetchAPI = async (path, method, body) => {
+  const init = {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: (path === '/admin/auth/logout' || path.includes('/admin/quiz') || path.includes('/admin/session')) ? `Bearer ${localStorage.getItem('authToken')}` : undefined,
+    },
+    body: method === 'GET' ? undefined : JSON.stringify(body),
+  };
 
-const fetchAPI = (path, method, body) => {
-  return new Promise((resolve, reject) => {
-    const init = {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${(path === '/admin/auth/logout' || path.includes('/admin/quiz') || path.includes('/admin/session')) ? undefined : authToken}`,
-      },
-      body: method === 'GET' ? undefined : JSON.stringify(body),
-    };
-
-    fetch(`http://localhost:5005${path}`, init)
-      .then((response) => response.json())
-      .then((body) => {
-        if (body.error) {
-          console.log('Error:', body.error);
-        } else {
-          resolve(body);
-        }
-      }).catch(error => console.log('Error:', error));
-  });
+  let response;
+  try {
+    response = await fetch(`http://localhost:5005${path}`, init)
+  } catch (error) {
+    console.log('Error:', error)
+  }
+  return await response.json();
 };
 
-export const loginAPI = (email, password) => {
-  return fetchAPI('/admin/auth/login', 'POST', {
+export const loginAPI = async (email, password) => {
+  return await fetchAPI('/admin/auth/login', 'POST', {
     email,
     password,
   });
