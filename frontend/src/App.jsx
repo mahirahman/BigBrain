@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Login } from './pages/Login';
-import { Quizzes } from './pages/Quizzes';
-import { Error } from './pages/Error';
-import './App.css';
+import { Login } from './page/Login';
+import { Quizzes } from './page/Quizzes';
+import { Error } from './page/Error';
 
 function App () {
   return (
