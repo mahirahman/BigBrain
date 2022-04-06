@@ -1,3 +1,8 @@
+.form_main_title {
+  color: #fff;
+  margin: 40px;
+}
+
 .form_container {
   margin: 35px auto;
   max-width: 380px;
@@ -5,10 +10,6 @@
 
 .center {
   text-align: center;
-}
-
-.text_margin {
-  margin: 40px;
 }
 
 .card {
@@ -21,7 +22,7 @@
   text-align: initial;
 }
 
-input {
+.form_input {
   width: 100%;
   margin-bottom: 25px;
 }

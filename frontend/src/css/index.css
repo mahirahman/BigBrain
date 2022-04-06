@@ -13,8 +13,8 @@ code {
     monospace;
 }
 
-h1 {
-  color: #fff;
+img {
+  -webkit-user-drag: none;
 }
 
 svg {

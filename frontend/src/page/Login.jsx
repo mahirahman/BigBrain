@@ -10,7 +10,7 @@ export function Login () {
   return (
     <>
     <div className={`${style.form_container} ${style.center}`}>
-      <h1 className={style.text_margin}>Sign in to your account</h1>
+      <h1 className={style.form_main_title}>Sign in to your account</h1>
       <LoginForm success={() => {
         navigate('/quizzes');
       }}/>
