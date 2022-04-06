@@ -1,0 +1,19 @@
+.sad_emote {
+  width: 12em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.error_code_title {
+  font-size: 5em;
+}
+
+.error_text_body {
+  text-align: center;
+  color: #fff;
+}
+
+.error_container {
+  margin: 150px;
+}

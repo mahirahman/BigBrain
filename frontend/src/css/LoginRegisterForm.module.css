@@ -1,0 +1,43 @@
+.form_main_title {
+  color: #fff;
+  margin: 40px;
+}
+
+.form_container {
+  margin: 35px auto;
+  max-width: 380px;
+}
+
+.center {
+  text-align: center;
+}
+
+.card {
+  margin-bottom: 30px;
+  min-width: 300px;
+  padding: 5px;
+}
+
+.card_title {
+  text-align: initial;
+}
+
+.form_input {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.btn_width {
+  width: 90px;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.pointer {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.pointer:hover {
+  text-decoration: underline;
+}
