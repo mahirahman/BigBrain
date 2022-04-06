@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { registerAPI } from '../api.js';
 
-export function RegisterForm ({ submit }) {
+export function RegisterForm ({ success }) {
   RegisterForm.propTypes = {
-    submit: PropTypes.func.isRequired
+    success: PropTypes.func.isRequired
   };
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const onSubmit = () => {
-    submit(name, email, password);
+  const registerUser = async (name, email, password) => {
+    const data = await registerAPI(name, email, password);
+    if (data.error) {
+      alert(data.error);
+      return;
+    }
+    localStorage.setItem('authToken', data.token);
+    console.log(localStorage.getItem('authToken'));
+    success();
   };
 
   return (
@@ -43,7 +51,10 @@ export function RegisterForm ({ submit }) {
             type="password"
             placeholder="Password"
           />
-          <button onClick={onSubmit} className="btn btn-success">
+          <button
+            onClick={() => registerUser(name, email, password)}
+            className="btn btn-success"
+          >
             Sign Up
           </button>
         </div>

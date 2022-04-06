@@ -7,23 +7,26 @@ export function Register () {
   const navigate = useNavigate();
   return (
     <>
-      <h1>Register</h1>
-      <RegisterForm
-        submit={(name, email, password) => {
-          fetch('http://localhost:5005/admin/auth/register', {
-            method: 'POST',
-            headers: {
-              'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-              name,
-              email,
-              password
-            })
-          });
-          navigate('/quizzes');
-        }}
-      />
+      <div className="center">
+        <h1>Register your Account</h1>
+        <RegisterForm
+          success={() => {
+            navigate('/quizzes');
+          }}
+        />
+        <div className="card">
+          {' '}
+          Already Registered?{' '}
+          <a
+            onClick={() => {
+              navigate('/login');
+            }}
+            className="link pointer"
+          >
+            Login in
+          </a>
+        </div>
+      </div>
     </>
   );
 }
