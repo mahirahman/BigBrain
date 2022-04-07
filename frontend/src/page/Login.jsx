@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../component/LoginForm';
 import { Card } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import style from '../css/LoginRegisterForm.module.css';
 
 export function Login () {
