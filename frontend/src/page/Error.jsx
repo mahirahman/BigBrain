@@ -1,6 +1,6 @@
 import React from 'react';
 import style from '../css/Error.module.css';
-import confusedFace from '../icons/confused_face.svg';
+import confusedFace from '../img/confused_face.svg';
 
 export function Error () {
   return (
