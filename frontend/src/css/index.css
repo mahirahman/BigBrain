@@ -17,7 +17,7 @@ img {
   -webkit-user-drag: none;
 }
 
-svg {
+.wave_background_img {
   position: fixed;
   bottom: 0;
   z-index: -1;
