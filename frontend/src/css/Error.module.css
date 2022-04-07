@@ -17,3 +17,9 @@
 .error_container {
   margin: 150px;
 }
+
+.back_text, .back_text:hover {
+  cursor: pointer;
+  color: #ff6868;
+  text-decoration: underline;
+}
