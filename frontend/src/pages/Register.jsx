@@ -1,6 +1,6 @@
 import React from 'react';
-import RegisterForm from '../components/RegisterForm';
 import { useNavigate } from 'react-router-dom';
+import RegisterForm from '../component/RegisterForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function Register () {
@@ -23,7 +23,7 @@ export function Register () {
             }}
             className="link pointer"
           >
-            Login in
+            Login In
           </a>
         </div>
       </div>
