@@ -5,10 +5,21 @@ import style from '../css/NavigationMenu.module.css';
 import { IoGameControllerOutline } from 'react-icons/io5';
 import { BsPlusCircle } from 'react-icons/bs';
 import { BiLogOut } from 'react-icons/bi';
+import ModalMenu from './ModalMenu';
+import AddGameInput from './AddGameInput';
 
 export function NavigationMenu () {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [show, setShow] = React.useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const addNewGame = () => {
+    handleShow();
+  };
+
   return (
     <>
       <nav className={style.menu}>
@@ -16,9 +27,9 @@ export function NavigationMenu () {
         <div className={style.menu_links}>
           <div onClick={() => { return location.pathname === '/quizzes' ? null : navigate('/quizzes') }}>
             <IoGameControllerOutline/>
-            <div>View All Games</div>
+            <div>View My Games</div>
           </div>
-          <div onClick={() => { console.log('open new game modal') }}>
+          <div onClick= { addNewGame }>
             <BsPlusCircle/>
             <div>Create New Game</div>
           </div>
@@ -28,6 +39,7 @@ export function NavigationMenu () {
           </div>
         </div>
       </nav>
+      <ModalMenu handleClose={handleClose} show={show} body={AddGameInput} modalTitle='Create New Game' btnVariant='primary' btnText='Add Game'/>
     </>
   );
 }
