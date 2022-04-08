@@ -23,3 +23,13 @@ export const loginAPI = async (email, password) => {
     password,
   });
 };
+
+export const getQuizDataAPI = async () => {
+  return await fetchAPI('/admin/quiz', 'GET');
+};
+
+export const createQuizAPI = async (title) => {
+  return await fetchAPI('/admin/quiz/new', 'POST', {
+    title,
+  });
+};

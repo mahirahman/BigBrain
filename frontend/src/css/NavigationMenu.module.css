@@ -5,6 +5,11 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .logo_icon {

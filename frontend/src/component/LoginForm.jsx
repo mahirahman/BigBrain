@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { loginAPI } from '../api.js';
 import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
@@ -10,8 +10,8 @@ export function LoginForm ({ success }) {
     success: PropTypes.func.isRequired
   };
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
 
   const loginUser = async (email, password) => {
     const data = await loginAPI(email, password)
@@ -20,7 +20,6 @@ export function LoginForm ({ success }) {
       return;
     }
     localStorage.setItem('authToken', data.token);
-    console.log(localStorage.getItem('authToken'));
     success();
   };
 
