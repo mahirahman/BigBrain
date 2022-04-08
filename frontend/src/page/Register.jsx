@@ -2,6 +2,7 @@ import React from 'react';
 import RegisterForm from '../component/RegisterForm';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Card } from 'react-bootstrap';
 import style from '../css/LoginRegisterForm.module.css';
 
 export function Register () {
@@ -15,18 +16,17 @@ export function Register () {
             navigate('/quizzes');
           }}
         />
-        <div className="card">
-          {' '}
-          Already Registered?{' '}
+        <Card className={style.card}>
+          Already Registered?
           <a
             onClick={() => {
               navigate('/login');
             }}
-            className="link pointer"
+            className={style.pointer}
           >
             Login in
           </a>
-        </div>
+        </Card>
       </div>
     </>
   );

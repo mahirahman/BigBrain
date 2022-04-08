@@ -1,19 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-// import NavigationMenu from '../component/NavigationMenu';
+import PropTypes from 'prop-types';
 
-export function Logout () {
+export function Logout ({ children }) {
+  Logout.propTypes = {
+    children: PropTypes.func.isRequired
+  };
+
   const navigate = useNavigate();
   const toLogin = () => {
-    localStorage.setItem('authToken', '');
+    localStorage.removeItem('authToken');
     navigate('/login');
   };
-  return (
-    <>
-      <button onClick={toLogin} className="btn btn-success">
-        Sign out
-      </button>
-    </>
-  );
+  return <div onClick={toLogin}>{children}</div>;
 }
 export default Logout;
