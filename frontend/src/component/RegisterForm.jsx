@@ -1,11 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { registerAPI } from '../api.js';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
+import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import style from '../css/LoginRegisterForm.module.css';
 
 export function RegisterForm ({ success }) {
@@ -13,101 +10,54 @@ export function RegisterForm ({ success }) {
     success: PropTypes.func.isRequired
   };
 
-  const formSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
-    email: Yup.string()
-      .required('Email is required')
-      .email('Email format error'),
-    password: Yup.string()
-      .required('Password is required')
-      .min(4, 'Password length should be at least 4 characters'),
-    rePassword: Yup.string()
-      .required('Password is required')
-      .min(4, 'Password length should be at least 4 characters')
-  });
+  const [registerEmail, setRegisterEmail] = React.useState('');
+  const [registerName, setRegisterName] = React.useState('');
+  const [registerPassword, setRegisterPassword] = React.useState('');
+  const [registerConfirmPassword, setRegisterConfirmPassword] = React.useState('');
 
-  const validationOpt = { resolver: yupResolver(formSchema) };
-
-  const { register, handleSubmit, reset, formState } = useForm(validationOpt);
-
-  const { errors } = formState;
-
-  const registerUser = async (formData) => {
-    if (formData.password !== formData.rePassword) {
-      alert('The two passwords do not match');
-      reset();
+  const registerUser = async (registerEmail, registerName, registerPassword, registerConfirmPassword) => {
+    // Check if user had enetered all required fields
+    if (!registerEmail || !registerName || !registerPassword) {
+      alert('Please fill in all fields.');
       return;
     }
-    if (Object.keys(errors).length !== 0) {
+    // Check if email is valid regex
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(registerEmail)) {
+      alert('Please enter a valid email address.');
       return;
     }
-    const data = await registerAPI(
-      formData.name,
-      formData.email,
-      formData.password
-    );
+    // Check registerPassword length is => 8
+    if (registerPassword.length < 8) {
+      alert('Password must be at least 8 characters long.');
+      return;
+    }
+    // Check if passwords match
+    if (registerPassword !== registerConfirmPassword) {
+      alert('The two passwords do not match.');
+      return;
+    }
+
+    const data = await registerAPI(registerName, registerEmail, registerPassword);
     if (data.error) {
       alert(data.error);
       return;
     }
     localStorage.setItem('authToken', data.token);
     success();
-    reset();
-  };
-
-  const fontColor = {
-    color: 'red'
   };
 
   return (
     <Card className={style.card}>
       <Card.Body>
-        <form onSubmit={handleSubmit(registerUser)}>
-          <div className="card">
-            <div className="card-body">
-              <Card.Title className={style.card_title}>Name</Card.Title>
-              <input
-                className={style.form_input}
-                type="text"
-                placeholder="Name"
-                {...register('name')}
-              />
-              <div style={fontColor}>{errors.name?.message}</div>
-              <Card.Title className={style.card_title}>Email</Card.Title>
-              <input
-                className={style.form_input}
-                type="text"
-                {...register('email')}
-                placeholder="Email"
-              />
-              <div style={fontColor}>{errors.email?.message}</div>
-              <Card.Title className={style.card_title}>Password</Card.Title>
-              <input
-                className={style.form_input}
-                {...register('password')}
-                type="password"
-                placeholder="password"
-                required
-              />
-              <br />
-              <div style={fontColor}>{errors.password?.message}</div>
-              <Card.Title className={style.card_title}>
-                Confirm Password
-              </Card.Title>
-              <input
-                className={style.form_input}
-                type="password"
-                placeholder="Password"
-                {...register('rePassword')}
-              />
-              <div style={fontColor}>{errors.rePassword?.message}</div>
-              <Button type="submit" className="btn btn-success">
-                {' '}
-                Sign Up
-              </Button>
-            </div>
-          </div>
-        </form>
+        <Card.Title className={style.card_title}>Name</Card.Title>
+        <input className={style.form_input} onChange={event => setRegisterName(event.target.value)} type="text" placeholder='Name'/>
+        <Card.Title className={style.card_title}>Email</Card.Title>
+        <input className={style.form_input} onChange={event => setRegisterEmail(event.target.value)} type="text" placeholder='Email'/>
+        <Card.Title className={style.card_title}>Password</Card.Title>
+        <input className={style.form_input} onChange={event => setRegisterPassword(event.target.value)} type="password" placeholder='Password'/>
+        <Card.Title className={style.card_title}>Confirm Password</Card.Title>
+        <input className={style.form_input} onChange={event => setRegisterConfirmPassword(event.target.value)} type="password" placeholder='Confirm Password'/>
+        <Button className={style.btn_width} onClick={() => registerUser(registerEmail, registerName, registerPassword, registerConfirmPassword)} variant='success'>Sign Up</Button>
       </Card.Body>
     </Card>
   );

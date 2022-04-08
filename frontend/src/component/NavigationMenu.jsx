@@ -12,39 +12,21 @@ export function NavigationMenu () {
   return (
     <>
       <nav className={style.menu}>
-        <img
-          src={logo}
-          alt="BigBrain Logo"
-          className={style.logo_icon}
-          onClick={() => {
-            navigate('/quizzes');
-          }}
-        />
+      <img src={logo} alt="BigBrain Logo" className={style.logo_icon} onClick={() => { navigate('/quizzes') }}/>
         <div className={style.menu_links}>
-          <div
-            onClick={() => {
-              navigate('/quizzes');
-            }}
-          >
-            <IoGameControllerOutline />
+          <div onClick={() => { navigate('/quizzes') }}>
+            <IoGameControllerOutline/>
             <div>View All Games</div>
           </div>
-          <div
-            onClick={() => {
-              console.log('open new game modal');
-            }}
-          >
-            <BsPlusCircle />
+
+          <div onClick={() => { console.log('open new game modal') }}>
+            <BsPlusCircle/>
             <div>Create New Game</div>
           </div>
+
           <Logout>
-            <>
-              <div>
-                {' '}
-                <BiLogOut />
-              </div>
-              logout
-            </>
+            <div><BiLogOut/></div>
+            Logout
           </Logout>
         </div>
       </nav>

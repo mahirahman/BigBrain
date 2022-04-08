@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { loginAPI } from '../api.js';
 import PropTypes from 'prop-types';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import style from '../css/LoginRegisterForm.module.css';
 
 export function LoginForm ({ success }) {
@@ -10,8 +10,8 @@ export function LoginForm ({ success }) {
     success: PropTypes.func.isRequired
   };
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   const loginUser = async (email, password) => {
     const data = await loginAPI(email, password);
@@ -20,7 +20,6 @@ export function LoginForm ({ success }) {
       return;
     }
     localStorage.setItem('authToken', data.token);
-    console.log(localStorage.getItem('authToken'));
     success();
   };
 
@@ -29,26 +28,10 @@ export function LoginForm ({ success }) {
       <Card className={style.card}>
         <Card.Body>
           <Card.Title className={style.card_title}>Email Address</Card.Title>
-          <input
-            className={style.form_input}
-            onChange={(event) => setEmail(event.target.value)}
-            type="text"
-            placeholder="Email"
-          />
+          <input className={style.form_input} onChange={event => setEmail(event.target.value)} type="text" placeholder='Email'/>
           <Card.Title className={style.card_title}>Password</Card.Title>
-          <input
-            className={style.form_input}
-            onChange={(event) => setPassword(event.target.value)}
-            type="password"
-            placeholder="Password"
-          />
-          <Button
-            className={style.btn_width}
-            onClick={() => loginUser(email, password)}
-            variant="success"
-          >
-            Sign In
-          </Button>
+          <input className={style.form_input} onChange={event => setPassword(event.target.value)} type="password" placeholder='Password'/>
+          <Button className={style.btn_width} onClick={() => loginUser(email, password)} variant='success'>Sign In</Button>
         </Card.Body>
       </Card>
     </>

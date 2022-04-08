@@ -13,7 +13,7 @@ export function Quizzes () {
 
   return (
     <>
-      <NavigationMenu />
+      <NavigationMenu/>
     </>
   );
 }

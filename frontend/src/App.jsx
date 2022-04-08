@@ -11,15 +11,15 @@ function App () {
       <BrowserRouter>
         <Routes>
           {/* Default Path */}
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Login/>} />
           {/* 404 Page Not Found */}
-          <Route path="/*" element={<Error />} />
+          <Route path="/*" element={<Error/>} />
           {/* Login Page */}
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login/>} />
           {/* Register Page */}
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register/>} />
           {/* Quizzes Page */}
-          <Route path="/quizzes" element={<Quizzes />} />
+          <Route path="/quizzes" element={<Quizzes/>} />
         </Routes>
       </BrowserRouter>
       <svg className="wave_background_img" viewBox="0 0 1440 320">
