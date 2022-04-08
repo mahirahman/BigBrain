@@ -21,7 +21,7 @@ export function NavigationMenu () {
             <BsPlusCircle/>
             <div>Create New Game</div>
           </div>
-          <div onClick={() => { navigate('/logout') }}>
+          <div onClick={() => { navigate('/login') }}>
             <BiLogOut/>
             <div>Logout</div>
           </div>
