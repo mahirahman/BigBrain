@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import NavigationMenu from '../component/NavigationMenu';
 
 export function Quizzes () {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export function Quizzes () {
 
   return (
     <>
-      <h1>WELCOME!!!!!!!</h1>
+      <NavigationMenu/>
     </>
   );
 }

@@ -1,0 +1,32 @@
+.menu {
+  box-shadow: 0 2px 6px -2px rgb(0 0 0 / 20%);
+  background-color: #003565;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.logo_icon {
+  width: 65px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.menu_links {
+  display: flex;
+  gap: 110px;
+  margin-left: auto;
+  text-align: center;
+  margin-right: 25px;
+}
+
+.menu_links > div {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .logo_icon {
+    display: none;
+  }
+}

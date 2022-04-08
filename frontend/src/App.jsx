@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Login } from './pages/Login';
-import { Register } from './pages/Register';
-import { Quizzes } from './pages/Quizzes';
-import { Error } from './pages/Error';
+import { Login } from './page/Login';
+import { Register } from './page/Register';
+import { Quizzes } from './page/Quizzes';
+import { Error } from './page/Error';
 import './App.css';
 
 function App () {
@@ -23,7 +23,7 @@ function App () {
           <Route path="/quizzes" element={<Quizzes />} />
         </Routes>
       </BrowserRouter>
-      <svg viewBox="0 0 1440 320">
+      <svg className="wave_background_img" viewBox="0 0 1440 320">
         <path
           fill="#0099ff"
           fillOpacity="1"
