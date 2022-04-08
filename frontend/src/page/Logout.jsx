@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { logoutUserAPI } from '../api.js';
 
 export function Logout ({ children }) {
   Logout.propTypes = {
@@ -8,7 +9,8 @@ export function Logout ({ children }) {
   };
 
   const navigate = useNavigate();
-  const toLogin = () => {
+  const toLogin = async () => {
+    await logoutUserAPI();
     localStorage.removeItem('authToken');
     navigate('/login');
   };

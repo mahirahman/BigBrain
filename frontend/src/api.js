@@ -10,7 +10,10 @@ const fetchAPI = async (path, method, body) => {
           ? `Bearer ${localStorage.getItem('authToken')}`
           : undefined
     },
-    body: method === 'GET' ? undefined : JSON.stringify(body)
+    body: method === 'GET' ||
+    path === '/admin/auth/logout'
+      ? undefined
+      : JSON.stringify(body)
   };
 
   let response;
@@ -35,4 +38,8 @@ export const registerAPI = async (name, email, password) => {
     email,
     password
   });
+};
+
+export const logoutUserAPI = async () => {
+  return await fetchAPI('/admin/auth/logout', 'POST');
 };
