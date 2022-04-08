@@ -9,13 +9,13 @@ export function Register () {
   const navigate = useNavigate();
   return (
     <>
-    <div className={`${style.form_container} ${style.center}`}>
-      <h1 className={style.form_main_title}>Register your Account</h1>
-      <RegisterForm success={() => {
-        navigate('/quizzes');
-      }}/>
-      <Card className={style.card}> Already Registered? <a onClick={() => { navigate('/login') }} className={style.pointer}>Login to your account</a></Card>
-    </div>
+      <div className={`${style.form_container} ${style.center}`}>
+        <h1 className={style.form_main_title}>Register your Account</h1>
+        <RegisterForm success={() => {
+          navigate('/quizzes');
+        }}/>
+        <Card className={style.card}> Already Registered? <a onClick={() => { navigate('/login') }} className={style.pointer}>Login to your account</a></Card>
+      </div>
     </>
   );
 }

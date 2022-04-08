@@ -47,19 +47,21 @@ export function RegisterForm ({ success }) {
   };
 
   return (
-    <Card className={style.card}>
-      <Card.Body>
-        <Card.Title className={style.card_title}>Name</Card.Title>
-        <input className={style.form_input} onChange={event => setRegisterName(event.target.value)} type="text" placeholder='Name'/>
-        <Card.Title className={style.card_title}>Email</Card.Title>
-        <input className={style.form_input} onChange={event => setRegisterEmail(event.target.value)} type="text" placeholder='Email'/>
-        <Card.Title className={style.card_title}>Password</Card.Title>
-        <input className={style.form_input} onChange={event => setRegisterPassword(event.target.value)} type="password" placeholder='Password'/>
-        <Card.Title className={style.card_title}>Confirm Password</Card.Title>
-        <input className={style.form_input} onChange={event => setRegisterConfirmPassword(event.target.value)} type="password" placeholder='Confirm Password'/>
-        <Button className={style.btn_width} onClick={() => registerUser(registerEmail, registerName, registerPassword, registerConfirmPassword)} variant='success'>Sign Up</Button>
-      </Card.Body>
-    </Card>
+    <>
+      <Card className={style.card}>
+        <Card.Body>
+          <Card.Title className={style.card_title}>Name</Card.Title>
+          <input className={style.form_input} onChange={event => setRegisterName(event.target.value)} type="text" placeholder='Name'/>
+          <Card.Title className={style.card_title}>Email</Card.Title>
+          <input className={style.form_input} onChange={event => setRegisterEmail(event.target.value)} type="text" placeholder='Email'/>
+          <Card.Title className={style.card_title}>Password</Card.Title>
+          <input className={style.form_input} onChange={event => setRegisterPassword(event.target.value)} type="password" placeholder='Password'/>
+          <Card.Title className={style.card_title}>Confirm Password</Card.Title>
+          <input className={style.form_input} onChange={event => setRegisterConfirmPassword(event.target.value)} type="password" placeholder='Confirm Password'/>
+          <Button className={style.btn_width} onClick={() => registerUser(registerEmail, registerName, registerPassword, registerConfirmPassword)} variant='success'>Sign Up</Button>
+        </Card.Body>
+      </Card>
+    </>
   );
 }
 

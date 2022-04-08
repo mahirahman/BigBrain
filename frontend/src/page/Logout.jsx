@@ -12,6 +12,11 @@ export function Logout ({ children }) {
     localStorage.removeItem('authToken');
     navigate('/login');
   };
-  return <div onClick={toLogin}>{children}</div>;
+  return (
+    <>
+      <div onClick={toLogin}>{children}</div>
+    </>
+  );
 }
+
 export default Logout;
