@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import logo from '../img/logo_brain.png';
 import style from '../css/NavigationMenu.module.css';
 import { IoGameControllerOutline } from 'react-icons/io5';
@@ -8,12 +8,13 @@ import { BiLogOut } from 'react-icons/bi';
 
 export function NavigationMenu () {
   const navigate = useNavigate();
+  const location = useLocation();
   return (
     <>
       <nav className={style.menu}>
-        <img src={logo} alt="BigBrain Logo" className={style.logo_icon} onClick={() => { navigate('/quizzes') }}/>
+        <img src={logo} alt="BigBrain Logo" className={style.logo_icon} onClick={() => { return location.pathname === '/quizzes' ? null : navigate('/quizzes') }}/>
         <div className={style.menu_links}>
-          <div onClick={() => { navigate('/quizzes') }}>
+          <div onClick={() => { return location.pathname === '/quizzes' ? null : navigate('/quizzes') }}>
             <IoGameControllerOutline/>
             <div>View All Games</div>
           </div>
