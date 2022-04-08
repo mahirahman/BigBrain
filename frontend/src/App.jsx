@@ -4,7 +4,6 @@ import { Login } from './page/Login';
 import { Register } from './page/Register';
 import { Quizzes } from './page/Quizzes';
 import { Error } from './page/Error';
-import './App.css';
 
 function App () {
   return (
