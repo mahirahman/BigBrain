@@ -6,6 +6,7 @@ import { IoGameControllerOutline } from 'react-icons/io5';
 import { BsPlusCircle } from 'react-icons/bs';
 import { BiLogOut } from 'react-icons/bi';
 import ModalMenu from './AddGameModal';
+import Logout from '../page/Logout';
 
 export function NavigationMenu () {
   const navigate = useNavigate();
@@ -23,14 +24,16 @@ export function NavigationMenu () {
             <IoGameControllerOutline/>
             <div>View My Games</div>
           </div>
+
           <div onClick= { handleShow }>
             <BsPlusCircle/>
             <div>Create New Game</div>
           </div>
-          <div onClick={() => { navigate('/logout') }}>
-            <BiLogOut/>
-            <div>Logout</div>
-          </div>
+
+          <Logout>
+            <div><BiLogOut/></div>
+            Logout
+          </Logout>
         </div>
       </nav>
       <ModalMenu handleClose={handleClose} show={show}/>
