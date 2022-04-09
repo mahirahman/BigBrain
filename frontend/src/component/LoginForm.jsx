@@ -10,11 +10,11 @@ export function LoginForm ({ success }) {
     success: PropTypes.func.isRequired
   };
 
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   const loginUser = async (email, password) => {
-    const data = await loginAPI(email, password)
+    const data = await loginAPI(email, password);
     if (data.error) {
       alert(data.error);
       return;
@@ -31,7 +31,7 @@ export function LoginForm ({ success }) {
           <input className={style.form_input} onChange={event => setEmail(event.target.value)} type="text" placeholder='Email'/>
           <Card.Title className={style.card_title}>Password</Card.Title>
           <input className={style.form_input} onChange={event => setPassword(event.target.value)} type="password" placeholder='Password'/>
-          <Button className={style.btn_width}onClick={() => loginUser(email, password)} variant='success'>Sign In</Button>
+          <Button className={style.btn_width} onClick={() => loginUser(email, password)} variant='success'>Sign In</Button>
         </Card.Body>
       </Card>
     </>

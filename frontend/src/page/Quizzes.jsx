@@ -14,6 +14,7 @@ export function Quizzes () {
   React.useEffect(() => {
     if (!token) {
       navigate('/login');
+      return;
     }
 
     getQuizDataAPI().then(data => {
