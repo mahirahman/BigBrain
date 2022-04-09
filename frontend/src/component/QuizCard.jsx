@@ -6,8 +6,11 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import { formatDateString } from '../helper';
 
+const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
+
 export function QuizCard (props) {
   QuizCard.propTypes = {
+    randColour: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
@@ -15,12 +18,10 @@ export function QuizCard (props) {
     totalTime: PropTypes.string.isRequired,
   };
 
-  const CardFilter = styled.div`filter: hue-rotate(${Math.floor(Math.random() * 360) + 1}deg)`;
-
   return (
     <>
       <Card className={style.quiz_card}>
-        <CardFilter>
+        <CardFilter colour = {props.randColour}>
           <Card.Img className={style.quiz_thumbnail} variant="top" src={props.thumbnail} alt=""/>
         </CardFilter>
         <Card.Body>

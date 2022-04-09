@@ -5,15 +5,20 @@ import style from '../css/NavigationMenu.module.css';
 import { IoGameControllerOutline } from 'react-icons/io5';
 import { BsPlusCircle } from 'react-icons/bs';
 import { BiLogOut } from 'react-icons/bi';
-import ModalMenu from './AddGameModal';
+import AddGameModal from './AddGameModal';
 import Logout from '../page/Logout';
+import PropTypes from 'prop-types';
 
-export function NavigationMenu () {
+export function NavigationMenu (props) {
   const navigate = useNavigate();
   const location = useLocation();
   const [show, setShow] = React.useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  NavigationMenu.propTypes = {
+    reRender: PropTypes.func.isRequired,
+  };
 
   return (
     <>
@@ -36,7 +41,7 @@ export function NavigationMenu () {
           </Logout>
         </div>
       </nav>
-      <ModalMenu handleClose={handleClose} show={show}/>
+      <AddGameModal handleClose={handleClose} show={show} reRender={props.reRender}/>
     </>
   );
 }

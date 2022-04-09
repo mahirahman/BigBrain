@@ -36,9 +36,9 @@ export const getQuizDataAPI = async () => {
   return await fetchAPI('/admin/quiz', 'GET');
 };
 
-export const createQuizAPI = async (title) => {
+export const createQuizAPI = async (name) => {
   return await fetchAPI('/admin/quiz/new', 'POST', {
-    title
+    name,
   });
 };
 
