@@ -32,6 +32,16 @@ export const loginAPI = async (email, password) => {
   });
 };
 
+export const getQuizDataAPI = async () => {
+  return await fetchAPI('/admin/quiz', 'GET');
+};
+
+export const createQuizAPI = async (name) => {
+  return await fetchAPI('/admin/quiz/new', 'POST', {
+    name,
+  });
+};
+
 export const registerAPI = async (name, email, password) => {
   return await fetchAPI('/admin/auth/register', 'POST', {
     name,

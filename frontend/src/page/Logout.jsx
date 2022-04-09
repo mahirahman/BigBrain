@@ -5,7 +5,7 @@ import { logoutUserAPI } from '../api.js';
 
 export function Logout ({ children }) {
   Logout.propTypes = {
-    children: PropTypes.func.isRequired
+    children: PropTypes.array.isRequired
   };
 
   const navigate = useNavigate();
