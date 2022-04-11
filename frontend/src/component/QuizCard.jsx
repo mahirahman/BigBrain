@@ -5,12 +5,16 @@ import { IoTrashOutline } from 'react-icons/io5';
 import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import { formatDateString } from '../helper';
+import { deleteQuizAPI } from '../api';
 
 const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
 
 export function QuizCard (props) {
+  const [renderQuiz, setRenderQuiz] = React.useState(true);
+
   QuizCard.propTypes = {
     randColour: PropTypes.number.isRequired,
+    quizId: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
@@ -19,11 +23,17 @@ export function QuizCard (props) {
   };
 
   const deleteQuiz = async () => {
-    console.log('hi');
+    setRenderQuiz(false);
+    const data = await deleteQuizAPI(props.quizId);
+    if (data.error) {
+      alert(data.error);
+      setRenderQuiz(true);
+    }
   };
 
   return (
     <>
+      {renderQuiz &&
       <Card className={style.quiz_card}>
         <CardFilter colour = {props.randColour}>
           <Card.Img className={style.quiz_thumbnail} variant="top" src={props.thumbnail} alt=""/>
@@ -35,6 +45,7 @@ export function QuizCard (props) {
           <Button className={style.delete_btn} variant="outline-danger" onClick={ deleteQuiz }><IoTrashOutline/> Delete</Button>
         </Card.Body>
       </Card>
+      }
     </>
   );
 }

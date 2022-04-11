@@ -31,9 +31,11 @@ export function Quizzes () {
       <NavigationMenu reRender={reRender}/>
       <div className={style.all_quiz_container}>
         {quizCards.map((quiz) => {
+          console.log(quiz);
           return <QuizCard
             randColour = {new Date(quiz.createdAt).getTime()}
             key = {quiz.id}
+            quizId = {quiz.id}
             title = {quiz.name}
             thumbnail = {quiz.thumbnail ? quiz.thumbnail : noThumb }
             date = {quiz.createdAt}
