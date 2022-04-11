@@ -8,26 +8,37 @@ import noThumb from '../img/quiz_no_thumbnail.png';
 
 export function Quizzes () {
   const [quizCards, addQuizCard] = React.useState([]);
+  const [render, reRender] = React.useState(false);
   const navigate = useNavigate();
 
   const token = localStorage.getItem('authToken');
+
   React.useEffect(() => {
     if (!token) {
       navigate('/login');
       return;
     }
 
-    getQuizDataAPI().then(data => {
-      addQuizCard([...quizCards, ...data.quizzes]);
-    })
-  }, []);
+    const fetchData = async () => {
+      const data = await getQuizDataAPI();
+      addQuizCard([...data.quizzes]);
+    }
+    fetchData();
+  }, [render]);
 
   return (
     <>
-      <NavigationMenu/>
+      <NavigationMenu reRender={reRender}/>
       <div className={style.all_quiz_container}>
         {quizCards.map((quiz) => {
-          return <QuizCard key={quiz.id} title={quiz.name} thumbnail={quiz.thumbnail ? quiz.thumbnail : noThumb } date={quiz.createdAt} questionNum={'0'} totalTime={'0'}/>
+          return <QuizCard
+            randColour = {new Date(quiz.createdAt).getTime()}
+            key = {quiz.id}
+            title = {quiz.name}
+            thumbnail = {quiz.thumbnail ? quiz.thumbnail : noThumb }
+            date = {quiz.createdAt}
+            questionNum = {'0'}
+            totalTime = {'0'}/>
         })}
       </div>
     </>

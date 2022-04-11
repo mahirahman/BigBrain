@@ -18,7 +18,12 @@ export const formatDateString = (date) => {
   if (hoursBetweenDates < 24) {
     const hourPlural = hours > 1 ? 'hours' : 'hour';
     const minutePlural = minutes > 1 ? 'minutes' : 'minute';
-    return `${hours} ${hourPlural} and ${minutes} ${minutePlural} ago`;
+    if (hours === 0) {
+      if (minutes === 0) return 'Just now';
+      return `${minutes} ${minutePlural} ago`;
+    }
+
+    return `${hours} ${hourPlural} ${minutes} ${minutePlural} ago`;
   }
   // If the job was posted more than 24 hours ago, it should just display the date DD/MM/YYYY that it was posted
   return `on ${oldDate.getDate()}/${oldDate.getMonth() + 1}/${oldDate.getFullYear()}`;
