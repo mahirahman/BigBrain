@@ -42,6 +42,10 @@ export const createQuizAPI = async (name) => {
   });
 };
 
+export const deleteQuizAPI = async (id) => {
+  return await fetchAPI(`/admin/quiz/${id}`, 'DELETE');
+};
+
 export const registerAPI = async (name, email, password) => {
   return await fetchAPI('/admin/auth/register', 'POST', {
     name,
