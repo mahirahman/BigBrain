@@ -3,8 +3,8 @@ import { Button, Card, FormControl, InputGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types'
 import style from '../css/EditQuizCard.module.css';
 import styled from 'styled-components';
-import { updateQuizAPI } from '../api';
-import { fileToDataUrl } from '../helper';
+import { updateQuizAPI } from '../util/api';
+import { fileToDataUrl } from '../util/helper';
 
 const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
 

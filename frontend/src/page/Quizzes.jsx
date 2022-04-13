@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import NavigationMenu from '../component/NavigationMenu';
 import QuizCard from '../component/QuizCard';
 import style from '../css/Quizzes.module.css';
-import { getAllQuizDataAPI } from '../api';
+import { getAllQuizDataAPI } from '../util/api';
 import noThumb from '../img/quiz_no_thumbnail.png';
 
 export function Quizzes () {

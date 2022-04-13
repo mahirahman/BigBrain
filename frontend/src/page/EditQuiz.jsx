@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigationMenu from '../component/NavigationMenu';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getQuizDataAPI } from '../api';
+import { getQuizDataAPI } from '../util/api';
 import EditQuizCard from '../component/EditQuizCard';
 import EditQuestionCard from '../component/EditQuestionCard';
 import noThumb from '../img/quiz_no_thumbnail.png';

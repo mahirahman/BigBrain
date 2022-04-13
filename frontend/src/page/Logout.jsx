@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { logoutUserAPI } from '../api.js';
+import { logoutUserAPI } from '../util/api';
 
 export function Logout ({ children }) {
   Logout.propTypes = {

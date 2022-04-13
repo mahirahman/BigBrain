@@ -6,8 +6,8 @@ import { IoTrashOutline } from 'react-icons/io5';
 import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
-import { formatDateString } from '../helper';
-import { deleteQuizAPI } from '../api';
+import { formatDateString } from '../util/helper';
+import { deleteQuizAPI } from '../util/api';
 
 const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
 

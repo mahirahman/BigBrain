@@ -1,5 +1,5 @@
 import React from 'react';
-import { registerAPI } from '../api.js';
+import { registerAPI } from '../util/api';
 import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';

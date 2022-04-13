@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Modal, InputGroup, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types'
 import style from '../css/ModalMenu.module.css';
-import { createQuizAPI } from '../api';
+import { createQuizAPI } from '../util/api';
 
 export function AddGameModal (props) {
   const [newGameName, setNewGameName] = React.useState('');

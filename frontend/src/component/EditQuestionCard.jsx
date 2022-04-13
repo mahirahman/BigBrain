@@ -15,7 +15,7 @@ export function EditQuizQuestionCard (props) {
         <Card.Header>Edit Questions</Card.Header>
         <Card.Body>
           <div className={style.add_question}>
-            <Button variant="primary"><MdQuiz className={style.quiz_icon}/>Add New Question</Button>
+            <Button variant="primary" onClick={ () => console.log('ADD NEW QUESTION')}><MdQuiz className={style.quiz_icon}/>Add New Question</Button>
           </div>
         </Card.Body>
         {/* Render when there is no questions otherwise render question cards */}
