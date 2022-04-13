@@ -3,6 +3,7 @@ import NavigationMenu from '../component/NavigationMenu';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getQuizDataAPI } from '../api';
 import EditQuizCard from '../component/EditQuizCard';
+import EditQuestionCard from '../component/EditQuestionCard';
 import noThumb from '../img/quiz_no_thumbnail.png';
 
 export function EditQuiz () {
@@ -12,7 +13,7 @@ export function EditQuiz () {
   const token = localStorage.getItem('authToken');
 
   const fetchData = async () => {
-    const data = await getQuizDataAPI(params.quizID);
+    const data = await getQuizDataAPI(params.quizId);
     if (data.error) {
       navigate('/quizzes');
       return;
@@ -31,10 +32,12 @@ export function EditQuiz () {
     <>
       <NavigationMenu/>
       <EditQuizCard
-      quizID = {params.quizID}
+      quizID = {params.quizId}
       name = {quizData.name}
       thumbnail = {quizData.thumbnail ? quizData.thumbnail : noThumb}
       randColour = {quizData.thumbnail ? 0 : new Date(quizData.createdAt).getTime() }
+      />
+      <EditQuestionCard
       questions = {quizData.questions}
       />
     </>

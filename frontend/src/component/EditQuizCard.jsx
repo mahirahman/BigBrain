@@ -5,17 +5,15 @@ import style from '../css/EditQuizCard.module.css';
 import styled from 'styled-components';
 import { updateQuizAPI } from '../api';
 import { fileToDataUrl } from '../helper';
-import { MdQuiz } from 'react-icons/md';
 
 const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
 
-export function EditQuizCard (props) {
-  EditQuizCard.propTypes = {
+export function EditQuestionCard (props) {
+  EditQuestionCard.propTypes = {
     quizID: PropTypes.string.isRequired,
     name: PropTypes.string,
     thumbnail: PropTypes.string.isRequired,
     randColour: PropTypes.number.isRequired,
-    questions: PropTypes.array,
   };
 
   const [quizName, setQuizName] = React.useState(props.name);
@@ -72,22 +70,8 @@ export function EditQuizCard (props) {
           </div>
         </Card.Body>
       </Card>
-
-      <Card className={style.card_container}>
-        <Card.Header>Edit Questions</Card.Header>
-        <Card.Body>
-          <div className={style.add_question}>
-            <Button variant="primary"><MdQuiz className={style.quiz_icon}/>Add New Question</Button>
-          </div>
-        </Card.Body>
-        {/* Render when there is no questions otherwise render question cards */}
-        {JSON.stringify(props.questions) === '[]'
-          ? <div className={style.no_question_text}>No Questions here 😴</div>
-          : <div className={style.no_question_text}>{JSON.stringify(props.questions)}</div>
-        }
-      </Card>
     </>
   )
 }
 
-export default EditQuizCard;
+export default EditQuestionCard;

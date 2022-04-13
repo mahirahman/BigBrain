@@ -23,7 +23,7 @@ function App () {
           {/* Quizzes Page */}
           <Route path="/quizzes" element={<Quizzes/>}/>
           {/* Edit Quiz Page */}
-          <Route path="/quiz/:quizID" element={<EditQuiz/>}/>
+          <Route path="/quiz/:quizId" element={<EditQuiz/>}/>
         </Routes>
       </BrowserRouter>
       <svg className="wave_background_img" viewBox="0 0 1440 320">
