@@ -17,15 +17,17 @@ export function NavigationMenu (props) {
   const handleShow = () => setShow(true);
 
   NavigationMenu.propTypes = {
-    reRender: PropTypes.func.isRequired,
+    reRender: PropTypes.func,
   };
+
+  const currPath = location.pathname;
 
   return (
     <>
       <nav className={style.menu}>
-        <img src={logo} alt="BigBrain Logo" className={style.logo_icon} onClick={() => { return location.pathname === '/quizzes' ? null : navigate('/quizzes') }}/>
+        <img src={logo} alt="BigBrain Logo" className={style.logo_icon} onClick={() => { return currPath === '/quizzes' ? null : navigate('/quizzes') }}/>
         <div className={style.menu_links}>
-          <div onClick={() => { return location.pathname === '/quizzes' ? null : navigate('/quizzes') }}>
+          <div onClick={() => { return currPath === '/quizzes' ? null : navigate('/quizzes') }}>
             <IoGameControllerOutline/>
             <div>View My Games</div>
           </div>

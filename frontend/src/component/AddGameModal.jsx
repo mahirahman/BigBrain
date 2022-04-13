@@ -10,7 +10,7 @@ export function AddGameModal (props) {
   AddGameModal.propTypes = {
     handleClose: PropTypes.func.isRequired,
     show: PropTypes.bool.isRequired,
-    reRender: PropTypes.func.isRequired
+    reRender: PropTypes.func
   };
 
   const submitNewGame = async (name) => {
@@ -27,7 +27,7 @@ export function AddGameModal (props) {
       alert(data.error);
       return;
     }
-    props.reRender((r) => !r);
+    if (props.reRender) props.reRender((r) => !r);
     props.handleClose();
   };
 

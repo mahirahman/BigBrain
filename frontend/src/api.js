@@ -32,8 +32,12 @@ export const loginAPI = async (email, password) => {
   });
 };
 
-export const getQuizDataAPI = async () => {
+export const getAllQuizDataAPI = async () => {
   return await fetchAPI('/admin/quiz', 'GET');
+};
+
+export const getQuizDataAPI = async (quizID) => {
+  return await fetchAPI(`/admin/quiz/${quizID}`, 'GET');
 };
 
 export const createQuizAPI = async (name) => {
@@ -42,8 +46,16 @@ export const createQuizAPI = async (name) => {
   });
 };
 
-export const deleteQuizAPI = async (id) => {
-  return await fetchAPI(`/admin/quiz/${id}`, 'DELETE');
+export const deleteQuizAPI = async (quizID) => {
+  return await fetchAPI(`/admin/quiz/${quizID}`, 'DELETE');
+};
+
+export const updateQuizAPI = async (quizID, questions, name, thumbnail) => {
+  return await fetchAPI(`/admin/quiz/${quizID}`, 'PUT', {
+    questions,
+    name,
+    thumbnail
+  });
 };
 
 export const registerAPI = async (name, email, password) => {

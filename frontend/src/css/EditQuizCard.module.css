@@ -1,0 +1,48 @@
+.card_container {
+  margin: 25px;
+}
+
+.card_body_container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.image_dimensions {
+  width: 250px;
+  height: 250px;
+}
+
+.quiz_update_details {
+  min-width: 70%;
+}
+
+.input_spacing {
+  margin-top: 1rem;
+}
+
+.save_changes {
+  margin-top: 1rem;
+  float: right;
+}
+
+.add_question {
+  text-align: center;
+}
+
+.quiz_icon {
+  margin: 5px;
+}
+
+.no_question_text {
+  text-align: center;
+  margin: 10px;
+  font-size: 1.5em;
+}
+
+@media only screen and (max-width: 967px) {
+  .save_changes {
+    width: 100%;
+  }
+}

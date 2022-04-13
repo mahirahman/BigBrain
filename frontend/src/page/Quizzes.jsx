@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import NavigationMenu from '../component/NavigationMenu';
 import QuizCard from '../component/QuizCard';
 import style from '../css/Quizzes.module.css';
-import { getQuizDataAPI } from '../api';
+import { getAllQuizDataAPI } from '../api';
 import noThumb from '../img/quiz_no_thumbnail.png';
 
 export function Quizzes () {
@@ -13,15 +13,15 @@ export function Quizzes () {
 
   const token = localStorage.getItem('authToken');
 
+  const fetchData = async () => {
+    const data = await getAllQuizDataAPI();
+    addQuizCard([...data.quizzes]);
+  }
+
   React.useEffect(() => {
     if (!token) {
       navigate('/login');
       return;
-    }
-
-    const fetchData = async () => {
-      const data = await getQuizDataAPI();
-      addQuizCard([...data.quizzes]);
     }
     fetchData();
   }, [render]);
@@ -31,16 +31,16 @@ export function Quizzes () {
       <NavigationMenu reRender={reRender}/>
       <div className={style.all_quiz_container}>
         {quizCards.map((quiz) => {
-          console.log(quiz);
           return <QuizCard
-            randColour = {new Date(quiz.createdAt).getTime()}
+            randColour = {quiz.thumbnail ? 0 : new Date(quiz.createdAt).getTime() }
             key = {quiz.id}
             quizId = {quiz.id}
             title = {quiz.name}
             thumbnail = {quiz.thumbnail ? quiz.thumbnail : noThumb }
             date = {quiz.createdAt}
             questionNum = {'0'}
-            totalTime = {'0'}/>
+            totalTime = {'0'}
+            />
         })}
       </div>
     </>
