@@ -38,6 +38,7 @@ export function EditQuiz () {
       randColour = {quizData.thumbnail ? 0 : new Date(quizData.createdAt).getTime() }
       />
       <EditQuestionCard
+      quizID = {params.quizId}
       questions = {quizData.questions}
       />
     </>

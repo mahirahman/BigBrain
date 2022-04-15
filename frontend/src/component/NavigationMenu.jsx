@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import logo from '../img/logo_brain.png';
 import style from '../css/NavigationMenu.module.css';
 import { IoGameControllerOutline } from 'react-icons/io5';
@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
 
 export function NavigationMenu (props) {
   const navigate = useNavigate();
-  const location = useLocation();
   const [show, setShow] = React.useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -20,14 +19,12 @@ export function NavigationMenu (props) {
     reRender: PropTypes.func,
   };
 
-  const currPath = location.pathname;
-
   return (
     <>
       <nav className={style.menu}>
-        <img src={logo} alt="BigBrain Logo" className={style.logo_icon} onClick={() => { return currPath === '/quizzes' ? null : navigate('/quizzes') }}/>
+        <img src={logo} alt="BigBrain Logo" className={style.logo_icon} onClick={() => { navigate('/quizzes') }}/>
         <div className={style.menu_links}>
-          <div onClick={() => { return currPath === '/quizzes' ? null : navigate('/quizzes') }}>
+          <div onClick={() => { navigate('/quizzes') }}>
             <IoGameControllerOutline/>
             <div>View My Games</div>
           </div>

@@ -19,13 +19,21 @@ export function EditQuestionCard (props) {
   const [quizName, setQuizName] = React.useState(props.name);
   const [quizThumbnailBase64, setQuizThumbnailBase64] = React.useState(props.thumbnail);
   const [quizThumbnailFileObj, setQuizThumbnailFileObj] = React.useState({});
+  // const [defaultImageColour, setDefaultImageColour] = React.useState(props.randColour);
+  // console.log(props.randColour);
+  // console.log(defaultImageColour);
 
-  const fetchData = async (base64Image) => {
+  const updateData = async (base64Image) => {
     const data = await updateQuizAPI(props.quizID, null, quizName, base64Image);
     if (data.error) {
       alert(data.error);
     }
-    if (base64Image) setQuizThumbnailBase64(base64Image);
+    console.log(base64Image);
+    if (base64Image) {
+      setQuizThumbnailBase64(base64Image);
+      // setDefaultImageColour(0);
+      // console.log(defaultImageColour);
+    }
   }
 
   const updateQuizDetails = async () => {
@@ -39,7 +47,7 @@ export function EditQuestionCard (props) {
     } catch {
       base64Image = null;
     }
-    fetchData(base64Image);
+    updateData(base64Image);
   }
 
   React.useEffect(() => {
