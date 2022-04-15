@@ -6,6 +6,8 @@ import { updateQuizAPI } from '../util/api';
 import { useNavigate } from 'react-router-dom';
 import { MdQuiz } from 'react-icons/md';
 import AddQuestionModal from '../component/AddQuestionModal';
+import { QuizQuestionCard } from './QuizQuestionCard';
+import noThumb from '../img/quiz_no_thumbnail.png';
 
 export function EditQuizQuestionCard (props) {
   EditQuizQuestionCard.propTypes = {
@@ -16,7 +18,6 @@ export function EditQuizQuestionCard (props) {
   const navigate = useNavigate();
 
   const fetchData = async () => {
-    console.log('fetchData');
     const data = await updateQuizAPI(props.quizID, questionList, null, null);
     if (data.error) {
       navigate('/quizzes');
@@ -48,8 +49,17 @@ export function EditQuizQuestionCard (props) {
         {/* Render when there is no questions otherwise render question cards */}
         {JSON.stringify(questionList) === '[]'
           ? <div className={style.no_question_text}>No Questions here 😴</div>
-          : <div className={style.no_question_text}>{JSON.stringify(questionList)}</div>
-        }
+          : questionList?.map((question) => {
+            return <QuizQuestionCard
+            key = {question.questionId}
+            questionId = {question.questionId}
+            question = {question.question}
+            questionType = {question.type}
+            questionTime = {question.timeLimit}
+            questionPoints = {question.points}
+            questionEmbed = {question.embed ? question.embed : noThumb}
+            />
+          })}
       </Card>
       <AddQuestionModal questions={questionList} handleClose={handleClose} show={show} setQuestionsList={setQuestionsList}/>
     </>

@@ -3,6 +3,7 @@ import { Button, ButtonGroup, Modal, InputGroup, Form, FormControl, ToggleButton
 import PropTypes from 'prop-types'
 import style from '../css/ModalMenu.module.css';
 import { fileToDataUrl } from '../util/helper';
+import { validateYoutubeMedia } from '../util/validate.js';
 
 export function AddQuestionModal (props) {
   AddQuestionModal.propTypes = {
@@ -65,15 +66,6 @@ export function AddQuestionModal (props) {
       return false;
     } else if (points > 10000) {
       alert('Point value must not exceed 10000');
-      return false;
-    }
-    return true;
-  };
-
-  const validateYoutubeMedia = () => {
-    const urlRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-    if (embedYoutubeMedia !== null && !embedYoutubeMedia.match(urlRegex)) {
-      alert('Please enter a valid youtube link');
       return false;
     }
     return true;
@@ -229,12 +221,15 @@ export function AddQuestionModal (props) {
 
   const submitQuestion = async () => {
     // Validate each field
-    if (!validateQuestionName()) return
-    else if (!validateQuestionTimeLimit()) return
-    else if (!validateQuestionPoints()) return
-    else if (!validateAnswerInputs()) return
-    else if (!validateCorrectAnswer()[0]) return
-    else if (!validateYoutubeMedia()) return
+    if (!validateQuestionName()) return;
+    else if (!validateQuestionTimeLimit()) return;
+    else if (!validateQuestionPoints()) return;
+    else if (!validateAnswerInputs()) return;
+    else if (!validateCorrectAnswer()[0]) return;
+    else if (!validateYoutubeMedia(embedYoutubeMedia)) {
+      alert('Please enter a valid youtube link');
+      return;
+    }
     const correctAnswerValid = validateCorrectAnswer()[1];
     // If every field is valid, we can construct the question object
     const questionObj = await generateQuestionObject(correctAnswerValid);

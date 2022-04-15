@@ -28,8 +28,8 @@ export function QuizCard (props) {
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
-    questionNum: PropTypes.string.isRequired,
-    totalTime: PropTypes.string.isRequired,
+    questionNum: PropTypes.number.isRequired,
+    totalTime: PropTypes.number.isRequired,
   };
 
   const deleteQuiz = async () => {
