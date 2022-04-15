@@ -37,8 +37,11 @@ export function EditQuestionCard (props) {
   }
 
   const updateQuizDetails = async () => {
-    if (quizName.length > 64) {
-      alert('Quiz name must be less than 64 characters');
+    if (quizName.length < 4) {
+      alert('Please enter a name with at least 4 characters');
+      return;
+    } else if (quizName.length > 36) {
+      alert('Quiz name must be less than 36 characters');
       return;
     }
     let base64Image;

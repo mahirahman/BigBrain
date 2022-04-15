@@ -17,9 +17,11 @@ export function AddGameModal (props) {
     if (!name.length) {
       alert('Please enter a name for your new game');
       return;
-    }
-    if (name.length > 64) {
-      alert('Game name must be less than 64 characters');
+    } else if (name.length < 4) {
+      alert('Please enter a name with at least 4 characters');
+      return;
+    } else if (name.length > 36) {
+      alert('Quiz name must be less than 36 characters');
       return;
     }
     const data = await createQuizAPI(name);
