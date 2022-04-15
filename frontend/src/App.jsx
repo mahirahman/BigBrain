@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Login } from './page/Login';
-import { Register } from './page/Register';
-import { Quizzes } from './page/Quizzes';
-import { Error } from './page/Error';
-import { EditQuiz } from './page/EditQuiz';
+import Login from './page/Login';
+import Register from './page/Register';
+import Quizzes from './page/Quizzes';
+import Error from './page/Error';
+import EditQuiz from './page/EditQuiz';
+import EditQuestion from './page/EditQuestion';
 
 function App () {
   return (
@@ -24,6 +25,8 @@ function App () {
           <Route path="/quizzes" element={<Quizzes/>}/>
           {/* Edit Quiz Page */}
           <Route path="/quiz/:quizId" element={<EditQuiz/>}/>
+          {/* Edit Question Page */}
+          <Route path="/quiz/:quizId/:questionId" element={<EditQuestion/>}/>
         </Routes>
       </BrowserRouter>
       <svg className="wave_background_img" viewBox="0 0 1440 320">

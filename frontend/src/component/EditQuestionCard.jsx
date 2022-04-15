@@ -53,6 +53,8 @@ export function EditQuizQuestionCard (props) {
             return <QuizQuestionCard
             key = {(Math.random() + 1).toString(36).substring(7)}
             questionNum = {index + 1}
+            quizId = {props.quizID}
+            questionId = {question.questionId}
             question = {question.question}
             questionType = {question.type}
             questionTime = {question.timeLimit}

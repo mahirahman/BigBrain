@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import style from '../css/QuizQuestionCard.module.css';
 import { FaGem, FaClock } from 'react-icons/fa';
@@ -10,6 +11,8 @@ import { BiEdit, BiTrash } from 'react-icons/bi';
 export function QuizQuestionCard (props) {
   QuizQuestionCard.propTypes = {
     questionNum: PropTypes.number.isRequired,
+    quizId: PropTypes.string.isRequired,
+    questionId: PropTypes.string.isRequired,
     question: PropTypes.string.isRequired,
     questionType: PropTypes.string.isRequired,
     questionTime: PropTypes.number.isRequired,
@@ -23,6 +26,7 @@ export function QuizQuestionCard (props) {
   const [show, setShow] = React.useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const navigate = useNavigate();
 
   const deleteQuestion = async () => {
     setRenderQuestion(false);
@@ -45,7 +49,7 @@ export function QuizQuestionCard (props) {
               <p>{props.questionType.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}</p>
               <p><FaClock className={style.icon_spacing}/>{props.questionTime} secs <FaGem className={style.icon_spacing}/>{props.questionPoints} Gems</p>
               <div className={style.question_controls}>
-                <p className={style.edit_btn}><BiEdit/>Edit</p>
+                <p className={style.edit_btn} onClick={() => navigate(`/quiz/${props.quizId}/${props.questionId}`)}><BiEdit/>Edit</p>
                 <p className={style.delete_btn} onClick={handleShow}><BiTrash/>Delete</p>
               </div>
             </div>
