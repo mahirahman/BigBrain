@@ -208,7 +208,7 @@ export function AddQuestionModal (props) {
     }
 
     return {
-      questionId: (props.questions).length + 1,
+      questionId: (Math.random() + 1).toString(36).substring(7),
       question: questionName,
       type: questionType,
       answers: answerInputs,

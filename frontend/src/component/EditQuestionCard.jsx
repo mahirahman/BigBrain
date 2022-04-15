@@ -51,7 +51,7 @@ export function EditQuizQuestionCard (props) {
           ? <div className={style.no_question_text}>No Questions here 😴</div>
           : questionList?.map((question, index) => {
             return <QuizQuestionCard
-            key = {question.questionId}
+            key = {(Math.random() + 1).toString(36).substring(7)}
             questionNum = {index + 1}
             question = {question.question}
             questionType = {question.type}
