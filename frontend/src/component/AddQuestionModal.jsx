@@ -3,7 +3,11 @@ import { Button, ButtonGroup, Modal, InputGroup, Form, FormControl, ToggleButton
 import PropTypes from 'prop-types'
 import style from '../css/ModalMenu.module.css';
 import { fileToDataUrl } from '../util/helper';
-import { validateYoutubeMedia } from '../util/validate.js';
+import {
+  validateYoutubeMedia, validateQuestionName,
+  validateQuestionTimeLimit, validateQuestionPoints,
+  validateAnswerInputs, validateCorrectAnswer
+} from '../util/validate';
 
 export function AddQuestionModal (props) {
   AddQuestionModal.propTypes = {
@@ -32,110 +36,6 @@ export function AddQuestionModal (props) {
     { name: 'Image', value: 'img' },
   ];
 
-  const validateQuestionName = () => {
-    if (!questionName.length) {
-      alert('Please enter a name for your new game');
-      return false;
-    } else if (questionName.length > 64) {
-      alert('Game name must be less than 64 characters');
-      return false;
-    }
-    return true;
-  };
-
-  const validateQuestionTimeLimit = () => {
-    if (timeLimit === null) {
-      alert('Please enter a time limit for your question');
-      return false;
-    } else if (timeLimit < 10) {
-      alert('Time limit must be at least 10 seconds');
-      return false;
-    } else if (timeLimit > 90) {
-      alert('Time limit must not exceed 90 seconds');
-      return false;
-    }
-    return true;
-  };
-
-  const validateQuestionPoints = () => {
-    if (points === null) {
-      alert('Please enter a point value for your question');
-      return false;
-    } else if (points < 1) {
-      alert('Point value must be at least 1');
-      return false;
-    } else if (points > 10000) {
-      alert('Point value must not exceed 10000');
-      return false;
-    }
-    return true;
-  };
-
-  const validateCorrectAnswer = () => {
-    if (correctAnswer.length === 0) {
-      alert('Please select a correct answer');
-      return false;
-    }
-    const split = correctAnswer.split(',');
-
-    // Convert the string of correct answers to an array of integers
-    const arrOfCorrectAnswersNum = [];
-    split.forEach(str => {
-      arrOfCorrectAnswersNum.push(Number(str));
-    });
-    // Remove duplicates from the array of integers
-    const uniqueCorrectAnswersNum = [...new Set(arrOfCorrectAnswersNum)];
-    console.log(uniqueCorrectAnswersNum);
-
-    // Check if the correct answers are in the answer inputs
-    const correctAnswersInAnswerInputs = [];
-    answerInputs.forEach(answer => {
-      if (uniqueCorrectAnswersNum.includes(answer.id)) {
-        correctAnswersInAnswerInputs.push(answer.id);
-      }
-    });
-    console.log(correctAnswersInAnswerInputs);
-    if (correctAnswersInAnswerInputs.length !== uniqueCorrectAnswersNum.length) {
-      alert('Please select a correct answer that is in the answer inputs');
-      return false;
-    }
-
-    if (questionType === 'single-choice') {
-      if (correctAnswersInAnswerInputs.length > 1) {
-        alert('Please select only 1 correct answer');
-        return false;
-      }
-    } else if (questionType === 'multiple-choice') {
-      if (correctAnswersInAnswerInputs.length < 2) {
-        alert('Please select at least 2 correct answers');
-        return false;
-      } else if (correctAnswersInAnswerInputs.length > answerInputs.length) {
-        alert('Please select no more than the number of answers');
-        return false;
-      }
-    }
-    return [true, correctAnswersInAnswerInputs];
-  };
-
-  const validateAnswerInputs = () => {
-    // Check all the answer inputs for empty strings
-    const emptyAnswerInputs = [];
-    answerInputs.forEach(answer => {
-      try {
-        if (answer.answer.length === 0) {
-          emptyAnswerInputs.push(answer.id);
-        }
-      } catch {
-        emptyAnswerInputs.push(answer.id);
-      }
-    });
-    if (emptyAnswerInputs.length > 0) {
-      alert('Please enter an answer for all the answer inputs');
-      return false;
-    }
-    return true;
-  };
-
   const getBase64 = async (file) => {
     let base64Image;
     try {
@@ -161,7 +61,6 @@ export function AddQuestionModal (props) {
         setAnswerInputs(answerInputs.slice(0, 3));
       }
     }
-    // (value === 'single-choice') ? setAnswerInputs() : setAnswerInputs([{ id: 1 }, { id: 2 }, { id: 3 }]);
   };
 
   const addAnswerInput = () => {
@@ -221,16 +120,16 @@ export function AddQuestionModal (props) {
 
   const submitQuestion = async () => {
     // Validate each field
-    if (!validateQuestionName()) return;
-    else if (!validateQuestionTimeLimit()) return;
-    else if (!validateQuestionPoints()) return;
-    else if (!validateAnswerInputs()) return;
-    else if (!validateCorrectAnswer()[0]) return;
+    if (!validateQuestionName(questionName)) return;
+    else if (!validateQuestionTimeLimit(timeLimit)) return;
+    else if (!validateQuestionPoints(points)) return;
+    else if (!validateAnswerInputs(answerInputs)) return;
+    else if (!validateCorrectAnswer(correctAnswer, questionType, answerInputs)[0]) return;
     else if (!validateYoutubeMedia(embedYoutubeMedia)) {
       alert('Please enter a valid youtube link');
       return;
     }
-    const correctAnswerValid = validateCorrectAnswer()[1];
+    const correctAnswerValid = validateCorrectAnswer(correctAnswer, questionType, answerInputs)[1];
     // If every field is valid, we can construct the question object
     const questionObj = await generateQuestionObject(correctAnswerValid);
     // Reset the form

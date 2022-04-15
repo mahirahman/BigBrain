@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types'
 import style from '../css/QuizQuestionCard.module.css';
 import { FaGem, FaClock } from 'react-icons/fa';
-import { validateYoutubeMedia } from '../util/validate.js';
+import { validateYoutubeMedia } from '../util/validate';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 
@@ -25,13 +25,11 @@ export function QuizQuestionCard (props) {
   const handleShow = () => setShow(true);
 
   const deleteQuestion = async () => {
-    console.log('before' + props.setQuestionsList);
     setRenderQuestion(false);
     // Index of the element to be deleted
     const deleteIdx = props.questionNum - 1;
     // Using the questions list we want to remove the deleteIdx element
     props.setQuestionsList(props.questionsList.filter((question, index) => index !== deleteIdx));
-    console.log('after' + props.setQuestionsList);
     handleClose();
   };
 
