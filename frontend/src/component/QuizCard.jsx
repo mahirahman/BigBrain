@@ -61,7 +61,7 @@ export function QuizCard (props) {
         </Card.Body>
       </Card>
       }
-      <ConfirmDeleteModal name={props.title} handleClose={handleClose} show={show} deleteQuiz={deleteQuiz}/>
+      <ConfirmDeleteModal name={props.title} handleClose={handleClose} show={show} deleteFunc={deleteQuiz} type={'quiz'}/>
     </>
   );
 }

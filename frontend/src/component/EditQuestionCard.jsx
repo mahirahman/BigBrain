@@ -49,15 +49,17 @@ export function EditQuizQuestionCard (props) {
         {/* Render when there is no questions otherwise render question cards */}
         {JSON.stringify(questionList) === '[]'
           ? <div className={style.no_question_text}>No Questions here 😴</div>
-          : questionList?.map((question) => {
+          : questionList?.map((question, index) => {
             return <QuizQuestionCard
             key = {question.questionId}
-            questionId = {question.questionId}
+            questionNum = {index + 1}
             question = {question.question}
             questionType = {question.type}
             questionTime = {question.timeLimit}
             questionPoints = {question.points}
             questionEmbed = {question.embed ? question.embed : noThumb}
+            questionsList = {questionList}
+            setQuestionsList = {setQuestionsList}
             />
           })}
       </Card>

@@ -7,8 +7,10 @@ export function ConfirmDeleteModal (props) {
     name: PropTypes.string.isRequired,
     handleClose: PropTypes.func.isRequired,
     show: PropTypes.bool.isRequired,
-    deleteQuiz: PropTypes.func.isRequired
+    deleteFunc: PropTypes.func.isRequired,
+    type: PropTypes.string.isRequired
   };
+
   return (
     <>
       <Modal show={props.show} onHide={props.handleClose}>
@@ -16,11 +18,11 @@ export function ConfirmDeleteModal (props) {
           <Modal.Title>Delete {props.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Do you wish to delete this game?
+          Do you wish to delete this {props.type}?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant='danger' onClick={props.deleteQuiz}>
-            Delete Quiz
+          <Button variant='danger' onClick={props.deleteFunc}>
+            Delete {props.type.charAt(0).toUpperCase() + props.type.slice(1)}
           </Button>
         </Modal.Footer>
       </Modal>

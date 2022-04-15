@@ -4,22 +4,42 @@ import PropTypes from 'prop-types'
 import style from '../css/QuizQuestionCard.module.css';
 import { FaGem, FaClock } from 'react-icons/fa';
 import { validateYoutubeMedia } from '../util/validate.js';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 
 export function QuizQuestionCard (props) {
   QuizQuestionCard.propTypes = {
-    questionId: PropTypes.number.isRequired,
+    questionNum: PropTypes.number.isRequired,
     question: PropTypes.string.isRequired,
     questionType: PropTypes.string.isRequired,
     questionTime: PropTypes.number.isRequired,
     questionPoints: PropTypes.number.isRequired,
-    questionEmbed: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    questionEmbed: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    questionsList: PropTypes.array.isRequired,
+    setQuestionsList: PropTypes.func.isRequired,
+  };
+
+  const [renderQuestion, setRenderQuestion] = React.useState(true);
+  const [show, setShow] = React.useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const deleteQuestion = async () => {
+    console.log('before' + props.setQuestionsList);
+    setRenderQuestion(false);
+    // Index of the element to be deleted
+    const deleteIdx = props.questionNum - 1;
+    // Using the questions list we want to remove the deleteIdx element
+    props.setQuestionsList(props.questionsList.filter((question, index) => index !== deleteIdx));
+    console.log('after' + props.setQuestionsList);
+    handleClose();
   };
 
   return (
     <>
-      <Card className={style.question_card}>
-        <Card.Header>Question {props.questionId}</Card.Header>
+      {renderQuestion &&
+        <Card className={style.question_card}>
+        <Card.Header>Question {props.questionNum}</Card.Header>
         <Card.Body>
           <div className={style.container_flex}>
             <div className={style.test}>
@@ -28,7 +48,7 @@ export function QuizQuestionCard (props) {
               <p><FaClock className={style.icon_spacing}/>{props.questionTime} secs <FaGem className={style.icon_spacing}/>{props.questionPoints} Gems</p>
               <div className={style.question_controls}>
                 <p className={style.edit_btn}><BiEdit/>Edit</p>
-                <p className={style.delete_btn}><BiTrash/>Delete</p>
+                <p className={style.delete_btn} onClick={handleShow}><BiTrash/>Delete</p>
               </div>
             </div>
             {validateYoutubeMedia(props.questionEmbed)
@@ -37,6 +57,8 @@ export function QuizQuestionCard (props) {
           </div>
         </Card.Body>
       </Card>
+      }
+      <ConfirmDeleteModal name={`Question ${props.questionNum}`} handleClose={handleClose} show={show} deleteFunc={deleteQuestion} type={'question'}/>
     </>
   )
 }
