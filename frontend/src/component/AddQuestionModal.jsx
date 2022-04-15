@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, ButtonGroup, Modal, InputGroup, Form, FormControl, ToggleButton } from 'react-bootstrap';
 import PropTypes from 'prop-types'
-import style from '../css/ModalMenu.module.css';
+import style from '../css/AddEditQuestion.module.css';
 import { fileToDataUrl } from '../util/helper';
 import {
   validateYoutubeMedia, validateQuestionName,
@@ -151,37 +151,37 @@ export function AddQuestionModal (props) {
           <Modal.Title>Add a new question</Modal.Title>
         </Modal.Header>
         <Modal.Body className={style.center_btn}>
-          <InputGroup className={style.add_game_padding}>
+          <InputGroup className={style.input_spacing}>
             <InputGroup.Text>Question</InputGroup.Text>
             <FormControl placeholder="Start by typing your question" aria-label="Question"
             onChange={ (e) => setQuestionName(e.currentTarget.value)}/>
           </InputGroup>
           <div className={style.question_type_container}>
             <InputGroup.Text className={style.question_type_border}>Question Type</InputGroup.Text>
-            <Form.Select className={`${style.add_game_padding} ${style.select_question_type_border}`} aria-label="Default select"
+            <Form.Select className={`${style.input_spacing} ${style.select_question_type_border}`} aria-label="Default select"
             onChange={ (e) => updateInputType(e.currentTarget.value)}>
               <option value="single-choice">Single Choice</option>
               <option value="multiple-choice">Multiple Choice</option>
             </Form.Select>
           </div>
           {answerInputs.map((answers) => (
-            <InputGroup key={answers.id} className={style.add_game_padding}>
+            <InputGroup key={answers.id} className={style.input_spacing}>
               <InputGroup.Text>Answer {answers.id}</InputGroup.Text>
               <FormControl aria-label="Answer" onChange={(e) => updateAnswerInput(e.currentTarget.value, answers.id)}/>
             </InputGroup>
           ))}
-          <Button className={style.add_remove_input_box} variant='outline-danger' onClick={() => removeAnswerInput()}>Remove previous answer</Button>
-          <Button className={style.add_remove_input_box} variant='outline-primary' onClick={() => addAnswerInput()}>Add another answer</Button>
-          <InputGroup className={style.add_game_padding}>
+          <Button className={style.add_remove_input_box} variant='outline-danger' onClick={() => removeAnswerInput()}>Remove Previous Answer</Button>
+          <Button className={style.add_remove_input_box} variant='outline-primary' onClick={() => addAnswerInput()}>Add Another Answer</Button>
+          <InputGroup className={style.input_spacing}>
             <InputGroup.Text>Correct Answer</InputGroup.Text>
             <FormControl placeholder='Correct answer(s) comma seperated' aria-label="Correct Answer" onChange={(e) => setCorrectAnswer(e.currentTarget.value)}/>
           </InputGroup>
-          <InputGroup className={style.add_game_padding}>
+          <InputGroup className={style.input_spacing}>
             <InputGroup.Text>Time Limit</InputGroup.Text>
             <FormControl type="number" min="10" max="90" placeholder="Min: 10 secs, Max: 90 secs" aria-label="Time Limit"
             onChange={ (e) => setTimeLimit(e.currentTarget.value)}/>
           </InputGroup>
-          <InputGroup className={style.add_game_padding}>
+          <InputGroup className={style.input_spacing}>
             <InputGroup.Text>Points</InputGroup.Text>
             <FormControl type="number" min="1" max="100" placeholder="How many points is this question worth?" aria-label="Points"
             onChange={ (e) => setPoints(e.currentTarget.value)}/>
@@ -202,14 +202,14 @@ export function AddQuestionModal (props) {
           ))}
           </ButtonGroup>
           {radioValue === 'yt' &&
-          <InputGroup className={style.add_game_padding}>
+          <InputGroup className={style.input_spacing}>
             <InputGroup.Text>Media</InputGroup.Text>
             <FormControl placeholder="Optionally attach a youtube video" aria-label="Media"
             onChange={(e) => setEmbedYoutubeMedia(e.currentTarget.value)}/>
           </InputGroup>
           }
           {radioValue === 'img' &&
-            <InputGroup className={`${style.add_game_padding} ${style.input_spacing}`}>
+            <InputGroup className={style.input_spacing}>
             <InputGroup.Text >Thumbnail</InputGroup.Text>
             <FormControl title="your text" type="file" accept="image/jpeg, image/png, image/jpg" aria-label="Thumbnail"
               onChange={event => setEmbedImageMediaFileObj(event.target.files[0])}/>

@@ -1,23 +1,48 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import EditQuizQuestionCard from '../component/EditQuizQuestionCard';
 import NavigationMenu from '../component/NavigationMenu';
+import { getQuizDataAPI } from '../util/api';
 
 function EditQuestion () {
   const params = useParams();
   const navigate = useNavigate();
   const token = localStorage.getItem('authToken');
 
+  const [questionData, setQuestionData] = React.useState({});
+
+  const fetchData = async () => {
+    const data = await getQuizDataAPI(params.quizId);
+    if (data.error) {
+      navigate('/quizzes');
+      return;
+    }
+    // check if questionId parameter exists in data (i.e the question exists)
+    let found = false;
+    data.questions.forEach(question => {
+      if (question.questionId === params.questionId) {
+        setQuestionData(question);
+        found = true;
+      }
+    });
+    if (!found) {
+      navigate('/quizzes');
+    }
+  }
+
   React.useEffect(() => {
     if (!token) {
       navigate('/login');
     }
-    // fetchData();
+    fetchData();
   }, []);
+
+  console.log(questionData);
 
   return (
     <>
       <NavigationMenu/>
-      <h1>Question {params.questionId} of Quiz {params.quizId}</h1>
+      <EditQuizQuestionCard/>
     </>
   );
 }

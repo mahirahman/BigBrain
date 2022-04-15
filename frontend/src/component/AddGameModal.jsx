@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Modal, InputGroup, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types'
-import style from '../css/ModalMenu.module.css';
+import style from '../css/AddGameModal.module.css';
 import { createQuizAPI } from '../util/api';
 
 export function AddGameModal (props) {
@@ -40,7 +40,7 @@ export function AddGameModal (props) {
           <Modal.Title>Create New Game</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <InputGroup className={style.add_game_padding}>
+          <InputGroup className={style.add_game_spacing}>
             <InputGroup.Text>Game Name</InputGroup.Text>
             <FormControl aria-label="Game name" onChange={event => setNewGameName(event.target.value)}/>
           </InputGroup>
