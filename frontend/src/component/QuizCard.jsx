@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { formatDateString } from '../util/helper';
-import { deleteQuizAPI } from '../util/api';
+import { deleteQuizAPI, getQuizDataAPI } from '../util/api';
 
 const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
 
@@ -22,14 +22,14 @@ export function QuizCard (props) {
     setShow(true);
   }
 
+  const [data, setData] = React.useState({});
+
   QuizCard.propTypes = {
     randColour: PropTypes.number.isRequired,
     quizId: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
-    questionNum: PropTypes.number.isRequired,
-    totalTime: PropTypes.number.isRequired,
   };
 
   const deleteQuiz = async () => {
@@ -46,6 +46,21 @@ export function QuizCard (props) {
     navigate(`/quiz/${quizId}`);
   };
 
+  React.useEffect(async () => {
+    setData(await getQuizDataAPI(props.quizId));
+  }, []);
+
+  const getTotalTimeTaken = () => {
+    let totalTime = 0;
+    data.questions.forEach(question => {
+      totalTime += question.timeLimit;
+    })
+    if (totalTime < 60) {
+      return `${totalTime} sec(s)`;
+    }
+    return `${(totalTime / 60).toFixed(2)} min(s)`;
+  };
+
   return (
     <>
       {renderQuiz &&
@@ -56,7 +71,7 @@ export function QuizCard (props) {
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>Created {formatDateString(props.date)}</Card.Text>
-          <Card.Text>{props.questionNum} Questions | Time: {props.totalTime} mins</Card.Text>
+          <Card.Text>{data.questions ? `${data.questions.length} Questions` : 'Loading...'} | {data.questions ? `Time: ${getTotalTimeTaken()}` : 'Loading...'}</Card.Text>
           <Button className={style.delete_btn} variant="outline-danger" onClick={ (e) => handleShow(e) }><IoTrashOutline/> Delete</Button>
         </Card.Body>
       </Card>

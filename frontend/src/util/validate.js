@@ -1,10 +1,12 @@
+import { fileToDataUrl } from '../util/helper';
+
 // Given a string, check if the string is a valid youtube URL.
 // Returns true if the string is not given, otherwise checks the string and returns false if
 // does not match the regex.
 // If it matches the regex pattern then iit returns the video id.
 // Source: https://stackoverflow.com/questions/3452546/javascript-regex-how-to-get-youtube-video-id-from-url
 export const validateYoutubeMedia = (url) => {
-  if (url === null) {
+  if (!url) {
     return true;
   }
   const urlRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
@@ -78,7 +80,6 @@ export const validateCorrectAnswer = (correctAnswer, questionType, answerInputs)
     return false;
   }
   const split = correctAnswer.split(',');
-
   // Convert the string of correct answers to an array of integers
   const arrOfCorrectAnswersNum = [];
   split.forEach(str => {
@@ -86,7 +87,6 @@ export const validateCorrectAnswer = (correctAnswer, questionType, answerInputs)
   });
   // Remove duplicates from the array of integers
   const uniqueCorrectAnswersNum = [...new Set(arrOfCorrectAnswersNum)];
-  console.log(uniqueCorrectAnswersNum);
 
   // Check if the correct answers are in the answer inputs
   const correctAnswersInAnswerInputs = [];
@@ -95,7 +95,6 @@ export const validateCorrectAnswer = (correctAnswer, questionType, answerInputs)
       correctAnswersInAnswerInputs.push(answer.id);
     }
   });
-  console.log(correctAnswersInAnswerInputs);
   if (correctAnswersInAnswerInputs.length !== uniqueCorrectAnswersNum.length) {
     alert('Please select a correct answer that is in the answer inputs');
     return false;
@@ -116,4 +115,14 @@ export const validateCorrectAnswer = (correctAnswer, questionType, answerInputs)
     }
   }
   return [true, correctAnswersInAnswerInputs];
+};
+
+export const getBase64 = async (file) => {
+  let base64Image;
+  try {
+    base64Image = await fileToDataUrl(file);
+  } catch {
+    base64Image = null;
+  }
+  return base64Image;
 };

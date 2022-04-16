@@ -5,13 +5,13 @@ import style from '../css/AddGameModal.module.css';
 import { createQuizAPI } from '../util/api';
 
 export function AddGameModal (props) {
-  const [newGameName, setNewGameName] = React.useState('');
-
   AddGameModal.propTypes = {
     handleClose: PropTypes.func.isRequired,
     show: PropTypes.bool.isRequired,
     reRender: PropTypes.func
   };
+
+  const [newGameName, setNewGameName] = React.useState('');
 
   const submitNewGame = async (name) => {
     if (!name.length) {

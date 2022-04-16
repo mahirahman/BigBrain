@@ -2,11 +2,10 @@ import React from 'react';
 import { Button, ButtonGroup, Modal, InputGroup, Form, FormControl, ToggleButton } from 'react-bootstrap';
 import PropTypes from 'prop-types'
 import style from '../css/AddEditQuestion.module.css';
-import { fileToDataUrl } from '../util/helper';
 import {
   validateYoutubeMedia, validateQuestionName,
   validateQuestionTimeLimit, validateQuestionPoints,
-  validateAnswerInputs, validateCorrectAnswer
+  validateAnswerInputs, validateCorrectAnswer, getBase64
 } from '../util/validate';
 
 export function AddQuestionModal (props) {
@@ -35,16 +34,6 @@ export function AddQuestionModal (props) {
     { name: 'Youtube Video', value: 'yt' },
     { name: 'Image', value: 'img' },
   ];
-
-  const getBase64 = async (file) => {
-    let base64Image;
-    try {
-      base64Image = await fileToDataUrl(embedImageMediaFileObj);
-    } catch {
-      base64Image = null;
-    }
-    return base64Image;
-  };
 
   const updateInputType = (value) => {
     setQuestionType(value);
@@ -124,7 +113,8 @@ export function AddQuestionModal (props) {
     else if (!validateQuestionTimeLimit(timeLimit)) return;
     else if (!validateQuestionPoints(points)) return;
     else if (!validateAnswerInputs(answerInputs)) return;
-    else if (!validateCorrectAnswer(correctAnswer, questionType, answerInputs)[0]) return;
+    console.log(correctAnswer);
+    if (!validateCorrectAnswer(correctAnswer, questionType, answerInputs)[0]) return;
     else if (!validateYoutubeMedia(embedYoutubeMedia)) {
       alert('Please enter a valid youtube link');
       return;
