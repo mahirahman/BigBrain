@@ -28,7 +28,8 @@
 }
 
 .embed_btn {
-  width: 95%;
+  width: 100%;
+  padding: 10px;
 }
 
 .add_remove_input_box {
@@ -45,4 +46,5 @@
 
 .submit_btn {
   float: right;
+  margin-left: 10px;
 }

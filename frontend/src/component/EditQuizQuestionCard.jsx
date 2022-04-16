@@ -217,6 +217,9 @@ function EditQuizQuestionCard (props) {
           <Button className={style.submit_btn} variant='primary' onClick={() => { submitQuestion() }}>
               Save Changes
           </Button>
+          <Button className={style.submit_btn} variant='secondary' onClick={ () => { navigate(`/quiz/${props.quizId}/`) }}>
+              Go Back
+          </Button>
         </Card.Footer>
       </Card>
     </>
