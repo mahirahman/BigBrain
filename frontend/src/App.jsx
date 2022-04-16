@@ -24,9 +24,9 @@ function App () {
           {/* Quizzes Page */}
           <Route path="/quizzes" element={<Quizzes/>}/>
           {/* Edit Quiz Page */}
-          <Route path="/quiz/:quizId" element={<EditQuiz/>}/>
+          <Route path="/quiz/edit/:quizId" element={<EditQuiz/>}/>
           {/* Edit Question Page */}
-          <Route path="/quiz/:quizId/:questionId" element={<EditQuestion/>}/>
+          <Route path="/quiz/edit/:quizId/:questionId" element={<EditQuestion/>}/>
         </Routes>
       </BrowserRouter>
       <svg className="wave_background_img" viewBox="0 0 1440 320">

@@ -43,7 +43,7 @@ export function QuizCard (props) {
   };
 
   const editQuiz = (quizId) => {
-    navigate(`/quiz/${quizId}`);
+    navigate(`/quiz/edit/${quizId}`);
   };
 
   React.useEffect(async () => {

@@ -49,7 +49,7 @@ export function QuizQuestionCard (props) {
               <p>{props.questionType.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}</p>
               <p><FaClock className={style.icon_spacing}/>{props.questionTime} secs <FaGem className={style.icon_spacing}/>{props.questionPoints} Gems</p>
               <div className={style.question_controls}>
-                <p className={style.edit_btn} onClick={() => navigate(`/quiz/${props.quizId}/${props.questionId}`)}><BiEdit/>Edit</p>
+                <p className={style.edit_btn} onClick={() => navigate(`/quiz/edit/${props.quizId}/${props.questionId}`)}><BiEdit/>Edit</p>
                 <p className={style.delete_btn} onClick={handleShow}><BiTrash/>Delete</p>
               </div>
             </div>
