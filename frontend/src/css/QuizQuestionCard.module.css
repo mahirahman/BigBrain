@@ -1,0 +1,50 @@
+.question_card {
+  margin: 25px;
+}
+
+.image_media {
+  float: right;
+  width: 200px;
+  height: 200px;
+}
+
+.container_flex {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.icon_spacing {
+  margin: 5px;
+}
+
+.question_controls {
+  display: flex;
+  gap: 15px;
+}
+
+.edit_btn {
+  cursor: pointer;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  color: #2984fa;
+}
+
+.delete_btn {
+  cursor: pointer;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  color: #f05d5d;
+}
+
+.media_container {
+  margin: -16px;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.test {
+  margin-right: 50px;
+  margin-bottom: 15px;
+}

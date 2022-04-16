@@ -1,0 +1,48 @@
+.question_type_container {
+  display: flex;
+  padding: 0.375rem 0.65rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: center;
+}
+
+.question_type_border {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.select_question_type_border {
+  margin-left: -1px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0;
+}
+
+.center_btn {
+  text-align: center;
+}
+
+.embed_btn {
+  width: 95%;
+}
+
+.add_remove_input_box {
+  margin: 5px;
+}
+
+.input_spacing {
+  padding: 10px;
+}
+
+.container {
+  margin: 25px;
+}
+
+.submit_btn {
+  float: right;
+}
