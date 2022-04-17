@@ -7,10 +7,11 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { formatDateString } from '../util/helper';
-import { deleteQuizAPI, getQuizDataAPI, startQuizAPI } from '../util/api';
+import { deleteQuizAPI, endQuizAPI, getQuizDataAPI, startQuizAPI } from '../util/api';
 import { VscDebugStart } from 'react-icons/vsc';
 import { AiOutlineStop } from 'react-icons/ai';
 import StartQuizModal from './StartQuizModal';
+import StopQuizModal from './StopQuizModal';
 
 const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
 
@@ -35,12 +36,16 @@ export function QuizCard (props) {
     setShow(true);
   }
 
-  const [resultQuizModal, setResultQuizModal] = React.useState(false);
-  const closeResultQuizModal = () => setResultQuizModal(false);
-  const showResultQuizModal = (e) => {
+  const [endQuizModal, setEndQuizModal] = React.useState(false);
+  const closeStopQuizModal = () => setEndQuizModal(false);
+  const showStopQuizModal = async (e) => {
     e.stopPropagation();
-    console.log('showResultQuizModal');
-    setResultQuizModal(true);
+    const data = await endQuizAPI(props.quizId);
+    if (data.error) {
+      alert(data.error);
+      return;
+    }
+    setEndQuizModal(true);
   }
 
   const [startQuizModal, setStartQuizModal] = React.useState(false);
@@ -106,12 +111,13 @@ export function QuizCard (props) {
           <Card.Text>Created {formatDateString(props.date)}</Card.Text>
           <Card.Text>{data.questions ? `${data.questions.length} Questions` : 'Loading...'} | {data.questions ? `Time: ${getTotalTimeTaken()}` : 'Loading...'}</Card.Text>
           <Button className={style.start_end_btn} variant='outline-success' onClick={(e) => showStartQuizModal(e)}><VscDebugStart/> Start Quiz</Button>
-          <Button className={style.start_end_btn} variant='outline-secondary' onClick={(e) => showResultQuizModal(e)}><AiOutlineStop/> End Quiz</Button>
+          <Button className={style.start_end_btn} variant='outline-secondary' onClick={(e) => showStopQuizModal(e)}><AiOutlineStop/> End Quiz</Button>
           <Button className={style.delete_btn} variant="outline-danger" onClick={ (e) => showDeleteModal(e) }><IoTrashOutline/> Delete</Button>
         </Card.Body>
       </Card>
       }
       <StartQuizModal handleClose={closeStartQuizModal} show={startQuizModal} sessionId={sessionId}/>
+      <StopQuizModal handleClose={closeStopQuizModal} show={endQuizModal} sessionId={sessionId}/>
       <ConfirmDeleteModal name={props.title} handleClose={closeDeleteModal} show={show} onSubmit={deleteQuiz} type={'quiz'}/>
     </>
   );

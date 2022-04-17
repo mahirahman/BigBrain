@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { Modal, Button, InputGroup, FormControl, Tooltip, Overlay } from 'react-bootstrap';
 import { FaCopy } from 'react-icons/fa';
-import style from '../css/StartQuizModal.module.css';
+import style from '../css/StartStopQuizModal.module.css';
 
 export function StartQuizModal (props) {
   StartQuizModal.propTypes = {
     handleClose: PropTypes.func.isRequired,
     show: PropTypes.bool.isRequired,
-    sessionId: PropTypes.string.isRequired,
+    sessionId: PropTypes.number,
   };
 
   const [show, setShow] = React.useState(false);
@@ -23,7 +23,7 @@ export function StartQuizModal (props) {
     <>
       <Modal show={props.show} onHide={props.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Start</Modal.Title>
+          <Modal.Title>Quiz Started</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <InputGroup>

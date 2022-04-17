@@ -63,6 +63,10 @@ export const startQuizAPI = async (quizID) => {
   return await fetchAPI(`/admin/quiz/${quizID}/start`, 'POST');
 };
 
+export const endQuizAPI = async (quizID) => {
+  return await fetchAPI(`/admin/quiz/${quizID}/end`, 'POST');
+};
+
 export const registerAPI = async (name, email, password) => {
   return await fetchAPI('/admin/auth/register', 'POST', {
     name,
