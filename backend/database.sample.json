@@ -1,0 +1,81 @@
+{
+  "admins": {
+    "1": {
+      "name": "test",
+      "password": "1",
+      "sessionActive": true
+    },
+    "hayden@unsw.edu.au": {
+      "name": "Harry Jenkins",
+      "password": "adummypassword",
+      "sessionActive": true
+    }
+  },
+  "quizzes": {
+    "441413308": {
+      "name": "My Quiz",
+      "owner": "1",
+      "questions": [
+        {
+          "questionId": "2hyog",
+          "question": "My name?",
+          "type": "single-choice",
+          "answers": [
+            {
+              "id": 1,
+              "answer": "Mahi"
+            },
+            {
+              "id": 2,
+              "answer": "Jake"
+            }
+          ],
+          "correctAnswer": [
+            1
+          ],
+          "timeLimit": 90,
+          "points": 500,
+          "embed": null
+        },
+        {
+          "questionId": "w7jmp",
+          "question": "My Age",
+          "type": "single-choice",
+          "answers": [
+            {
+              "id": 1,
+              "answer": "20"
+            },
+            {
+              "id": 2,
+              "answer": "12"
+            },
+            {
+              "id": 3,
+              "answer": "2"
+            },
+            {
+              "id": 4,
+              "answer": "424"
+            },
+            {
+              "id": 5,
+              "answer": "43"
+            }
+          ],
+          "correctAnswer": [
+            1
+          ],
+          "timeLimit": 90,
+          "points": 400,
+          "embed": null
+        }
+      ],
+      "thumbnail": null,
+      "active": null,
+      "createdAt": "2022-04-17T03:56:58.164Z"
+    }
+  },
+  "sessions": {
+  }
+}

@@ -8,6 +8,7 @@ import Error from './page/Error';
 import EditQuiz from './page/EditQuiz';
 import EditQuestion from './page/EditQuestion';
 import JoinQuiz from './page/JoinQuiz';
+import LobbyQuiz from './page/LobbyQuiz';
 
 function App () {
   return (
@@ -30,6 +31,8 @@ function App () {
           <Route path="/quiz/edit/:quizId/:questionId" element={<EditQuestion/>}/>
           {/* Join a Quiz */}
           <Route path="/quiz/:sessionId" element={<JoinQuiz/>}/>
+          {/* Join the Quiz Lobby */}
+          <Route path="/quiz/lobby/:sessionId" element={<LobbyQuiz/>}/>
         </Routes>
       </BrowserRouter>
       <svg className="wave_background_img" viewBox="0 0 1440 320">

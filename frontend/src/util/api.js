@@ -78,3 +78,13 @@ export const registerAPI = async (name, email, password) => {
 export const logoutUserAPI = async () => {
   return await fetchAPI('/admin/auth/logout', 'POST');
 };
+
+export const playJoinAPI = async (sessionID, name) => {
+  return await fetchAPI(`/play/join/${sessionID}`, 'POST', {
+    name,
+  });
+};
+
+export const getSessionStatusAPI = async (playerID) => {
+  return await fetchAPI(`/play/${playerID}/status`, 'GET');
+};

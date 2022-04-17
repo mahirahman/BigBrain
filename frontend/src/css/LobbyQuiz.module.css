@@ -1,0 +1,8 @@
+.main_text {
+  color: white;
+  background-color: #0089e5;
+  width: max-content;
+  margin: 125px auto;
+  padding: 15px;
+  border-radius: 5px;
+}
