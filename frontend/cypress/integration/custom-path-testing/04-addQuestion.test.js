@@ -33,7 +33,7 @@ describe('UI custom path testing', () => {
     cy.get(':nth-child(9) > .form-control').focus().type('10');
     cy.get('label[class="btn btn-outline-success"]').click();
     cy.get(':nth-child(11) > .form-control').selectFile(
-      'cypress/integration/custom-path-testing/pics/earth-icon.png'
+      'cypress/fixtures/pics/earth-icon.png'
     );
     cy.get('.modal-footer > .btn').click();
     cy.contains('Question 2');

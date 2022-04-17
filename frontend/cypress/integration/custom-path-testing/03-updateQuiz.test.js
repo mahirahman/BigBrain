@@ -16,9 +16,7 @@ describe('UI custom path testing', () => {
     // Upload the thumbnail
     cy.get('.EditQuizCard_input_spacing__2lL5w.input-group > input')
       .eq(1)
-      .selectFile(
-        'cypress/integration/custom-path-testing/pics/earth-icon.png'
-      );
+      .selectFile('cypress/fixtures/pics/earth-icon.png');
     cy.get('.EditQuizCard_save_changes__3TdcL.btn.btn-success').click();
   });
 });
