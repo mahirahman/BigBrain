@@ -7,23 +7,15 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { formatDateString } from '../util/helper';
-import { deleteQuizAPI, getQuizDataAPI } from '../util/api';
+import { deleteQuizAPI, endQuizAPI, getQuizDataAPI, startQuizAPI } from '../util/api';
+import { VscDebugStart } from 'react-icons/vsc';
+import { AiOutlineStop } from 'react-icons/ai';
+import StartQuizModal from './StartQuizModal';
+import StopQuizModal from './StopQuizModal';
 
 const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
 
 export function QuizCard (props) {
-  const [renderQuiz, setRenderQuiz] = React.useState(true);
-  const navigate = useNavigate();
-
-  const [show, setShow] = React.useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = (e) => {
-    e.stopPropagation();
-    setShow(true);
-  }
-
-  const [data, setData] = React.useState({});
-
   QuizCard.propTypes = {
     randColour: PropTypes.number.isRequired,
     quizId: PropTypes.number.isRequired,
@@ -32,6 +24,52 @@ export function QuizCard (props) {
     date: PropTypes.string.isRequired,
   };
 
+  const [renderQuiz, setRenderQuiz] = React.useState(true);
+  const navigate = useNavigate();
+
+  const [sessionId, setSessionId] = React.useState(null);
+
+  const [show, setShow] = React.useState(false);
+  const closeDeleteModal = () => setShow(false);
+  const showDeleteModal = (e) => {
+    e.stopPropagation();
+    setShow(true);
+  }
+
+  const [endQuizModal, setEndQuizModal] = React.useState(false);
+  const closeStopQuizModal = () => setEndQuizModal(false);
+  const showStopQuizModal = async (e) => {
+    e.stopPropagation();
+    const data = await endQuizAPI(props.quizId);
+    if (data.error) {
+      alert(data.error);
+      return;
+    }
+    setEndQuizModal(true);
+  }
+
+  const [startQuizModal, setStartQuizModal] = React.useState(false);
+  const closeStartQuizModal = () => setStartQuizModal(false);
+  const showStartQuizModal = async (e) => {
+    e.stopPropagation();
+    // Start a quiz
+    const startQuiz = await startQuizAPI(props.quizId);
+    if (startQuiz.error) {
+      alert(startQuiz.error);
+      return;
+    }
+    // Call the quiz data and set the session id as a state
+    const quizData = await getQuizDataAPI(props.quizId);
+    if (quizData.error) {
+      alert(quizData.error);
+      return;
+    }
+    setSessionId(quizData.active)
+    setStartQuizModal(true);
+  };
+
+  const [data, setData] = React.useState({});
+
   const deleteQuiz = async () => {
     setRenderQuiz(false);
     const data = await deleteQuizAPI(props.quizId);
@@ -39,7 +77,7 @@ export function QuizCard (props) {
       alert(data.error);
       setRenderQuiz(true);
     }
-    handleClose();
+    closeDeleteModal();
   };
 
   const editQuiz = (quizId) => {
@@ -72,11 +110,15 @@ export function QuizCard (props) {
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>Created {formatDateString(props.date)}</Card.Text>
           <Card.Text>{data.questions ? `${data.questions.length} Questions` : 'Loading...'} | {data.questions ? `Time: ${getTotalTimeTaken()}` : 'Loading...'}</Card.Text>
-          <Button className={style.delete_btn} variant="outline-danger" onClick={ (e) => handleShow(e) }><IoTrashOutline/> Delete</Button>
+          <Button className={style.start_end_btn} variant='outline-success' onClick={(e) => showStartQuizModal(e)}><VscDebugStart/> Start Quiz</Button>
+          <Button className={style.start_end_btn} variant='outline-secondary' onClick={(e) => showStopQuizModal(e)}><AiOutlineStop/> End Quiz</Button>
+          <Button className={style.delete_btn} variant="outline-danger" onClick={ (e) => showDeleteModal(e) }><IoTrashOutline/> Delete</Button>
         </Card.Body>
       </Card>
       }
-      <ConfirmDeleteModal name={props.title} handleClose={handleClose} show={show} deleteFunc={deleteQuiz} type={'quiz'}/>
+      <StartQuizModal handleClose={closeStartQuizModal} show={startQuizModal} sessionId={sessionId}/>
+      <StopQuizModal handleClose={closeStopQuizModal} show={endQuizModal} sessionId={sessionId}/>
+      <ConfirmDeleteModal name={props.title} handleClose={closeDeleteModal} show={show} onSubmit={deleteQuiz} type={'quiz'}/>
     </>
   );
 }
