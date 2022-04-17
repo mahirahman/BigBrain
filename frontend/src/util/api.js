@@ -21,6 +21,7 @@ const fetchAPI = async (path, method, body) => {
   try {
     response = await fetch(`http://localhost:5005${path}`, init);
   } catch (error) {
+    alert(`Error: ${error}`);
     console.log('Error:', error);
   }
   return await response.json();
@@ -31,6 +32,18 @@ export const loginAPI = async (email, password) => {
     email,
     password
   });
+};
+
+export const registerAPI = async (name, email, password) => {
+  return await fetchAPI('/admin/auth/register', 'POST', {
+    name,
+    email,
+    password
+  });
+};
+
+export const logoutUserAPI = async () => {
+  return await fetchAPI('/admin/auth/logout', 'POST');
 };
 
 export const getAllQuizDataAPI = async () => {
@@ -67,17 +80,13 @@ export const endQuizAPI = async (quizID) => {
   return await fetchAPI(`/admin/quiz/${quizID}/end`, 'POST');
 };
 
-export const registerAPI = async (name, email, password) => {
-  return await fetchAPI('/admin/auth/register', 'POST', {
-    name,
-    email,
-    password
-  });
+export const advanceQuizQuestionAPI = async (quizID) => {
+  return await fetchAPI(`/admin/quiz/${quizID}/advance`, 'POST');
 };
 
-export const logoutUserAPI = async () => {
-  return await fetchAPI('/admin/auth/logout', 'POST');
-};
+export const getSessionStatusAdminAPI = async (sessionID) => {
+  return await fetchAPI(`/admin/session/${sessionID}/status`, 'GET');
+}
 
 export const playJoinAPI = async (sessionID, name) => {
   return await fetchAPI(`/play/join/${sessionID}`, 'POST', {

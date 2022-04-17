@@ -27,7 +27,7 @@ export function JoinGameForm (props) {
       return;
     }
     // Navigate to the play page and send the playerId data as a location object
-    navigate(`/quiz/lobby/${props.sessionId}`, { state: { playerId: data.playerId } });
+    navigate(`/quiz/lobby/${props.sessionId}`, { state: { playerIdFromPreviousPage: data.playerId } });
   };
 
   return (
@@ -35,7 +35,7 @@ export function JoinGameForm (props) {
       <Card>
         <Card.Body>
         <Card.Title className={style.card_title}>Session ID</Card.Title>
-        <input className={style.form_input} onChange={event => console.log(event.target.value)} type="text" placeholder='Please enter a quiz session number' value={props.sessionId}/>
+        <input className={style.form_input} type="text" placeholder='Please enter a quiz session number' value={props.sessionId}/>
         <Card.Title className={style.card_title}>Username</Card.Title>
         <input className={style.form_input} onChange={event => setUsername(event.target.value)} type="text" placeholder='Pick a username for this quiz'/>
         <Button className={style.join_game_btn} onClick={() => joinGame()} variant='success'>Join Game</Button>

@@ -1,11 +1,9 @@
 import React from 'react';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getSessionStatusAPI } from '../util/api';
-import style from '../css/LobbyQuiz.module.css';
 
-export function LobbyQuiz () {
+export function PlayQuiz () {
   const navigate = useNavigate();
-  const params = useParams();
   const [playerId, setPlayerId] = React.useState(null);
   const { state } = useLocation();
 
@@ -19,20 +17,16 @@ export function LobbyQuiz () {
     } catch {
       navigate('/error')
     }
+
+    // If the session has not started then navigate error
   }, []);
 
-  // Poll the endpoint every half second to check if a quiz has started or not
-  // Otherwise stay on the lobby page.
   React.useEffect(() => {
     if (playerId) {
       const interval = setInterval(async () => {
         const data = await getSessionStatusAPI(playerId);
         if (data.error) {
-          alert(data.error);
-          return;
-        }
-        if (data.started) {
-          navigate(`/quiz/play/${params.sessionId}`, { state: { playerIdFromPreviousPage: playerId } });
+          navigate('/error');
         }
       }, 500);
       return () => clearInterval(interval);
@@ -41,9 +35,11 @@ export function LobbyQuiz () {
 
   return (
     <>
-      <h1 className={style.main_text}>Waiting for game to start...</h1>
+    {console.log(playerId)}
+      <h1>Should display Q1 data here with buttons for answers + a timer that counts down based on timeLimit</h1>
+      <h1>render of the Q change when admin advances to next Q.</h1>
     </>
   );
 }
 
-export default LobbyQuiz;
+export default PlayQuiz;

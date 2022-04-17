@@ -113,7 +113,6 @@ export function AddQuestionModal (props) {
     else if (!validateQuestionTimeLimit(timeLimit)) return;
     else if (!validateQuestionPoints(points)) return;
     else if (!validateAnswerInputs(answerInputs)) return;
-    console.log(correctAnswer);
     if (!validateCorrectAnswer(correctAnswer, questionType, answerInputs)[0]) return;
     else if (!validateYoutubeMedia(embedYoutubeMedia)) {
       alert('Please enter a valid youtube link');
@@ -128,7 +127,6 @@ export function AddQuestionModal (props) {
     props.setQuestionsList([...props.questions, questionObj]);
     // Close the modal
     props.handleClose();
-    console.log(questionObj);
   };
 
   return (

@@ -28,7 +28,6 @@ export function EditQuestionCard (props) {
     if (data.error) {
       alert(data.error);
     }
-    console.log(base64Image);
     if (base64Image) {
       setQuizThumbnailBase64(base64Image);
       // setDefaultImageColour(0);
