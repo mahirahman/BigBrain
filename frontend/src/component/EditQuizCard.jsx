@@ -8,8 +8,8 @@ import { fileToDataUrl } from '../util/helper';
 
 const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
 
-export function EditQuestionCard (props) {
-  EditQuestionCard.propTypes = {
+export function EditQuizCard (props) {
+  EditQuizCard.propTypes = {
     quizID: PropTypes.string.isRequired,
     name: PropTypes.string,
     thumbnail: PropTypes.string.isRequired,
@@ -84,4 +84,4 @@ export function EditQuestionCard (props) {
   )
 }
 
-export default EditQuestionCard;
+export default EditQuizCard;

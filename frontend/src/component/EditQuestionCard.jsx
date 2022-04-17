@@ -1,73 +1,229 @@
 import React from 'react';
-import { Button, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types'
-import style from '../css/EditQuizCard.module.css';
+import { Button, ButtonGroup, Card, Form, FormControl, InputGroup, ToggleButton } from 'react-bootstrap';
+import {
+  validateYoutubeMedia, validateQuestionName,
+  validateQuestionTimeLimit, validateQuestionPoints,
+  validateAnswerInputs, validateCorrectAnswer, getBase64
+} from '../util/validate';
 import { updateQuizAPI } from '../util/api';
+import style from '../css/AddEditQuestion.module.css';
 import { useNavigate } from 'react-router-dom';
-import { MdQuiz } from 'react-icons/md';
-import AddQuestionModal from '../component/AddQuestionModal';
-import { QuizQuestionCard } from './QuizQuestionCard';
-import noThumb from '../img/quiz_no_thumbnail.png';
 
-export function EditQuizQuestionCard (props) {
-  EditQuizQuestionCard.propTypes = {
-    quizID: PropTypes.string.isRequired,
-    questions: PropTypes.array
+function EditQuestionCard (props) {
+  EditQuestionCard.propTypes = {
+    quizId: PropTypes.string.isRequired,
+    questionData: PropTypes.object.isRequired,
+    questionList: PropTypes.array.isRequired,
   };
 
   const navigate = useNavigate();
+  const [radioValue, setRadioValue] = React.useState('yt');
+  const radios = [
+    { name: 'Youtube Video', value: 'yt' },
+    { name: 'Image', value: 'img' },
+  ];
+  // Set the state of the youtube url
+  const [embedYoutubeMedia, setEmbedYoutubeMedia] = React.useState(null);
+  // Set the state of the image url
+  const [embedImageMediaFileObj, setEmbedImageMediaFileObj] = React.useState({});
+  const [embedImageMediaBase64, setEmbedImageMediaBase64] = React.useState({});
 
-  const fetchData = async () => {
-    const data = await updateQuizAPI(props.quizID, questionList, null, null);
+  const [questionName, setQuestionName] = React.useState('');
+  const [answerInputs, setAnswerInputs] = React.useState([{ id: 1 }, { id: 2 }]);
+  const [questionType, setQuestionType] = React.useState('');
+  const [correctAnswer, setCorrectAnswer] = React.useState('');
+  const [timeLimit, setTimeLimit] = React.useState(null);
+  const [points, setPoints] = React.useState(null);
+
+  React.useEffect(() => {
+    setQuestionName(props.questionData.question);
+    setAnswerInputs(props.questionData.answers);
+    setQuestionType(props.questionData.type);
+    setCorrectAnswer(props.questionData.correctAnswer ? props.questionData.correctAnswer.join(',') : 'Loading...');
+    setTimeLimit(props.questionData.timeLimit);
+    setPoints(props.questionData.points);
+    if (validateYoutubeMedia(props.questionData.embed ? props.questionData.embed : null)) {
+      setEmbedYoutubeMedia(props.questionData.embed);
+    }
+    const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+    setEmbedImageMediaBase64(base64regex.test(props.questionData.embed) ? 'Loading...' : props.questionData.embed);
+  }, [props]);
+
+  const updateInputType = (value) => {
+    setQuestionType(value);
+    // if value is single-choice, remove every element after the second element
+    if (value === 'single-choice') {
+      setAnswerInputs(answerInputs.slice(0, 2));
+    // if the value is multiple-choice, remove every element after the third element
+    } else if (value === 'multiple-choice') {
+      // if there is only two elements add a new element
+      if (answerInputs.length === 2) {
+        setAnswerInputs([...answerInputs, { id: 3 }]);
+      } else {
+        // if there are more than two elements, remove every element after the third element
+        setAnswerInputs(answerInputs.slice(0, 3));
+      }
+    }
+  };
+
+  const addAnswerInput = () => {
+    if (answerInputs.length + 1 > 6) {
+      alert('You can only have a maximum of 6 answers');
+      return;
+    }
+    setAnswerInputs([...answerInputs, { id: answerInputs.length + 1 }]);
+  };
+
+  const removeAnswerInput = () => {
+    if (questionType === 'single-choice' && answerInputs.length === 2) {
+      alert('You must have at least 2 answers');
+      return;
+    } else if (questionType === 'multiple-choice' && answerInputs.length === 3) {
+      alert('You must have at least 3 answers');
+      return;
+    }
+    setAnswerInputs([...answerInputs.slice(0, answerInputs.length - 1)])
+  };
+
+  const updateAnswerInput = (answer, id) => {
+    setAnswerInputs([...answerInputs.slice(0, id - 1), { id, answer }, ...answerInputs.slice(id)]);
+  };
+
+  const generateQuestionObject = async (correctAnswerValid) => {
+    let embedMedia = null;
+    if (radioValue === 'yt') {
+      embedMedia = embedYoutubeMedia;
+    } else if (radioValue === 'img') {
+      embedMedia = await getBase64(embedImageMediaFileObj);
+    } else if (!embedMedia) {
+      embedMedia = embedImageMediaBase64;
+    }
+
+    return {
+      questionId: props.questionData.questionId,
+      question: questionName,
+      type: questionType,
+      answers: answerInputs,
+      correctAnswer: correctAnswerValid,
+      timeLimit: parseInt(timeLimit),
+      points: parseInt(points),
+      embed: embedMedia,
+    };
+  };
+
+  const submitQuestion = async () => {
+    // Validate each field
+    if (!validateQuestionName(questionName)) return;
+    else if (!validateQuestionTimeLimit(timeLimit)) return;
+    else if (!validateQuestionPoints(points)) return;
+    else if (!validateAnswerInputs(answerInputs)) return;
+    else if (!validateCorrectAnswer(correctAnswer, questionType, answerInputs)[0]) return;
+    else if (!validateYoutubeMedia(embedYoutubeMedia)) {
+      alert('Please enter a valid youtube link');
+      return;
+    }
+    const correctAnswerValid = validateCorrectAnswer(correctAnswer, questionType, answerInputs)[1];
+    // If every field is valid, we can construct the question object
+    const questionObj = await generateQuestionObject(correctAnswerValid);
+    // Find props.questionData.questionId in props.questionList and replace it with questionObj
+    // console.log(props.questionData.questionId);
+    // console.log(props.questionList);
+    // console.log(questionObj);
+    props.questionList.forEach((question, index) => {
+      if (question.questionId === props.questionData.questionId) {
+        props.questionList[index] = questionObj;
+      }
+    });
+    const data = await updateQuizAPI(props.quizId, props.questionList, null, null);
     if (data.error) {
       navigate('/quizzes');
     }
-  }
-
-  const [questionList, setQuestionsList] = React.useState(props.questions);
-  const [show, setShow] = React.useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  React.useEffect(() => {
-    setQuestionsList(props.questions);
-  }, [props]);
-
-  React.useEffect(() => {
-    fetchData();
-  }, [questionList]);
+  };
 
   return (
     <>
-      <Card className={style.card_container}>
-        <Card.Header>Edit Questions</Card.Header>
-        <Card.Body>
-          <div className={style.add_question}>
-            <Button variant="primary" onClick={ handleShow }><MdQuiz className={style.quiz_icon}/>Add New Question</Button>
-          </div>
+      <Card className={style.container}>
+        <Card.Header>Edit Question</Card.Header>
+        <Card.Body className={style.center_btn}>
+        <InputGroup className={style.input_spacing}>
+            <InputGroup.Text>Question</InputGroup.Text>
+            <FormControl placeholder={props.questionData.question} aria-label="Question"
+            onChange={ (e) => setQuestionName(e.currentTarget.value)}/>
+        </InputGroup>
+        <div className={`${style.question_type_container} ${style.input_spacing}`}>
+          <InputGroup.Text className={style.question_type_border}>Question Type</InputGroup.Text>
+          <Form.Select value={questionType} className={style.select_question_type_border} aria-label="select"
+          onChange={ (e) => updateInputType(e.currentTarget.value)}>
+            <option value="single-choice">Single Choice</option>
+            <option value="multiple-choice">Multiple Choice</option>
+          </Form.Select>
+        </div>
+        {answerInputs
+          ? answerInputs.map((answers) => (
+              <InputGroup key={answers.id} className={style.input_spacing}>
+                <InputGroup.Text>Answer {answers.id}</InputGroup.Text>
+                <FormControl placeholder={answers.answer} aria-label="Answer" onChange={(e) => updateAnswerInput(e.currentTarget.value, answers.id)}/>
+              </InputGroup>
+            ))
+          : 'Loading...'}
+          <Button className={style.add_remove_input_box} variant='outline-danger' onClick={() => removeAnswerInput('hi')}>Remove Previous Answer</Button>
+          <Button className={style.add_remove_input_box} variant='outline-primary' onClick={() => addAnswerInput('hi')}>Add Another Answer</Button>
+          <InputGroup className={style.input_spacing}>
+            <InputGroup.Text>Correct Answer</InputGroup.Text>
+            <FormControl placeholder={props.questionData.correctAnswer} aria-label="Correct Answer" onChange={(e) => setCorrectAnswer(e.currentTarget.value)}/>
+          </InputGroup>
+          <InputGroup className={style.input_spacing}>
+            <InputGroup.Text>Time Limit</InputGroup.Text>
+            <FormControl type="number" min="10" max="90" placeholder={`${props.questionData.timeLimit} secs`} aria-label="Time Limit"
+            onChange={ (e) => setTimeLimit(e.currentTarget.value)}/>
+          </InputGroup>
+          <InputGroup className={style.input_spacing}>
+            <InputGroup.Text>Points</InputGroup.Text>
+            <FormControl type="number" min="1" max="100" placeholder={props.questionData.points} aria-label="Points"
+            onChange={ (e) => setPoints(e.currentTarget.value)}/>
+          </InputGroup>
+          <ButtonGroup className={style.embed_btn}>
+          {radios.map((radio, idx) => (
+            <ToggleButton
+              key={idx}
+              id={`radio-${idx}`}
+              type="radio"
+              variant={idx % 2 ? 'outline-success' : 'outline-danger'}
+              name="radio"
+              value={radio.value}
+              checked={radioValue === radio.value}
+              onChange={(e) => setRadioValue(e.currentTarget.value)}>
+              {radio.name}
+            </ToggleButton>
+          ))}
+          </ButtonGroup>
+          {radioValue === 'yt' &&
+          <InputGroup className={style.input_spacing}>
+            <InputGroup.Text>Media</InputGroup.Text>
+            <FormControl placeholder="Optionally attach a youtube video" aria-label="Media"
+            onChange={(e) => setEmbedYoutubeMedia(e.currentTarget.value)}/>
+          </InputGroup>
+          }
+          {radioValue === 'img' &&
+            <InputGroup className={style.input_spacing}>
+            <InputGroup.Text >Thumbnail</InputGroup.Text>
+            <FormControl title="your text" type="file" accept="image/jpeg, image/png, image/jpg" aria-label="Thumbnail"
+              onChange={event => setEmbedImageMediaFileObj(event.target.files[0])}/>
+          </InputGroup>
+          }
         </Card.Body>
-        {/* Render when there is no questions otherwise render question cards */}
-        {JSON.stringify(questionList) === '[]'
-          ? <div className={style.no_question_text}>No Questions here 😴</div>
-          : questionList?.map((question, index) => {
-            return <QuizQuestionCard
-            key = {(Math.random() + 1).toString(36).substring(7)}
-            questionNum = {index + 1}
-            quizId = {props.quizID}
-            questionId = {question.questionId}
-            question = {question.question}
-            questionType = {question.type}
-            questionTime = {question.timeLimit}
-            questionPoints = {question.points}
-            questionEmbed = {question.embed ? question.embed : noThumb}
-            questionsList = {questionList}
-            setQuestionsList = {setQuestionsList}
-            />
-          })}
+        <Card.Footer>
+          <Button className={style.submit_btn} variant='primary' onClick={() => { submitQuestion() }}>
+              Save Changes
+          </Button>
+          <Button className={style.submit_btn} variant='secondary' onClick={ () => { navigate(`/quiz/edit/${props.quizId}/`) }}>
+              Go Back
+          </Button>
+        </Card.Footer>
       </Card>
-      <AddQuestionModal questions={questionList} handleClose={handleClose} show={show} setQuestionsList={setQuestionsList}/>
     </>
-  )
+  );
 }
 
-export default EditQuizQuestionCard;
+export default EditQuestionCard;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import EditQuizQuestionCard from '../component/EditQuizQuestionCard';
+import EditQuestionCard from '../component/EditQuestionCard';
 import NavigationMenu from '../component/NavigationMenu';
 import { getQuizDataAPI } from '../util/api';
 
@@ -42,7 +42,7 @@ function EditQuestion () {
   return (
     <>
       <NavigationMenu/>
-      <EditQuizQuestionCard
+      <EditQuestionCard
         quizId = {params.quizId}
         questionData = {questionData}
         questionList = {questionList}
