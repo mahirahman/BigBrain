@@ -35,7 +35,7 @@ export function JoinGameForm (props) {
       <Card>
         <Card.Body>
         <Card.Title className={style.card_title}>Session ID</Card.Title>
-        <input className={style.form_input} type="text" placeholder='Please enter a quiz session number' value={props.sessionId}/>
+        <input disabled className={style.form_input} type="text" placeholder='Please enter a quiz session number' defaultValue={props.sessionId}/>
         <Card.Title className={style.card_title}>Username</Card.Title>
         <input className={style.form_input} onChange={event => setUsername(event.target.value)} type="text" placeholder='Pick a username for this quiz'/>
         <Button className={style.join_game_btn} onClick={() => joinGame()} variant='success'>Join Game</Button>

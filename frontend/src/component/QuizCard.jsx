@@ -10,6 +10,7 @@ import { formatDateString } from '../util/helper';
 import { advanceQuizQuestionAPI, deleteQuizAPI, endQuizAPI, getQuizDataAPI, startQuizAPI } from '../util/api';
 import { VscDebugStart } from 'react-icons/vsc';
 import { AiOutlineStop } from 'react-icons/ai';
+import { GrFormNextLink } from 'react-icons/gr';
 import StartQuizModal from './StartQuizModal';
 import StopQuizModal from './StopQuizModal';
 
@@ -119,7 +120,7 @@ export function QuizCard (props) {
           <Card.Text>Created {formatDateString(props.date)}</Card.Text>
           <Card.Text>{data.questions ? `${data.questions.length} Questions` : 'Loading...'} | {data.questions ? `Time: ${getTotalTimeTaken()}` : 'Loading...'}</Card.Text>
           <Button className={style.start_end_btn} variant='outline-success' onClick={(e) => showStartQuizModal(e)}><VscDebugStart/> Start Quiz</Button>
-          <Button className={style.start_end_btn} variant='outline-dark' onClick={(e) => advanceNextQuestion(e)}><VscDebugStart/> Next Question</Button>
+          <Button className={style.start_end_btn} variant='outline-dark' onClick={(e) => advanceNextQuestion(e)}><GrFormNextLink/> Next Question</Button>
           <Button className={style.start_end_btn} variant='outline-secondary' onClick={(e) => showStopQuizModal(e)}><AiOutlineStop/> End Quiz</Button>
           <Button className={style.delete_btn} variant="outline-danger" onClick={ (e) => showDeleteModal(e) }><IoTrashOutline/> Delete</Button>
         </Card.Body>
