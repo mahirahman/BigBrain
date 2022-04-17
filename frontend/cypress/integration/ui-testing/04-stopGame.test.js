@@ -2,7 +2,7 @@ const { it } = require('eslint/lib/rule-tester/rule-tester');
 const { describe } = require('eslint/lib/rule-tester/rule-tester');
 
 describe('UI testing', () => {
-  it('Start a quiz', () => {
+  it('Stop a quiz', () => {
     cy.visit('localhost:3000/');
     cy.get('input[placeholder="Email"]').focus().type('jane.doe@gmail.com');
     cy.get('input[placeholder="Password"]').focus().type('password');
