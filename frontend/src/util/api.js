@@ -11,7 +11,8 @@ const fetchAPI = async (path, method, body) => {
           : undefined
     },
     body: method === 'GET' ||
-    path === '/admin/auth/logout'
+    path === '/admin/quiz' ||
+    path.includes('/start')
       ? undefined
       : JSON.stringify(body)
   };
@@ -56,6 +57,10 @@ export const updateQuizAPI = async (quizID, questions, name, thumbnail) => {
     name,
     thumbnail
   });
+};
+
+export const startQuizAPI = async (quizID) => {
+  return await fetchAPI(`/admin/quiz/${quizID}/start`, 'POST');
 };
 
 export const registerAPI = async (name, email, password) => {

@@ -7,7 +7,7 @@ export function ConfirmDeleteModal (props) {
     name: PropTypes.string.isRequired,
     handleClose: PropTypes.func.isRequired,
     show: PropTypes.bool.isRequired,
-    deleteFunc: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired
   };
 
@@ -21,7 +21,7 @@ export function ConfirmDeleteModal (props) {
           Do you wish to delete this {props.type}?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant='danger' onClick={props.deleteFunc}>
+          <Button variant='danger' onClick={props.onSubmit}>
             Delete {props.type.charAt(0).toUpperCase() + props.type.slice(1)}
           </Button>
         </Modal.Footer>

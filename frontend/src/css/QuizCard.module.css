@@ -20,10 +20,15 @@
   width: 100%;
 }
 
-.delete_btn > svg {
+.delete_btn > svg, .start_end_btn > svg  {
   vertical-align: -0.125em;
 }
 
 .delete_btn:hover > img {
   filter: brightness(10);
+}
+
+.start_end_btn {
+  width: 100%;
+  margin-bottom: 10px;
 }
