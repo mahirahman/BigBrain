@@ -61,7 +61,7 @@ export function EditQuizCard (props) {
   return (
     <>
       <Card className={style.card_container}>
-        <Card.Header>Edit Quiz</Card.Header>
+        <Card.Header>Edit Game</Card.Header>
         <Card.Body className={style.card_body_container}>
           <CardFilter colour = {props.randColour}>
             <img className={style.image_dimensions} src={quizThumbnailBase64} alt="Quiz Thumbnail"/>
