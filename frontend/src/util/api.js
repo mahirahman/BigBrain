@@ -117,3 +117,20 @@ export const getSessionStatusAPI = async (playerID) => {
 export const getSessionQuestionAPI = async (playerID) => {
   return await fetchAPI(`/play/${playerID}/question`, 'GET');
 };
+
+// For the current question that the session is up to, this allows the player to submit their answer
+export const submitQuestionAnswerAPI = async (playerID, answerIds) => {
+  return await fetchAPI(`/play/${playerID}/answer`, 'PUT', {
+    answerIds,
+  });
+};
+
+// Once a session has ended, this allows players to collect the results of their performance, benchmarked against others
+export const getSessionResultsAPI = async (playerID) => {
+  return await fetchAPI(`/play/${playerID}/results`, 'GET');
+};
+
+// Once the question timer is finished, returns the correct answer
+export const getSessionAnswerAPI = async (playerID) => {
+  return await fetchAPI(`/play/${playerID}/answer`, 'GET');
+}

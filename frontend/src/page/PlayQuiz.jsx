@@ -1,20 +1,20 @@
+/* eslint-disable */
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Card } from 'react-bootstrap';
-import { getSessionQuestionAPI, getSessionStatusAPI } from '../util/api';
+import { getSessionQuestionAPI, submitQuestionAnswerAPI } from '../util/api';
 // Move these imports later
 import style from '../css/PlayQuestionCard.module.css';
 import noThumbnail from '../img/quiz_no_thumbnail.png';
 import { FaGem, FaClock } from 'react-icons/fa';
+import PlayQuestionBtn from '../component/PlayQuestionBtn';
 
 export function PlayQuiz () {
   const navigate = useNavigate();
   const [playerId, setPlayerId] = React.useState(null);
   const { state } = useLocation();
-
   const [currentQuestionObj, setCurrentQuestionObj] = React.useState(null);
-  // eslint-disable-next-line
-  const [questionNumber, setQuestionNumber] = React.useState(0);
+  const [answerIds, setAnswerIds] = React.useState([]);
 
   // Get the playerId from the previous play join page
   // and store it in a state variable
@@ -28,33 +28,60 @@ export function PlayQuiz () {
     }
   }, []);
 
-  // If the session has not started then navigate error
+  // If there is a playerId, get the current question.
   React.useEffect(async () => {
     if (playerId) {
-      const interval = setInterval(async () => {
-        const data = await getSessionStatusAPI(playerId);
-        if (data.error) {
-          navigate('/error');
-        }
-      }, 500);
-
-      const data = await getSessionQuestionAPI(playerId);
-      if (data.error) {
+      const sessionQuestion = await getSessionQuestionAPI(playerId);
+      if (sessionQuestion.error) {
         navigate('/error');
       }
-      setCurrentQuestionObj(data.question);
-      return () => clearInterval(interval);
+      setCurrentQuestionObj(sessionQuestion.question);
     }
   }, [playerId]);
 
-  // display Q1 data here with buttons for answers + a timer that counts down based on timeLimit
-  // render of the Q change when admin advances to next Q.
+  // Handle the answer selection
+  const handleAnswerClick = async (answerId, questionType) => {
+    if (questionType === 'multiple-choice') {
+      // Check if answerId is in answerIds,
+      // if it is then remove it from answerIds
+      // if its not in answerIds, add it
+      if (answerIds.includes(answerId)) {
+        if (answerIds.length < 2) {
+          setAnswerIds([]);
+          return;
+        }
+        setAnswerIds(answerIds.filter(id => id !== answerId));
+      } else {
+        setAnswerIds([...answerIds, answerId]);
+      }
+    } else {
+      setAnswerIds([answerId]);
+    }
+  };
+
+  const isMounted = React.useRef(false);
+  // Submits the data to the API when answerIds array is changed
+  React.useEffect(async () => {
+    if (isMounted.current) {
+      const data = await submitQuestionAnswerAPI(playerId, answerIds);
+      if (data.error) {
+        alert(data.error);
+        return;
+      }
+    } else {
+      isMounted.current = true;
+    }
+  }, [answerIds]);
+
+  // If question is manually advanced before timer hits 0, OR When the timer hits 0,
+  // then the answer/results of that particular question are displayed
+  // and setAnswerIds is reset
+
   return (
     <>
       <div>
         {currentQuestionObj
           ? <Card className={style.container}>
-            <Card.Header>Question {questionNumber}</Card.Header>
             <Card.Body>
               <h1 className={style.game_question_title}>{currentQuestionObj.question}</h1>
               <div className={style.game_meta_data}>
@@ -67,7 +94,24 @@ export function PlayQuiz () {
             <div className={style.answer_btn_container}>
             {currentQuestionObj.answers.map((answer, index) => {
               return (
-                <Button key={index} id={`answer_${index}`} className={style.answer_btn}>{answer.answer}</Button>
+                <React.Fragment key={index}>
+                {currentQuestionObj.type === 'multiple-choice'
+                ? <PlayQuestionBtn
+                handleAnswerClick={handleAnswerClick}
+                questionType={currentQuestionObj.type}
+                inputType={"checkbox"}
+                index={index}
+                answer={answer.answer}
+                />
+                : <PlayQuestionBtn
+                handleAnswerClick={handleAnswerClick}
+                questionType={currentQuestionObj.type}
+                inputType={"radio"}
+                index={index}
+                answer={answer.answer}
+                />
+                }
+                </React.Fragment>
               )
             })}
             </div>

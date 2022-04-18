@@ -33,14 +33,14 @@
           "correctAnswer": [
             1
           ],
-          "timeLimit": 5,
+          "timeLimit": 30,
           "points": 500,
           "embed": null
         },
         {
           "questionId": "w7jmp",
-          "question": "My Age",
-          "type": "single-choice",
+          "question": "My fav numbers",
+          "type": "multiple-choice",
           "answers": [
             {
               "id": 1,
@@ -64,9 +64,9 @@
             }
           ],
           "correctAnswer": [
-            1
+            1,2
           ],
-          "timeLimit": 5,
+          "timeLimit": 90,
           "points": 400,
           "embed": null
         }

@@ -4,8 +4,16 @@
  to return to a "player"
 */
 export const quizQuestionPublicReturn = question => {
-  delete question.correctAnswer;
-  return question;
+  const newQuestion = {
+    questionId: question.questionId,
+    question: question.question,
+    type: question.type,
+    answers: question.answers,
+    timeLimit: question.timeLimit,
+    points: question.points,
+    embed: question.embed,
+  }
+  return newQuestion;
 };
 
 /*
