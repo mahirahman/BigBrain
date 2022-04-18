@@ -2,7 +2,7 @@ const { it } = require('eslint/lib/rule-tester/rule-tester');
 const { describe } = require('eslint/lib/rule-tester/rule-tester');
 
 describe('UI custom path testing', () => {
-  it('Add a question', () => {
+  it('Add Questions', () => {
     cy.visit('localhost:3000/');
     cy.get('input[placeholder="Email"]').focus().type('someone@mail.com');
     cy.get('input[placeholder="Password"]').focus().type('password');
