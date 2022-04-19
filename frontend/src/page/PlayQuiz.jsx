@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getSessionQuestionAPI, submitQuestionAnswerAPI } from '../util/api';
+import { getSessionQuestionAPI, getSessionStatusAPI, submitQuestionAnswerAPI } from '../util/api';
 import LoadingWheel from '../component/LoadingWheel';
 import PlayQuestionCard from '../component/PlayQuestionCard';
 import { disableInputs } from '../util/helper';
@@ -18,12 +18,25 @@ export function PlayQuiz () {
   // and store it in a state variable
   React.useEffect(() => {
     let playerIdFromPreviousPage;
+    let sessionIdFromPreviousPage;
     try {
-      ({ playerIdFromPreviousPage } = state)
+      ({ playerIdFromPreviousPage, sessionIdFromPreviousPage } = state)
       setPlayerId(playerIdFromPreviousPage);
     } catch {
+      // If there is no playerId from the previous page then go to error page
       navigate('/error')
     }
+    // Poll every 500 ms to check if the session has ended, if it has then
+    // go to the results page
+    const interval = setInterval(async () => {
+      const data = await getSessionStatusAPI(playerIdFromPreviousPage);
+      if (data.error) {
+        clearInterval(interval);
+        navigate(`/quiz/results/${sessionIdFromPreviousPage}`);
+      }
+    }
+    , 500);
+    return () => clearInterval(interval);
   }, []);
 
   // If there is a playerId, get the current question.
@@ -41,7 +54,6 @@ export function PlayQuiz () {
 
   // Handle the answer selection
   const handleAnswerClick = async (answerId, questionType) => {
-    console.log(answerIds);
     if (questionType === 'multiple-choice') {
       // Check if answerId is in answerIds,
       if (answerIds.includes(answerId)) {

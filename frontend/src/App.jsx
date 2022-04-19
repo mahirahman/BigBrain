@@ -10,6 +10,7 @@ import EditQuestion from './page/EditQuestion';
 import JoinQuiz from './page/JoinQuiz';
 import LobbyQuiz from './page/LobbyQuiz';
 import PlayQuiz from './page/PlayQuiz';
+import ResultsQuiz from './page/ResultsQuiz';
 
 function App () {
   return (
@@ -36,6 +37,8 @@ function App () {
           <Route path="/quiz/lobby/:sessionId" element={<LobbyQuiz/>}/>
           {/* Play the Quiz */}
           <Route path="/quiz/play/:sessionId" element={<PlayQuiz/>}/>
+          {/* Results of the Quiz */}
+          <Route path="/quiz/results/:sessionId" element={<ResultsQuiz/>}/>
         </Routes>
       </BrowserRouter>
       <svg className="wave_background_img" viewBox="0 0 1440 320">

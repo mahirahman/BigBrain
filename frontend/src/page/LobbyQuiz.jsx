@@ -32,7 +32,7 @@ export function LobbyQuiz () {
           return;
         }
         if (data.started) {
-          navigate(`/quiz/play/${params.sessionId}`, { state: { playerIdFromPreviousPage: playerId } });
+          navigate(`/quiz/play/${params.sessionId}`, { state: { playerIdFromPreviousPage: playerId, sessionIdFromPreviousPage: params.sessionId } });
         }
       }, 500);
       return () => clearInterval(interval);
