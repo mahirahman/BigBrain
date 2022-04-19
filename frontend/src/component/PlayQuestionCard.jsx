@@ -15,7 +15,6 @@ export function PlayQuestionCard (props) {
     setCurrentQuestionObj: PropTypes.func.isRequired,
     setRenderCorrectAnswer: PropTypes.func.isRequired,
     setAnswerIds: PropTypes.func.isRequired,
-    answerIds: PropTypes.array.isRequired,
     setCurrentTime: PropTypes.func.isRequired,
     handleAnswerClick: PropTypes.func.isRequired,
     currTime: PropTypes.number,
@@ -24,6 +23,7 @@ export function PlayQuestionCard (props) {
   };
 
   const [answer, setAnswer] = React.useState({});
+  const [correctAnswer, setCorrectAnswer] = React.useState([]);
 
   React.useEffect(async () => {
     if (props.renderCorrectAnswer) {
@@ -62,6 +62,18 @@ export function PlayQuestionCard (props) {
     return () => clearInterval(interval);
   }, []);
 
+  const isMounted = React.useRef(false);
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const fruitsById = {};
+      for (const fruit of props.currentQuestionObj.answers) fruitsById[fruit.id] = fruit;
+      const result = answer.map(id => fruitsById[id]);
+      setCorrectAnswer(result);
+    } else {
+      isMounted.current = true;
+    }
+  }, [answer]);
+
   return (
     <>
       <Card className={style.container}>
@@ -78,14 +90,13 @@ export function PlayQuestionCard (props) {
               />
               : <img className={style.thumbnail} src={noThumbnail} alt="Question Thumbnail"/>}
             <div className={style.question_type}>
-              {/* {props.currentQuestionObj.type.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())} */}
               {capitaliseFirstLetterString(props.currentQuestionObj.type)}
             </div>
           </div>
           )}
           {props.renderCorrectAnswer && (
             <div className={style.game_meta_data}>
-            {JSON.stringify(answer)}
+            {JSON.stringify(correctAnswer)}
           </div>
           )}
         <div className={style.answer_btn_container}>

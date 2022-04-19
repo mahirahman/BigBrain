@@ -51,7 +51,6 @@ export function PlayQuiz () {
       // instead of rendering the question
       const dt = new Date(sessionQuestion.question.isoTimeLastQuestionStarted)
       const expectedFinishTime = dt.setSeconds(dt.getSeconds() + sessionQuestion.question.timeLimit);
-      console.log(expectedFinishTime);
       if (Date.now() > expectedFinishTime) {
         setRenderCorrectAnswer(true);
       }
@@ -84,7 +83,7 @@ export function PlayQuiz () {
     if (isMountedAnswerIds.current && answerIds.length > 0) {
       const data = await submitQuestionAnswerAPI(playerId, answerIds);
       if (data.error) {
-        alert(data.error);
+        disableInputs(true);
       }
     } else {
       isMountedAnswerIds.current = true;
@@ -122,7 +121,6 @@ export function PlayQuiz () {
         setCurrentQuestionObj={setCurrentQuestionObj}
         setRenderCorrectAnswer={setRenderCorrectAnswer}
         setAnswerIds={setAnswerIds}
-        answerIds={answerIds}
         setCurrentTime={setCurrentTime}
         handleAnswerClick={handleAnswerClick}
         currTime={currentTime}
