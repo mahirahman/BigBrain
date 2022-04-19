@@ -101,6 +101,11 @@ export const getSessionStatusAdminAPI = async (sessionID) => {
   return await fetchAPI(`/admin/session/${sessionID}/status`, 'GET');
 }
 
+// Get the results for a quiz session and what people's scores were
+export const getSessionResultsAdminAPI = async (sessionID) => {
+  return await fetchAPI(`/admin/session/${sessionID}/results`, 'GET');
+};
+
 // Join an active session as a new player
 export const playJoinAPI = async (sessionID, name) => {
   return await fetchAPI(`/play/join/${sessionID}`, 'POST', {

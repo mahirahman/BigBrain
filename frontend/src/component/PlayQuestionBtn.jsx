@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import style from '../css/PlayQuestionCard.module.css';
+import style from '../css/PlayQuestionBtn.module.css';
 
 export function PlayQuestionBtn (props) {
   PlayQuestionBtn.propTypes = {

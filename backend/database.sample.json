@@ -33,7 +33,7 @@
           "correctAnswer": [
             1
           ],
-          "timeLimit": 30,
+          "timeLimit": 5,
           "points": 500,
           "embed": null
         },
@@ -66,7 +66,7 @@
           "correctAnswer": [
             1,2
           ],
-          "timeLimit": 90,
+          "timeLimit": 5,
           "points": 400,
           "embed": null
         }

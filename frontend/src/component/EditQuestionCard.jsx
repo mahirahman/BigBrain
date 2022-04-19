@@ -9,6 +9,7 @@ import {
 import { updateQuizAPI } from '../util/api';
 import style from '../css/AddEditQuestion.module.css';
 import { useNavigate } from 'react-router-dom';
+import LoadingWheel from './LoadingWheel';
 
 function EditQuestionCard (props) {
   EditQuestionCard.propTypes = {
@@ -166,7 +167,7 @@ function EditQuestionCard (props) {
                 <FormControl placeholder={answers.answer} aria-label="Answer" onChange={(e) => updateAnswerInput(e.currentTarget.value, answers.id)}/>
               </InputGroup>
             ))
-          : 'Loading...'}
+          : <LoadingWheel/>}
           <Button className={style.add_remove_input_box} variant='outline-danger' onClick={() => removeAnswerInput('hi')}>Remove Previous Answer</Button>
           <Button className={style.add_remove_input_box} variant='outline-primary' onClick={() => addAnswerInput('hi')}>Add Another Answer</Button>
           <InputGroup className={style.input_spacing}>
