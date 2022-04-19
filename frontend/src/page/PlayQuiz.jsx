@@ -47,6 +47,14 @@ export function PlayQuiz () {
         navigate('/error');
         return;
       }
+      // If the current question has passed the time limit, then go to the results page
+      // instead of rendering the question
+      const dt = new Date(sessionQuestion.question.isoTimeLastQuestionStarted)
+      const expectedFinishTime = dt.setSeconds(dt.getSeconds() + sessionQuestion.question.timeLimit);
+      console.log(expectedFinishTime);
+      if (Date.now() > expectedFinishTime) {
+        setRenderCorrectAnswer(true);
+      }
       setCurrentQuestionObj(sessionQuestion.question);
       setCurrentTime(sessionQuestion.question.timeLimit);
     }

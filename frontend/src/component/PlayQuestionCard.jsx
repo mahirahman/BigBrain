@@ -6,7 +6,7 @@ import style from '../css/PlayQuestionCard.module.css';
 import { FaGem, FaClock } from 'react-icons/fa';
 import noThumbnail from '../img/quiz_no_thumbnail.png';
 import { getSessionAnswerAPI, getSessionQuestionAPI } from '../util/api';
-import { checkInputs, disableInputs } from '../util/helper';
+import { capitaliseFirstLetterString, checkInputs, disableInputs } from '../util/helper';
 import EmbedMedia from './EmbedMedia';
 
 export function PlayQuestionCard (props) {
@@ -78,7 +78,8 @@ export function PlayQuestionCard (props) {
               />
               : <img className={style.thumbnail} src={noThumbnail} alt="Question Thumbnail"/>}
             <div className={style.question_type}>
-              {props.currentQuestionObj.type.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}
+              {/* {props.currentQuestionObj.type.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())} */}
+              {capitaliseFirstLetterString(props.currentQuestionObj.type)}
             </div>
           </div>
           )}

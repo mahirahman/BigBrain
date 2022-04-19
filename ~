@@ -1,0 +1,17 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch play_join
+# Your branch is up to date with 'origin/play_join'.
+#
+# Changes to be committed:
+#	modified:   backend/database.sample.json
+#	new file:   frontend/src/component/EmbedMedia.jsx
+#	modified:   frontend/src/component/PlayQuestionCard.jsx
+#	modified:   frontend/src/component/QuizQuestionCard.jsx
+#	modified:   frontend/src/css/PlayQuestionCard.module.css
+Modified sample database to have real questions
+
+EmbedMedia is now it's own component
+ - Used in Edit Question and Play Game
