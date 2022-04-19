@@ -71,6 +71,30 @@
   border: 0.25rem;
 }
 
+.correct_answers {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.answer {
+  padding: 5px;
+  background: #198754;
+  border-radius: 5px;
+  font-size: 1.20em;
+  width: max-content;
+  color: #fff;
+  font-weight: 500;
+  text-align: center;
+}
+
+.center {
+  text-align: center;
+}
+
+.correct_answer_title {
+  color: #198754;
+}
+
 @media only screen and (max-width: 1024px) {
   .container {
     margin: 10px;
