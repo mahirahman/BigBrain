@@ -29,7 +29,7 @@
 }
 
 .thumbnail {
-  width: 500px;
+  width: 75%;
   height: 250px;
 }
 
@@ -63,4 +63,21 @@
 .question_data {
   display: flex;
   gap: 15px;
+}
+
+.media_container {
+  width: 500px;
+  height: 300px;
+  border: 0.25rem;
+}
+
+@media only screen and (max-width: 1024px) {
+  .container {
+    margin: 10px;
+  }
+
+  .game_meta_data {
+    flex-direction: column;
+    gap: 20px;
+  }
 }

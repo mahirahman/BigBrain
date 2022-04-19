@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import style from '../css/QuizQuestionCard.module.css';
 import { FaGem, FaClock } from 'react-icons/fa';
-import { validateYoutubeMedia } from '../util/validate';
 import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { BiEdit, BiTrash } from 'react-icons/bi';
+import EmbedMedia from './EmbedMedia';
 
 export function QuizQuestionCard (props) {
   QuizQuestionCard.propTypes = {
@@ -53,9 +53,11 @@ export function QuizQuestionCard (props) {
                 <p className={style.delete_btn} onClick={handleShow}><BiTrash/>Delete</p>
               </div>
             </div>
-            {validateYoutubeMedia(props.questionEmbed)
-              ? <iframe className={`${style.embed_video} ${style.media_container}`} src={`https://www.youtube.com/embed/${validateYoutubeMedia(props.questionEmbed)}?controls=0`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-              : <img className={`${style.image_media} ${style.media_container}`} src={props.questionEmbed} alt="Question Youtube Video"/>}
+              <EmbedMedia
+              questionEmbed={props.questionEmbed}
+              mediaContainer={style.media_container}
+              imageMedia={style.image_media}
+              />
           </div>
         </Card.Body>
       </Card>

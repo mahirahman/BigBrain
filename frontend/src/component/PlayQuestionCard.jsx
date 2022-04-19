@@ -7,6 +7,7 @@ import { FaGem, FaClock } from 'react-icons/fa';
 import noThumbnail from '../img/quiz_no_thumbnail.png';
 import { getSessionAnswerAPI, getSessionQuestionAPI } from '../util/api';
 import { checkInputs, disableInputs } from '../util/helper';
+import EmbedMedia from './EmbedMedia';
 
 export function PlayQuestionCard (props) {
   PlayQuestionCard.propTypes = {
@@ -69,7 +70,13 @@ export function PlayQuestionCard (props) {
           {!props.renderCorrectAnswer && (
             <div className={style.game_meta_data}>
             <div className={style.timer}>{props.currTime}</div>
-            {props.currentQuestionObj.embed ? 'yt or img' : <img className={style.thumbnail} src={noThumbnail} alt=""/>}
+            {props.currentQuestionObj.embed
+              ? <EmbedMedia
+              questionEmbed={props.currentQuestionObj.embed}
+              mediaContainer={style.media_container}
+              imageMedia={style.thumbnail}
+              />
+              : <img className={style.thumbnail} src={noThumbnail} alt="Question Thumbnail"/>}
             <div className={style.question_type}>
               {props.currentQuestionObj.type.replace(/-/g, ' ').replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}
             </div>
