@@ -1,0 +1,95 @@
+{
+  "admins": {
+    "1": {
+      "name": "test",
+      "password": "1",
+      "sessionActive": true
+    },
+    "hayden@unsw.edu.au": {
+      "name": "Harry Jenkins",
+      "password": "adummypassword",
+      "sessionActive": true
+    }
+  },
+  "quizzes": {
+    "441413308": {
+      "name": "My Quiz",
+      "owner": "1",
+      "questions": [
+        {
+          "questionId": "2hyog",
+          "question": "What is the capital of Australia 🦘",
+          "type": "single-choice",
+          "answers": [
+            {
+              "id": 1,
+              "answer": "Sydney"
+            },
+            {
+              "id": 2,
+              "answer": "Darwin"
+            },
+            {
+              "id": 3,
+              "answer": "Canberra"
+            },
+            {
+              "id": 4,
+              "answer": "Melbourne"
+            },
+            {
+              "id": 5,
+              "answer": "London"
+            }
+          ],
+          "correctAnswer": [
+            3
+          ],
+          "timeLimit": 45,
+          "points": 250,
+          "embed": "https://youtu.be/nD2r9R1tLAo"
+        },
+        {
+          "questionId": "w7jmp",
+          "question": "Which of the following are beaches of Sydney",
+          "type": "multiple-choice",
+          "answers": [
+            {
+              "id": 1,
+              "answer": "Bondi"
+            },
+            {
+              "id": 2,
+              "answer": "Manly"
+            },
+            {
+              "id": 3,
+              "answer": "Brighton"
+            },
+            {
+              "id": 4,
+              "answer": "Elwood"
+            },
+            {
+              "id": 5,
+              "answer": "Cronulla"
+            }
+          ],
+          "correctAnswer": [
+            1,
+            2,
+            5
+          ],
+          "timeLimit": 50,
+          "points": 300,
+          "embed": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAAHmWi9wAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAA70SURBVEhLrVcLdFXFuZ7Zr/PISXKSkMSEA4YAAVRq5UYMoIhEgyLgKlewtYC6eN1q1aWo4EUEUVrRWrG13KK39ZEr6uXhEi9YqAGKPCIFXdTyUgyPhCQk4eTk5OTkvPbe9/v37JwkJCJ2+a1Ze//zzz8z/5759//gbPIC1gMKy8i3SQu+TU/gydmj7/j+PGv922/mXD648K1vxBhnv6qovKoWLHRi7WHN5S7c3Mav9rL351wnS9zplgLhaPXJutl7XDyvdBfnzDSZpnI85bQ9ieBo3mfMB0a8PR49rzqyxKJAL5qRWlzJcZ6pSDld6Wz8GizunjQ/XDS2cpwhFBh74xjuUtjhg5VCFbBIm5pnxjQMa836pyfSbqR45BmbmkkVWpMxVeWqwrPTz/GsknV6rAUsSaGJAGdTFwuqJxzNp1NP7nEGzuiqW2LZfZPN3Xa2aulkEC8MafnHQ6Oyv3i3acLjmFA3dSVnCzdU3d0XnYbTpD4g9E4CHxDJv4p5M3LxGZWbygf7MqsOVR6r3P7rn14NYlpf58Gt671lz5Vmq/mXD+NThnvFvHtvHP9yaFE0boiuwBtPpTz8sj/Y5qAjtjicMdNIRLjs4LgI9CUVHEnWrNHeDr0nLnYovu3PR7z9QUjMk3lBy93/Z0HUTHmBji01h7P5q8U8oPL2VJzFmLIJe7ZtLVz9uc2llVLSRYOEYEGCXh18NI6zAadw7dnKMWEQF5wqMPJn8zkOs3z1K4l4LH/QlTa7AzCXodtNECRUU+9vTzirDu0EF6wPVj166litvyEI+mwwIv9oDJn35kfGtIXCbdcaOUc9wUAizas0+MNYoU+aK3T3mjsmz+RlQ9OcqoRJs0tLVzSSCXQFLue+59psO1QUlkgIPpNlhruRZV5a3KjJX+34ZAddn6y69XjY1ONm8r64xLksybhBq5dZ8r90u/F2Q29HX1bc1u12wyVd8CVCYqmZl9iyv9yQpH2frupJS0x10U0qTnqCdqUyRwpzenxbnkarWliKhqHc3atN1YmhE4+PIxnAnUazPNZ/AFpzKyw1nToOFx6+dQ/XzHiNunocngtv/HlkHQ7Xvo82EB9W8/ph5kohyummJmAREpbcf5t7/8SUvA3WBbrT0Spvs6QtYLmquZ3WBBpt19/2WJJp9ASsWdznlV2edFigJckmz5jz2ad/EzRg69UFSReWROEHfkFINYu243XT1Jmiv37Nqgm3TxR0S2OdN6evMF2B2hP/xFNwxBOb+Vbdd8O2FflvLOALSoeUHwplu8In6kNrf/fs8icX0STGitxOQTy7ccuu8qf3VRzOH5DaVBf5ZVm/faeaQ+2J6cX9DMMMBXUusQcOOGvqA/zUktHtbXo4HMC0aLquNUsOJ92DqnFdZ/GY4XTRHwE/rGoSLD3QGkM8UB0SFhobWHHgqUHS6zOxXCxq8qIpuxFAErqpyFw3TFi7iaABI+bEhNMWQ0RDwGR4YhRY86Ts9bh3f1l1/fDCuxa3xhIG73P9h/hrjERUhnF1AbwhlxS7kwTHSqRmzyHDiPGcsVswQp1EOzlTSTX1GLpJ7UiwJ/C7kmRU6qLBD/E/frSFTaartxR2D7B4/yqshYCL+fiLAO4fz4QzLeGk/1FrrY+lXiaza25livqdzbft2eCwsmQ3OPgmHLCr8ev68Qt0l1drrWscNZuzWS9ZO/UOJCqxtLyGcY/Y/Q4orQ2eql2e0/tBt/Urdp47IsfCEpMkcrxoIDSNvK7TsnhNc547in+48qP15Icllr95iciBmMORSL8sUPyz4NBban7yUvPIn+spWTXTXpEkdwEyCWoOB+bkb3malnO5vpxZeOSFOTQT2n2wwHS4dm/fTu7B5aJdIYztYTCaJjkQN2F2kmRIfqY60Lhp+N5/sPauV0Aj+LW1+JNpA5xa1f0jBC2E7SbJeBrSedoevxXTnNlbV+JpejJIVHNS64BYrqv/wuh/XqVuKE0nMVmx5el8nFLRu/M/W//2/lIp9bAVfxUNeZc1qRecg1+8Z+CcUUX/vs9kCvTCQeNjHaSX4qAou3XzFlvWSnuEdxbAn5RbUGR3GDtfezor/3IQe786M7qI0gsAAV1rPBHLHkRr3TLuhlnT7wT3Ahfa06kmOYGGWm8OpblJpwpIgWDbX3d+KjoQTTpVANOibSG70wHhTo1EHM831q5jmiPZ+B/mlq38sLLRH9yxsRzDmNzvimtokjUt3NriTk1POnhsBq+NbpK4atrDeWZkgC+jPpouLV5/KBymsA5gofEzHhCqif2xEJ4LJ46jYcbS+uQtmTrx/1Yv3rR6ecpfnjpUH/px7WehUIuqKMeP/J3n9OkLZ18TkCKR4NAU0hzYuGPvotvHF18/5MDu44ID3DnvjmFtX8OjhYKJHVVNs8YUtEz/o/bm3JaAf0lV/5On6ikRSnVI790/Cq49FjXCo3QjHpLU1MxDKv6c9rBOP5VLTsQNuPy4TDkO1uqX58FCoF3l8/znz/9y29kG5Ur+1RMlssIDfn80LQ47zoilRCIUL7BENGJgSIHLT5h6wnQ4pVAkHmnXHU4Ztum8/z04+5wvNw5rP2QYLBYxOhPjJObcXPpi80LDNOMJctPfBqRlInAgORMcikPCqcMsoQxCkYg6hkl/Lj5TDCmIVYapKeSHBd5fYSesW/aeemtzFiZ2lh0AIlivuuCLsCgCIqIfQiS+CN1TKU3XKvo1RV+/u2b1nEcWrKsYQVmhyPCSOSCgx9svCHEWrNiD2CVp3ApdSRh6FA+7QLCWMxETxRhlm1Z85F02AIQY3lySeywX59ljN9N5GGRZpqGL4Ei0aX5rcAQoPiL1xYqdMlZtqFsmaillJMjcdb2dc0US2S2IjvLl4vghc99ukFOYbtvKv4DvEWrl9Gv1lr/bnR8ICNm4ybPj7ZwPcJ07knV4E2fTl5GvxpWYBk4cNkhJj6HjGokJgBYCsFDI0OVxkgQgLGaBCXPuPksN1uVW/jdIk0tnJyzBsr6Pl9aULcnb+XLd+McgkHZiZ3DIzSB8W5fX3LoMkjn7XmsomYMVELFViktiY1WzdwUHfOyElhSAEoIJWsT5jlnpx7flVbwIsdy9f4RAnwPleMYz+9dMXI529rZls24bRcKAotbd/AQtgtUYE7OIjzidiODtPfpxXsULWL0zql46kFQEB40LXjHx37LVdbNGMlZa+NJe8WthQWfTN0zrrDSAbU/+3Bc+T1TX7SSl7tanbVpxGjQkBX48DSm4QmnGdwC/r6GdP5X++Xq19VxgxLRwwciKbRWqo/v3uKyuJGnhc1bXlcw+UKvXT6Y7QqrSbTu1y+6CwClaBA4TOReuA/clM/gWcYngyEp2xW+V1kYmS96DKGdZ44SFtdNWbX+gFPlPc301giMtlIS4UMaOLZmKpCqp068rjnQsa3knsgfLNsiP8eQsYlKDRmQbQhsymiH5AyDtqv7Ce+B9cHxrf+FoOpnI9EEgUDLTc+LTgelK5a3dTqibZopW9R9XJ+vLJF6vwk9gfTzsEsB2ZKxJw9Vs2wKTBIQFa5R7+f5nHtrx5kbQkYLiwNi5lJYJaM689Y/hufmZX7wzuhdPKDQLNTd1y/O6QnOKslVUrr8vVmlx0aCQICwxalDUIhSmOimR7YGqktfunTcPo21Db9p3IxKAb3f5jHky+thUd5C69wy0OxYePJqSfpDyqJaSmY76Yzg2reEEDajOlMNb5bZmEOmV5XaVDX7X/PIiqD95HP+y3emRQF4AnGV2/0EX/yTksjbVBZ1qAeWrXxFEEti15uQJ34BBdr87GqursvsV2p3ekMwZ7b6VF3btIvQO/DBgOWF8Ku9w3RKpNWnk8IojZyBUU+/fvuHtrh+HTPPeRxeNLRm5dNmzNqsDIvEU6LpTEoZhNFV/A7VAJwX8tac9GdmxSFjce+FmO26O3PR8ViqlQl/I/dxBP2e/2buk8tH3Kr+CTkJC5NAAJps6lR1zHl/8p1Uv+gZ3GnVXnZIwGYquTi+68p4p9y1/SagFQLPm+hpkKStn34Nu0dU5gYzrPt+0DmeQk5Nam1MCtXRdP1UbShgq92bkzh7h3XS8UeOk7OlzgYTBd2x4E2dWMgVVHpmR26XpeuLjd14tKBoGhZCI0z4dKB535YGdh+2Otd/s58nPQa1Bwwv2V/zj8iztJ8V9kPypsnRZfo6i0prBhGLe/Sp/bU6Lbvb1KnduS4FakWjs6Inq+tozlNBbq3VieGpgdK7y01GDFVl+8+DJAdkee8DCTQU5KOdE4qrrJvL2eMwMBBqljpuHncBiQCBdTpqDxYRjxseSjfgzh2b4j6U9/uGKO4qfu3NENGq0hZqL11RD0tcv399Yxx8qGxSprX2kbDg2c6AUZezAaX9DCPkm4ZaiXFWVWoMhLIqUPhE3kUx6Mz0XqIU6Ctk+bcgYqohoFImlGU7EqLa1ADE0VBSgN+46VvrqTv2dh6pLlxVclonqQqj18Ce10L++vi03P5Mff+y6auba1Oh9orARX/mXs87rU9u2h9MnZYdQY2AVpKyYJvbWHHAO9t6xqIl7AQeNdu7YG4mrw8HFTflb2y2mqWrWXPExCVOd+xYIUVmASH13/jN7W5+5IQ1D2AtPfs30fRhAQYDtcAY4bHQBhCtBJDlIt9C6QkG6hVNEDmYFEuRddFNWiAONOsOSohWSqwE3jzxz7+1XgBj+1OH/usslNJuxlEpcSGIiVuADJ+0m2UuAsBgBygjxMXHT6bCM5fvg7aWq12P7iysf/GSg81pBA1Xt+wtdSJMYzx23lRic8kzUAtbZwFSVZDkiig0DJQ/jponagfhi1DoGhP1ulcZ3IiejadINqD9r7H4XpKd63njxV6H+f7LLqG5AUWMla3oiikMVvIsDBReMnJN+EtVfMmq273eEF8A+LXg5qrDIwON0Nh11GREICBcDlFHppCl/wptqQiOBahIlm5WxfBesT8KF4HusYs5Cb6eF1fUEbBSlp901UIN2zukErp7O9pJKv28DaY+j5TK2w8eQZeAjM0eutce7gwzcRNlPxwbDMnu/TfgquAwrvwM4jseQ5G6pIn0PTBZPbIaDoQWhBJ0lztkW6g7TNP8fgkZwJF9WpmQAAAAASUVORK5CYII="
+        }
+      ],
+      "thumbnail": null,
+      "active": null,
+      "createdAt": "2022-04-17T03:56:58.164Z"
+    }
+  },
+  "sessions": {
+  }
+}

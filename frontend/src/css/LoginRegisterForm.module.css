@@ -39,3 +39,7 @@
 .pointer:hover {
   text-decoration: underline;
 }
+
+.join_game_btn {
+  width: 100%;
+}

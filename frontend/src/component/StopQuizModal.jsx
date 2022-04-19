@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-// import style from '../css/StartStopQuizModal.module.css';
 
 export function StopQuizModal (props) {
   StopQuizModal.propTypes = {
