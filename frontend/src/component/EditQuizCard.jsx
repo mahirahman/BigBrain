@@ -23,6 +23,7 @@ export function EditQuizCard (props) {
   // console.log(props.randColour);
   // console.log(defaultImageColour);
 
+  // Update the quiz name and image using the API
   const updateData = async (base64Image) => {
     const data = await updateQuizAPI(props.quizID, null, quizName, base64Image);
     if (data.error) {
@@ -35,7 +36,9 @@ export function EditQuizCard (props) {
     }
   }
 
+  // Update the state variables for name and image
   const updateQuizDetails = async () => {
+    // Validate the name length
     if (quizName.length < 4) {
       alert('Please enter a name with at least 4 characters');
       return;
@@ -43,6 +46,7 @@ export function EditQuizCard (props) {
       alert('Quiz name must be less than 36 characters');
       return;
     }
+    // Attempt to create a base64 image from file object
     let base64Image;
     try {
       base64Image = await fileToDataUrl(quizThumbnailFileObj);
@@ -52,6 +56,7 @@ export function EditQuizCard (props) {
     updateData(base64Image);
   }
 
+  // Set the current quiz thumbnail and name when props load
   React.useEffect(() => {
     setQuizThumbnailBase64(props.thumbnail);
     setQuizName(props.name);

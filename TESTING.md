@@ -16,3 +16,11 @@
 8. Edit 1st question change point to 11000 Windows.alert should pop up. make an assertion to capture error.
 9. Delete 1st question.
 10. Only 1 question left shown on the screen.
+
+The rationale behind this test is to show that ediiting and modifying a question is done successfully while dynamic renders.
+It also shows that a user can modify any field without changing all fields. If a user only wants to change a question image they can do so and it will not affect any other question data. This has been done through multiple layers of validation of the data.
+
+Also, there is multiple error checking when editing a question. For example trying to paste a non youtube URL to the URL embed will result in an error.
+Trying to add multiple answers to a single choice question, adding single answer to multiple choice etc.
+
+This test shows that editing a question in any sort of combination of inputs will not cause issues.

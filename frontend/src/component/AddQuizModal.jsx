@@ -11,9 +11,12 @@ export function AddQuizModal (props) {
     reRender: PropTypes.func
   };
 
+  // New game name state
   const [newGameName, setNewGameName] = React.useState('');
 
+  // Submits new game name to API
   const submitNewGame = async (name) => {
+    // Validates the game name.
     if (!name.length) {
       alert('Please enter a name for your new game');
       return;
@@ -24,11 +27,13 @@ export function AddQuizModal (props) {
       alert('Quiz name must be less than 36 characters');
       return;
     }
+    // Submit the name to the create quiz API
     const data = await createQuizAPI(name);
     if (data.error) {
       alert(data.error);
       return;
     }
+    // Rerender the quizzes page
     if (props.reRender) props.reRender((r) => !r);
     props.handleClose();
   };

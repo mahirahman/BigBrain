@@ -53,14 +53,17 @@ export function AddQuestionModal (props) {
   };
 
   const addAnswerInput = () => {
+    // Checks if user can add a new answer input
     if (answerInputs.length + 1 > 6) {
       alert('You can only have a maximum of 6 answers');
       return;
     }
+    // Add answer input
     setAnswerInputs([...answerInputs, { id: answerInputs.length + 1 }]);
   };
 
   const removeAnswerInput = () => {
+    // Checks user must have minimum input boxes depending on answer type
     if (questionType === 'single-choice' && answerInputs.length === 2) {
       alert('You must have at least 2 answers');
       return;
@@ -68,13 +71,16 @@ export function AddQuestionModal (props) {
       alert('You must have at least 3 answers');
       return;
     }
+    // Remove answer input
     setAnswerInputs([...answerInputs.slice(0, answerInputs.length - 1)])
   };
 
+  // Updates the answer input value on change
   const updateAnswerInput = (answer, id) => {
     setAnswerInputs([...answerInputs.slice(0, id - 1), { id, answer }, ...answerInputs.slice(id)]);
   };
 
+  // Reset all the input fields
   const resetFormStates = () => {
     setQuestionName('');
     setQuestionType('single-choice');
@@ -87,6 +93,7 @@ export function AddQuestionModal (props) {
     setEmbedImageMediaFileObj({});
   };
 
+  // Generates the question object to be later passed to API
   const generateQuestionObject = async (correctAnswerValid) => {
     let embedMedia = null;
     if (radioValue === 'yt') {
@@ -107,6 +114,7 @@ export function AddQuestionModal (props) {
     };
   };
 
+  // Submits a question to the API
   const submitQuestion = async () => {
     // Validate each field
     if (!validateQuestionName(questionName)) return;

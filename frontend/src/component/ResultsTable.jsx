@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'react-bootstrap';
 import { getTotalScoreUser } from '../util/results';
+import { Table } from 'react-bootstrap';
+import style from '../css/Charts.module.css';
 
 export function ResultsTable (props) {
   ResultsTable.propTypes = {
@@ -9,26 +10,45 @@ export function ResultsTable (props) {
     questions: PropTypes.array.isRequired
   };
 
+  const [displayData, setDisplayData] = React.useState([]);
+
+  React.useEffect(() => {
+    // Create a custom array of objects with username and score key value pairs
+    const data = [];
+    if (props.questions.length) {
+      props.results.map((result) => {
+        return (data.push({ user: result.name, score: getTotalScoreUser(result.answers, props.questions) }));
+      })
+    }
+    // Sort data array by key 'score'
+    // Remove every element from the array after index 4
+    // This will show the top 5 results
+    setDisplayData((data.sort((a, b) => (a.score < b.score) ? 1 : -1)).slice(0, 5));
+  }, [props.questions, props.results]);
+
   return (
     <>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Username</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.results.map((result, index) => {
-            return (
-              <tr key={index}>
-                <td>{result.name}</td>
-                <td>{!props.questions.length ? 'Loading...' : getTotalScoreUser(result.answers, props.questions)}</td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </Table>
+      <p className={style.caption}>Top 5 users</p>
+      <div className={style.center}>
+        <Table className={style.table_width} striped bordered hover>
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {displayData.map((data, index) => {
+              return (
+                <tr key={index}>
+                  <td>{data.user}</td>
+                  <td>{data.score}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </Table>
+      </div>
     </>
   );
 }

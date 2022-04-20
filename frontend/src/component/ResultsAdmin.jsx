@@ -3,6 +3,8 @@ import { Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import style from '../css/ResultsAdmin.module.css';
 import { getSessionResultsAdminAPI, getSessionStatusAdminAPI } from '../util/api';
+// import { getavg } from '../util/results';
+// import BarChart from './BarChart';
 import ResultsTable from './ResultsTable';
 
 export function ResultsAdmin () {
@@ -10,6 +12,7 @@ export function ResultsAdmin () {
   const [results, setResults] = React.useState([]);
   const [allQuestions, setAllQuestions] = React.useState([]);
 
+  // Get the results for the session
   React.useEffect(async () => {
     const dataResults = await getSessionResultsAdminAPI(params.sessionId);
     if (dataResults.error) {
@@ -23,7 +26,6 @@ export function ResultsAdmin () {
       alert(dataSession.error);
       return;
     }
-    console.log(dataSession.results.questions);
     setAllQuestions(dataSession.results.questions);
   }, []);
 
@@ -35,13 +37,15 @@ export function ResultsAdmin () {
           {!results.length
             ? 'No results found'
             : <>
-            <p>Table of up to top 5 users and their score</p>
             <ResultsTable
             results={results}
             questions={allQuestions}
             />
-            <p>Bar chart showing a breakdown of what percentage of people got certain questions correct</p>
-            <p>Line chart showing the average response time for each question</p>
+            {/* BarChart for more stats */}
+            {/* <BarChart
+            labels={allQuestions.map((x, index) => `Question ${index + 1}`)}
+            data={results.map((x) => getavg(x.answers, allQuestions.length))}
+            /> */}
             </>
           }
         </Card.Body>

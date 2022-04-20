@@ -30,16 +30,20 @@ export function ResultsQuiz () {
       <Card className={style.container}>
         <Card.Header>Results</Card.Header>
         <Card.Body>
-          <PieChart
-          labels={['Correct', 'Incorrect']}
-          data={[numberOfCorrectAnswers(results), numberOfIncorrectAnswers(results)]}
-          />
-          <LineChart
-          labels={results.map((x, index) => `Question ${index + 1}`)}
-          data={results.map((x, index) => timeTakenToAnswer(x) / 1000)}
-          />
-          <p>{`You took an average of ${getAverageAnswerTime(results)} seconds to answer a question`}</p>
-          <p>{`Your Final Results: ${numberOfCorrectAnswers(results)}/${getTotalAnswers(results)}`}</p>
+          <div className={style.charts_container}>
+            <PieChart
+            labels={['Correct', 'Incorrect']}
+            data={[numberOfCorrectAnswers(results), numberOfIncorrectAnswers(results)]}
+            />
+            <LineChart
+            labels={results.map((x, index) => `Question ${index + 1}`)}
+            data={results.map((x) => timeTakenToAnswer(x) / 1000)}
+            />
+          </div>
+          <div className={style.stats_text}>
+            <p className={style.text_box}>{`You took an average of ${getAverageAnswerTime(results)} seconds to answer a question`}</p>
+            <p className={style.text_box}>{`Your Final Results: ${numberOfCorrectAnswers(results)}/${getTotalAnswers(results)}`}</p>
+          </div>
         </Card.Body>
       </Card>
     </>

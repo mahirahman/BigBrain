@@ -9,6 +9,7 @@ export function EmbedMedia (props) {
     imageMedia: PropTypes.string.isRequired,
   };
 
+  // Based on the embed value it will try to either return a youtube iframe or an image with the src as the given thumbnail
   return (
     <>
       {validateYoutubeMedia(props.questionEmbed)

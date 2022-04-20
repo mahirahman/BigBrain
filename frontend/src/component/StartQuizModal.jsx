@@ -14,6 +14,7 @@ export function StartQuizModal (props) {
   const [show, setShow] = React.useState(false);
   const target = React.useRef(null);
 
+  // On click it will copy the play quiz url to clipboard
   const copyToClipboard = () => {
     navigator.clipboard.writeText(`http://localhost:3000/quiz/${props.sessionId}`);
     setShow(!show);

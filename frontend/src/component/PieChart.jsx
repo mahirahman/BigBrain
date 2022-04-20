@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Doughnut } from 'react-chartjs-2'
 import 'chart.js/auto';
-import style from '../css/charts.module.css';
+import style from '../css/Charts.module.css';
 
 export function PieChart (props) {
   PieChart.propTypes = {

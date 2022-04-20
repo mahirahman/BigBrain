@@ -13,20 +13,20 @@ export function JoinGameForm (props) {
   const navigate = useNavigate();
   const [username, setUsername] = React.useState('');
 
+  // Join a game
   const joinGame = async () => {
     // Check if user inputted a username
     if (!username) {
       alert('Please enter a username');
       return;
     }
-    // Allow the user to join the session
-    // Get the data from the API
+    // Allow the user to join the session using the API
     const data = await playJoinAPI(props.sessionId, username);
     if (data.error) {
       alert(data.error);
       return;
     }
-    // Navigate to the play page and send the playerId data as a location object
+    // Navigate to the lobby page and send the playerId data as a location state object
     navigate(`/quiz/lobby/${props.sessionId}`, { state: { playerIdFromPreviousPage: data.playerId } });
   };
 

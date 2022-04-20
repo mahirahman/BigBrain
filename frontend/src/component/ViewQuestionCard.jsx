@@ -17,24 +17,22 @@ export function ViewQuestionCard (props) {
 
   const navigate = useNavigate();
 
-  const fetchData = async () => {
-    const data = await updateQuizAPI(props.quizID, questionList, null, null);
-    if (data.error) {
-      navigate('/quizzes');
-    }
-  }
-
   const [questionList, setQuestionsList] = React.useState(props.questions);
   const [show, setShow] = React.useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // When props load set the questions
   React.useEffect(() => {
     setQuestionsList(props.questions);
   }, [props]);
 
-  React.useEffect(() => {
-    fetchData();
+  // When the question list changes update backend with the new question data
+  React.useEffect(async () => {
+    const data = await updateQuizAPI(props.quizID, questionList, null, null);
+    if (data.error) {
+      navigate('/quizzes');
+    }
   }, [questionList]);
 
   return (

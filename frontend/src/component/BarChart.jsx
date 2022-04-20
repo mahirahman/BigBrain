@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Line } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 import style from '../css/Charts.module.css';
 
-export function LineChart (props) {
-  LineChart.propTypes = {
+export function BarChart (props) {
+  BarChart.propTypes = {
     labels: PropTypes.array.isRequired,
     data: PropTypes.array.isRequired,
   };
@@ -13,8 +13,15 @@ export function LineChart (props) {
   const data = {
     labels: props.labels,
     datasets: [{
-      label: 'Time taken to answer',
-      data: props.data,
+      label: '% Of Users That Got Questions Correct',
+      data: [
+        1.515,
+        1.825,
+        2.272,
+        2.467,
+        1.644,
+        1.512
+      ],
       backgroundColor: [
         'rgba(75, 192, 192, 0.2)',
         'rgba(255, 99, 132, 0.2)',
@@ -32,8 +39,8 @@ export function LineChart (props) {
   };
 
   return (
-    <div className={style.line_chart}>
-      <Line
+    <div className={style.container}>
+      <Bar
       data={data}
       options={options}
       />
@@ -41,4 +48,4 @@ export function LineChart (props) {
   );
 }
 
-export default LineChart;
+export default BarChart;

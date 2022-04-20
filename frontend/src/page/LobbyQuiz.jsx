@@ -21,7 +21,7 @@ export function LobbyQuiz () {
     }
   }, []);
 
-  // Poll the endpoint every half second to check if a quiz has started or not
+  // Poll the endpoint every 500ms to check if a quiz has started or not
   // Otherwise stay on the lobby page.
   React.useEffect(() => {
     if (playerId) {
