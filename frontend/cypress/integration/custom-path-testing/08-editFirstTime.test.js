@@ -12,8 +12,9 @@ describe('UI custom path testing', () => {
     cy.get(
       ':nth-child(3) > .card-body > .QuizQuestionCard_container_flex__2ri_9 > .QuizQuestionCard_test__OdXmk > .QuizQuestionCard_question_controls__fT5k3 > .QuizQuestionCard_edit_btn__2-T2E'
     ).click();
+    cy.wait(500);
     // Change point to 11000
-    cy.get(':nth-child(13) > .form-control').focus().type('11000');
+    cy.get(':nth-child(10) > .form-control').focus().type('11000');
     cy.get('.btn-primary').click();
     cy.on('window:alert', (text) => {
       expect(text).to.contains('Point value must not exceed 10000');
