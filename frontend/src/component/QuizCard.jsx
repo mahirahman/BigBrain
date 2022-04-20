@@ -68,6 +68,11 @@ export function QuizCard (props) {
     }
     setSessionId(quizData.active)
     setStartQuizModal(true);
+
+    const data = await getSessionStatusAdminAPI(quizData.active);
+    if (!data.results.questions.length) {
+      setRenderEndQuizBtn(true);
+    }
   };
 
   const advanceNextQuestion = async (e) => {
