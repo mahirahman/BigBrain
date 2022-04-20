@@ -32,7 +32,7 @@ export function PlayQuiz () {
       const data = await getSessionStatusAPI(playerIdFromPreviousPage);
       if (data.error) {
         clearInterval(interval);
-        navigate(`/quiz/results/${sessionIdFromPreviousPage}`);
+        navigate(`/quiz/results/${sessionIdFromPreviousPage}`, { state: { playerIdFromPreviousPage: playerIdFromPreviousPage } });
       }
     }
     , 500);

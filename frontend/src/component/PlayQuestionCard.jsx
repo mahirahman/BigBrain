@@ -95,8 +95,17 @@ export function PlayQuestionCard (props) {
           </div>
           )}
           {props.renderCorrectAnswer && (
-            <div className={style.game_meta_data}>
-            {JSON.stringify(correctAnswer)}
+            <div className={style.center}>
+              <h3 className={style.correct_answer_title}>
+              {props.currentQuestionObj.type === 'multiple-choice' ? 'The correct answers were' : 'The correct answer was'}
+              </h3>
+              <div className={style.correct_answers}>
+              {correctAnswer.map(answer =>
+              <React.Fragment key={answer.id}>
+                <p className={style.answer}>{answer.answer}</p>
+              </React.Fragment>
+              )}
+            </div>
           </div>
           )}
         <div className={style.answer_btn_container}>
