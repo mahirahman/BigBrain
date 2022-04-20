@@ -16,6 +16,11 @@ export const getTotalAnswers = (results) => {
   return results.length;
 };
 
+// Get the total number of answers
+export const getTotalUsers = (results) => {
+  return results.length;
+};
+
 // Gets the average time taken for a user to answer a question
 export const getAverageAnswerTime = (results) => {
   let totalTime = 0;
@@ -29,4 +34,14 @@ export const getAverageAnswerTime = (results) => {
 // Gets the time taken to answer a question
 export const timeTakenToAnswer = (result) => {
   return new Date(result.answeredAt) - new Date(result.questionStartedAt)
+};
+
+export const getTotalScoreUser = (resultAnswers, questions) => {
+  let totalScore = 0;
+  resultAnswers.forEach((resultAnswer, index) => {
+    if (resultAnswer.correct) {
+      totalScore += questions[index].points;
+    }
+  })
+  return totalScore;
 };

@@ -13,7 +13,7 @@ export function LineChart (props) {
   const data = {
     labels: props.labels,
     datasets: [{
-      label: 'Time taken to answer a question',
+      label: 'Time taken to answer',
       data: props.data,
       backgroundColor: [
         'rgba(75, 192, 192, 0.2)',

@@ -22,7 +22,7 @@ export function StopQuizModal (props) {
           Would you like to view the results?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant='success' onClick={() => navigate(`/quiz/results/${props.sessionId}`)}>
+          <Button variant='success' onClick={() => navigate(`/quiz/admin/results/${props.sessionId}`)}>
             View Results
           </Button>
           <Button variant='danger' onClick={props.handleClose}>
