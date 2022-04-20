@@ -16,11 +16,17 @@ export const getTotalAnswers = (results) => {
   return results.length;
 };
 
+// Gets the average time taken for a user to answer a question
 export const getAverageAnswerTime = (results) => {
   let totalTime = 0;
   results.forEach(result => {
-    totalTime += new Date(result.answeredAt) - new Date(result.questionStartedAt)
+    totalTime += timeTakenToAnswer(result);
   })
   const totalTimeSecs = parseFloat((totalTime / 1000).toFixed(1));
   return totalTimeSecs / getTotalAnswers(results);
+};
+
+// Gets the time taken to answer a question
+export const timeTakenToAnswer = (result) => {
+  return new Date(result.answeredAt) - new Date(result.questionStartedAt)
 };

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Doughnut } from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2'
 import 'chart.js/auto';
 import style from '../css/charts.module.css';
 
-export function PieChart (props) {
-  PieChart.propTypes = {
+export function LineChart (props) {
+  LineChart.propTypes = {
     labels: PropTypes.array.isRequired,
     data: PropTypes.array.isRequired,
   };
@@ -13,6 +13,7 @@ export function PieChart (props) {
   const data = {
     labels: props.labels,
     datasets: [{
+      label: 'Time taken to answer a question',
       data: props.data,
       backgroundColor: [
         'rgba(75, 192, 192, 0.2)',
@@ -31,8 +32,8 @@ export function PieChart (props) {
   };
 
   return (
-    <div className={style.pie_chart_container}>
-      <Doughnut
+    <div className={style.container}>
+      <Line
       data={data}
       options={options}
       />
@@ -40,4 +41,4 @@ export function PieChart (props) {
   );
 }
 
-export default PieChart;
+export default LineChart;

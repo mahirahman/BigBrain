@@ -4,7 +4,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getSessionResultsAPI } from '../util/api';
 import style from '../css/ResultsQuiz.module.css';
 import PieChart from '../component/PieChart';
-import { getAverageAnswerTime, getTotalAnswers, numberOfCorrectAnswers, numberOfIncorrectAnswers } from '../util/results';
+import { getAverageAnswerTime, getTotalAnswers, numberOfCorrectAnswers, numberOfIncorrectAnswers, timeTakenToAnswer } from '../util/results';
+import LineChart from '../component/LineChart';
 
 export function ResultsQuiz () {
   const navigate = useNavigate();
@@ -33,12 +34,14 @@ export function ResultsQuiz () {
           labels={['Correct', 'Incorrect']}
           data={[numberOfCorrectAnswers(results), numberOfIncorrectAnswers(results)]}
           />
+          <LineChart
+          labels={results.map((x, index) => `Question ${index + 1}`)}
+          data={results.map((x, index) => timeTakenToAnswer(x) / 1000)}
+          />
           <p>{`You took an average of ${getAverageAnswerTime(results)} seconds to answer a question`}</p>
           <p>{`Your Final Results: ${numberOfCorrectAnswers(results)}/${getTotalAnswers(results)}`}</p>
         </Card.Body>
       </Card>
-      <h1>{JSON.stringify(results)}</h1>
-          <h1>Bar Chart X=question Y=Time taken</h1>
     </>
   );
 }
