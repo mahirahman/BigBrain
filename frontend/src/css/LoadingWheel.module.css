@@ -1,0 +1,6 @@
+.spinner_flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40vh;
+}

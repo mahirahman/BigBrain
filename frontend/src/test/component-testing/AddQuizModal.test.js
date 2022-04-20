@@ -3,13 +3,13 @@ import { render } from '@testing-library/react';
 // import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom';
 // import { Router } from 'react-router-dom';
-import AddGameModal from '../../component/AddGameModal';
+import AddQuizModal from '../../component/AddQuizModal';
 import { describe } from 'eslint/lib/rule-tester/rule-tester';
 
-describe('Test AddGameModal component', () => {
+describe('Test AddQuizModal component', () => {
   // test create card shown
-  test('test addGameModal component', () => {
-    const { container } = render(<AddGameModal />);
+  test('test AddQuizModal component', () => {
+    const { container } = render(<AddQuizModal />);
     container.querySelector('.form-control');
     container.querySelector('.btn.btn-primary');
   });

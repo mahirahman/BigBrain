@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, Modal, InputGroup, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types'
-import style from '../css/AddGameModal.module.css';
+import style from '../css/AddQuizModal.module.css';
 import { createQuizAPI } from '../util/api';
 
-export function AddGameModal (props) {
-  AddGameModal.propTypes = {
+export function AddQuizModal (props) {
+  AddQuizModal.propTypes = {
     handleClose: PropTypes.func.isRequired,
     show: PropTypes.bool.isRequired,
     reRender: PropTypes.func
@@ -55,4 +55,4 @@ export function AddGameModal (props) {
   );
 }
 
-export default AddGameModal;
+export default AddQuizModal;

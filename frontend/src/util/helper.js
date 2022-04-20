@@ -47,3 +47,29 @@ export const fileToDataUrl = (file) => {
   reader.readAsDataURL(file);
   return dataUrlPromise;
 }
+
+// Disables or re-enables the answer inputs
+export const disableInputs = (disable) => {
+  const inputs = document.querySelectorAll('input');
+  inputs.forEach(input => {
+    input.disabled = disable;
+  });
+};
+
+// Uncheck or checks the answer inputs
+export const checkInputs = (check) => {
+  const inputs = document.querySelectorAll('input');
+  inputs.forEach(input => {
+    input.checked = check;
+  });
+};
+
+// Capitalise the first letter of each word in a string
+// Source: https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript/
+export const capitaliseFirstLetterString = (string) => {
+  // Split the string based on the spaces
+  const words = string.split(' ');
+  words.map((word) => {
+    return word[0].toUpperCase() + word.substring(1);
+  }).join(' ');
+};

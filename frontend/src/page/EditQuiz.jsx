@@ -3,7 +3,7 @@ import NavigationMenu from '../component/NavigationMenu';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getQuizDataAPI } from '../util/api';
 import EditQuizCard from '../component/EditQuizCard';
-import EditQuestionCard from '../component/EditQuestionCard';
+import ViewQuestionCard from '../component/ViewQuestionCard';
 import noThumb from '../img/quiz_no_thumbnail.png';
 
 export function EditQuiz () {
@@ -37,7 +37,7 @@ export function EditQuiz () {
       thumbnail = {quizData.thumbnail ? quizData.thumbnail : noThumb}
       randColour = {quizData.thumbnail ? 0 : new Date(quizData.createdAt).getTime() }
       />
-      <EditQuestionCard
+      <ViewQuestionCard
       quizID = {params.quizId}
       questions = {quizData.questions}
       />

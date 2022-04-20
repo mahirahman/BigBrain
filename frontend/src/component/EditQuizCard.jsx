@@ -8,8 +8,8 @@ import { fileToDataUrl } from '../util/helper';
 
 const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
 
-export function EditQuestionCard (props) {
-  EditQuestionCard.propTypes = {
+export function EditQuizCard (props) {
+  EditQuizCard.propTypes = {
     quizID: PropTypes.string.isRequired,
     name: PropTypes.string,
     thumbnail: PropTypes.string.isRequired,
@@ -28,7 +28,6 @@ export function EditQuestionCard (props) {
     if (data.error) {
       alert(data.error);
     }
-    console.log(base64Image);
     if (base64Image) {
       setQuizThumbnailBase64(base64Image);
       // setDefaultImageColour(0);
@@ -62,7 +61,7 @@ export function EditQuestionCard (props) {
   return (
     <>
       <Card className={style.card_container}>
-        <Card.Header>Edit Quiz</Card.Header>
+        <Card.Header>Edit Game</Card.Header>
         <Card.Body className={style.card_body_container}>
           <CardFilter colour = {props.randColour}>
             <img className={style.image_dimensions} src={quizThumbnailBase64} alt="Quiz Thumbnail"/>
@@ -85,4 +84,4 @@ export function EditQuestionCard (props) {
   )
 }
 
-export default EditQuestionCard;
+export default EditQuizCard;

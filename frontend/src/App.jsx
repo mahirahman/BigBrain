@@ -7,6 +7,11 @@ import Quizzes from './page/Quizzes';
 import Error from './page/Error';
 import EditQuiz from './page/EditQuiz';
 import EditQuestion from './page/EditQuestion';
+import JoinQuiz from './page/JoinQuiz';
+import LobbyQuiz from './page/LobbyQuiz';
+import PlayQuiz from './page/PlayQuiz';
+import ResultsQuiz from './page/ResultsQuiz';
+import ResultsQuizAdmin from './page/ResultsQuizAdmin';
 
 function App () {
   return (
@@ -26,10 +31,17 @@ function App () {
           {/* Edit Quiz Page */}
           <Route path="/quiz/edit/:quizId" element={<EditQuiz />} />
           {/* Edit Question Page */}
-          <Route
-            path="/quiz/edit/:quizId/:questionId"
-            element={<EditQuestion />}
-          />
+          <Route path="/quiz/edit/:quizId/:questionId" element={<EditQuestion/>}/>
+          {/* Join a Quiz */}
+          <Route path="/quiz/:sessionId" element={<JoinQuiz/>}/>
+          {/* Join the Quiz Lobby */}
+          <Route path="/quiz/lobby/:sessionId" element={<LobbyQuiz/>}/>
+          {/* Play the Quiz */}
+          <Route path="/quiz/play/:sessionId" element={<PlayQuiz/>}/>
+          {/* Results of the Quiz */}
+          <Route path="/quiz/results/:sessionId" element={<ResultsQuiz/>}/>
+          {/* Results of the Quiz for an Admin */}
+          <Route path="/quiz/admin/results/:sessionId" element={<ResultsQuizAdmin/>}/>
         </Routes>
       </BrowserRouter>
       <svg className="wave_background_img" viewBox="0 0 1440 320">

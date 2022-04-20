@@ -21,9 +21,9 @@ describe('Test EditQuizCard component', () => {
   });
 
   it('test register form component', () => {
-    render(<EditQuizCard />);
+    render(<EditQuizCard quizID={'1'} />);
     // expect Edit quiz header in component
-    const head = screen.getByText(/Edit Quiz/i);
+    const head = screen.getByText(/Edit Game/i);
     expect(head).toBeInTheDocument();
     // expect Quiz name in component
     const name = screen.getByText(/Quiz Name/i);

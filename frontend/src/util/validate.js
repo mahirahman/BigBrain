@@ -18,7 +18,7 @@ export const validateYoutubeMedia = (url) => {
 
 export const validateQuestionName = (questionName) => {
   if (!questionName.length) {
-    alert('Please enter a name for your new game');
+    alert('Please enter a name for your new question');
     return false;
   } else if (questionName.length > 64) {
     alert('Game name must be less than 64 characters');
