@@ -42,7 +42,7 @@ export function PlayQuestionCard (props) {
     const interval = setInterval(async () => {
       const data = await getSessionQuestionAPI(props.playerId);
       if (data.error) {
-        alert(data.error);
+        console.warn(data.error);
         return;
       }
       if (data.question.questionId !== props.currentQuestionObj.questionId) {
@@ -60,7 +60,7 @@ export function PlayQuestionCard (props) {
     }
     , 500);
     return () => clearInterval(interval);
-  }, []);
+  }, [props.currentQuestionObj]);
 
   const isMounted = React.useRef(false);
   React.useEffect(() => {

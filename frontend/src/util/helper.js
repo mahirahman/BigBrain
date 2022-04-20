@@ -73,3 +73,15 @@ export const capitaliseFirstLetterString = (string) => {
     return word[0].toUpperCase() + word.substring(1);
   }).join(' ');
 };
+
+// Total time given to complete a quiz.
+export const getTotalTimeTaken = (data) => {
+  let totalTime = 0;
+  data.questions.forEach(question => {
+    totalTime += question.timeLimit;
+  })
+  if (totalTime < 60) {
+    return `${totalTime} sec(s)`;
+  }
+  return `${(totalTime / 60).toFixed(2)} min(s)`;
+};

@@ -84,6 +84,7 @@ export function PlayQuiz () {
       const data = await submitQuestionAnswerAPI(playerId, answerIds);
       if (data.error) {
         disableInputs(true);
+        console.warn(data.error);
       }
     } else {
       isMountedAnswerIds.current = true;

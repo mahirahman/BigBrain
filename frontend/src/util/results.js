@@ -28,7 +28,7 @@ export const getAverageAnswerTime = (results) => {
     totalTime += timeTakenToAnswer(result);
   })
   const totalTimeSecs = parseFloat((totalTime / 1000).toFixed(1));
-  return totalTimeSecs / getTotalAnswers(results);
+  return (totalTimeSecs / getTotalAnswers(results)).toFixed(2);
 };
 
 // Gets the time taken to answer a question
