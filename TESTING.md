@@ -15,4 +15,4 @@
 7. Edit 1st question and try and remove all answers so that there is only 1 answer — Windows.alert should pop up. make an assertion to capture error.
 8. Edit 1st question change point to 11000 Windows.alert should pop up. make an assertion to capture error.
 9. Delete 1st question.
-10. Only 1 question left showing on the screen.
+10. Only 1 question left shown on the screen.
