@@ -34,7 +34,6 @@ export function ResultsAdmin () {
           {!results.length
             ? 'No results found'
             : <>
-            <p>Top 5 users</p>
             <ResultsTable
             results={results}
             questions={allQuestions}

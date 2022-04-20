@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getTotalScoreUser } from '../util/results';
 import { Table } from 'react-bootstrap';
+import style from '../css/Charts.module.css';
 
 export function ResultsTable (props) {
   ResultsTable.propTypes = {
@@ -25,24 +26,27 @@ export function ResultsTable (props) {
 
   return (
     <>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Username</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {displayData.map((data, index) => {
-            return (
-              <tr key={index}>
-                <td>{data.user}</td>
-                <td>{data.score}</td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </Table>
+      <caption className={style.caption}>Top 5 users</caption>
+      <div className={style.center}>
+        <Table className={style.table_width} striped bordered hover>
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {displayData.map((data, index) => {
+              return (
+                <tr key={index}>
+                  <td>{data.user}</td>
+                  <td>{data.score}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </Table>
+      </div>
     </>
   );
 }
