@@ -19,17 +19,17 @@ function App () {
       <BrowserRouter>
         <Routes>
           {/* Default Path */}
-          <Route path="/" element={<Login/>}/>
+          <Route path="/" element={<Login />} />
           {/* 404 Page Not Found */}
-          <Route path="/*" element={<Error/>}/>
+          <Route path="/*" element={<Error />} />
           {/* Login Page */}
-          <Route path="/login" element={<Login/>}/>
+          <Route path="/login" element={<Login />} />
           {/* Register Page */}
-          <Route path="/register" element={<Register/>}/>
+          <Route path="/register" element={<Register />} />
           {/* Quizzes Page */}
-          <Route path="/quizzes" element={<Quizzes/>}/>
+          <Route path="/quizzes" element={<Quizzes />} />
           {/* Edit Quiz Page */}
-          <Route path="/quiz/edit/:quizId" element={<EditQuiz/>}/>
+          <Route path="/quiz/edit/:quizId" element={<EditQuiz />} />
           {/* Edit Question Page */}
           <Route path="/quiz/edit/:quizId/:questionId" element={<EditQuestion/>}/>
           {/* Join a Quiz */}

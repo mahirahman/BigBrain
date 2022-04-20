@@ -13,3 +13,5 @@
 12. Use of components to reuse code
 13. Most important information is displayed from top down (Very evident in the play quiz page where the first thing is the question)
 14. Page is layed out in a logical order taking up good use of white space
+15. On the dashboard, when hoveriing over a quiz card it will hover up and have a shadow behind it to indicate it is selected
+16. End quiz button is rendered only when the quiz is on its last question.
