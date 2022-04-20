@@ -13,12 +13,14 @@ export function LoginForm ({ success }) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  // Using the login API to log in the user
   const loginUser = async (email, password) => {
     const data = await loginAPI(email, password);
     if (data.error) {
       alert(data.error);
       return;
     }
+    // Set the authToken in localStorage
     localStorage.setItem('authToken', data.token);
     success();
   };

@@ -37,6 +37,7 @@ function EditQuestionCard (props) {
   const [timeLimit, setTimeLimit] = React.useState(null);
   const [points, setPoints] = React.useState(null);
 
+  // Set the default input fields when props are loaded in
   React.useEffect(() => {
     setQuestionName(props.questionData.question);
     setAnswerInputs(props.questionData.answers);
@@ -51,24 +52,27 @@ function EditQuestionCard (props) {
     setEmbedImageMediaBase64(base64regex.test(props.questionData.embed) ? 'Loading...' : props.questionData.embed);
   }, [props]);
 
+  // Updates the input type
   const updateInputType = (value) => {
     setQuestionType(value);
-    // if value is single-choice, remove every element after the second element
+    // If value is single-choice, remove every element after the second element
     if (value === 'single-choice') {
       setAnswerInputs(answerInputs.slice(0, 2));
-    // if the value is multiple-choice, remove every element after the third element
+    // If the value is multiple-choice, remove every element after the third element
     } else if (value === 'multiple-choice') {
-      // if there is only two elements add a new element
+      // If there is only two elements add a new element
       if (answerInputs.length === 2) {
         setAnswerInputs([...answerInputs, { id: 3 }]);
       } else {
-        // if there are more than two elements, remove every element after the third element
+        // If there are more than two elements, remove every element after the third element
         setAnswerInputs(answerInputs.slice(0, 3));
       }
     }
   };
 
+  // Add answer input
   const addAnswerInput = () => {
+    // Maximum of 6 answer inputs for all question types
     if (answerInputs.length + 1 > 6) {
       alert('You can only have a maximum of 6 answers');
       return;
@@ -76,7 +80,9 @@ function EditQuestionCard (props) {
     setAnswerInputs([...answerInputs, { id: answerInputs.length + 1 }]);
   };
 
+  // Remove answer input
   const removeAnswerInput = () => {
+    // Check the minimum answer inputs for each type
     if (questionType === 'single-choice' && answerInputs.length === 2) {
       alert('You must have at least 2 answers');
       return;
@@ -84,13 +90,16 @@ function EditQuestionCard (props) {
       alert('You must have at least 3 answers');
       return;
     }
+    // Set the new answer input
     setAnswerInputs([...answerInputs.slice(0, answerInputs.length - 1)])
   };
 
+  // Updates the value in the answer input
   const updateAnswerInput = (answer, id) => {
     setAnswerInputs([...answerInputs.slice(0, id - 1), { id, answer }, ...answerInputs.slice(id)]);
   };
 
+  // Generates the question object
   const generateQuestionObject = async (correctAnswerValid) => {
     let embedMedia = null;
     if (radioValue === 'yt') {
@@ -113,6 +122,7 @@ function EditQuestionCard (props) {
     };
   };
 
+  // Submit the question to the API
   const submitQuestion = async () => {
     // Validate each field
     if (!validateQuestionName(questionName)) return;
@@ -131,6 +141,7 @@ function EditQuestionCard (props) {
     // console.log(props.questionData.questionId);
     // console.log(props.questionList);
     // console.log(questionObj);
+    // Find the correct index of the question and replace it with the new question object
     props.questionList.forEach((question, index) => {
       if (question.questionId === props.questionData.questionId) {
         props.questionList[index] = questionObj;

@@ -37,6 +37,7 @@ export function RegisterForm ({ success }) {
       return;
     }
 
+    // If all the inputs are succesfull then register the user
     const data = await registerAPI(registerName, registerEmail, registerPassword);
     if (data.error) {
       alert(data.error);

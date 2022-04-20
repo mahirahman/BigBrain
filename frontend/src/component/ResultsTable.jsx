@@ -13,6 +13,7 @@ export function ResultsTable (props) {
   const [displayData, setDisplayData] = React.useState([]);
 
   React.useEffect(() => {
+    // Create a custom array of objects with username and score key value pairs
     const data = [];
     if (props.questions.length) {
       props.results.map((result) => {
@@ -21,12 +22,13 @@ export function ResultsTable (props) {
     }
     // Sort data array by key 'score'
     // Remove every element from the array after index 4
+    // This will show the top 5 results
     setDisplayData((data.sort((a, b) => (a.score < b.score) ? 1 : -1)).slice(0, 5));
   }, [props.questions, props.results]);
 
   return (
     <>
-      <caption className={style.caption}>Top 5 users</caption>
+      <p className={style.caption}>Top 5 users</p>
       <div className={style.center}>
         <Table className={style.table_width} striped bordered hover>
           <thead>

@@ -28,12 +28,10 @@ export function NavigationMenu (props) {
             <IoGameControllerOutline/>
             <div>View My Games</div>
           </div>
-
           <div onClick= { handleShow }>
             <BsPlusCircle/>
             <div>Create New Game</div>
           </div>
-
           <Logout>
             <div><BiLogOut/></div>
             Logout

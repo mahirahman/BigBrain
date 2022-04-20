@@ -25,6 +25,7 @@ export function PlayQuestionCard (props) {
   const [answer, setAnswer] = React.useState({});
   const [correctAnswer, setCorrectAnswer] = React.useState([]);
 
+  // Get the answer of the current question when the render changes to correct answer
   React.useEffect(async () => {
     if (props.renderCorrectAnswer) {
       const data = await getSessionAnswerAPI(props.playerId);
@@ -37,8 +38,8 @@ export function PlayQuestionCard (props) {
   }, [props.renderCorrectAnswer]);
 
   React.useEffect(() => {
-    // poll ever 500 ms to check if question ID has changed.
-    // this means admin has advanced to the next question.
+    // Poll ever 500 ms to check if question ID has changed.
+    // This means admin has advanced to the next question.
     const interval = setInterval(async () => {
       const data = await getSessionQuestionAPI(props.playerId);
       if (data.error) {
@@ -46,6 +47,7 @@ export function PlayQuestionCard (props) {
         return;
       }
       if (data.question.questionId !== props.currentQuestionObj.questionId) {
+        // Reset the state of the question
         clearInterval(interval);
         props.setCurrentQuestionObj(data.question);
         props.setRenderCorrectAnswer(false);
@@ -55,19 +57,20 @@ export function PlayQuestionCard (props) {
         disableInputs(false);
         // Unchecks all checkboxes/radio inputs
         checkInputs(false);
-        // input with id answerIds will be checked
       }
     }
     , 500);
     return () => clearInterval(interval);
   }, [props.currentQuestionObj]);
 
+  // This useEffect is only called when the correct answer changes
+  // When the correct answers state changes we want to extract the data and find the correct answer string
   const isMounted = React.useRef(false);
   React.useEffect(() => {
     if (isMounted.current) {
-      const fruitsById = {};
-      for (const fruit of props.currentQuestionObj.answers) fruitsById[fruit.id] = fruit;
-      const result = answer.map(id => fruitsById[id]);
+      const newAnswersObj = {};
+      for (const answer of props.currentQuestionObj.answers) newAnswersObj[answer.id] = answer;
+      const result = answer.map(id => newAnswersObj[id]);
       setCorrectAnswer(result);
     } else {
       isMounted.current = true;

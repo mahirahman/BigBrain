@@ -14,6 +14,7 @@ import { GrFormNextLink } from 'react-icons/gr';
 import StartQuizModal from './StartQuizModal';
 import StopQuizModal from './StopQuizModal';
 
+// Card filter styled component that is created based on the props passed in
 const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
 
 export function QuizCard (props) {
@@ -29,6 +30,8 @@ export function QuizCard (props) {
   const navigate = useNavigate();
 
   const [sessionId, setSessionId] = React.useState(null);
+
+  // State variable used to handle when the next question and end questio button are rendered.
   const [renderEndQuizBtn, setRenderEndQuizBtn] = React.useState(false);
 
   const [show, setShow] = React.useState(false);
@@ -75,6 +78,7 @@ export function QuizCard (props) {
     }
   };
 
+  // Advance to the next question
   const advanceNextQuestion = async (e) => {
     e.stopPropagation();
     if (sessionId) {
@@ -92,6 +96,7 @@ export function QuizCard (props) {
 
   const [data, setData] = React.useState({});
 
+  // Deletes a quiz and removes it from render
   const deleteQuiz = async () => {
     setRenderQuiz(false);
     const data = await deleteQuizAPI(props.quizId);
@@ -102,6 +107,7 @@ export function QuizCard (props) {
     closeDeleteModal();
   };
 
+  // On first render we want to get the quiz data
   React.useEffect(async () => {
     setData(await getQuizDataAPI(props.quizId));
   }, []);

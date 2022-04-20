@@ -36,6 +36,7 @@ export const timeTakenToAnswer = (result) => {
   return new Date(result.answeredAt) - new Date(result.questionStartedAt)
 };
 
+// Gets the total score of a set of users
 export const getTotalScoreUser = (resultAnswers, questions) => {
   let totalScore = 0;
   resultAnswers.forEach((resultAnswer, index) => {
@@ -44,4 +45,18 @@ export const getTotalScoreUser = (resultAnswers, questions) => {
     }
   })
   return totalScore;
+};
+
+export const getavg = (resultAnswers, questionsLength) => {
+  // Create a zero array of size questionsLength
+  const correctAnswersArr = new Array(questionsLength).fill(0);
+  console.log(correctAnswersArr);
+
+  resultAnswers.forEach((resultAnswer, index) => {
+    if (resultAnswer.correct) {
+      // correctAnswer += 1;
+      correctAnswersArr[index] += 1;
+    }
+  });
+  return correctAnswersArr;
 };
