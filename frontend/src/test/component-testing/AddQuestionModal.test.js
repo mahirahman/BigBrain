@@ -8,7 +8,6 @@ import AddQuestionModal from '../../component/AddQuestionModal';
 import { describe } from 'eslint/lib/rule-tester/rule-tester';
 
 describe('Test AddQuestion component', () => {
-  // test user list card show
   test('test AddQuestion component render', () => {
     const { container } = render(<AddQuestionModal />);
     container.querySelector('.AddEditQuestion_center_btn__3s2_d.modal-body');

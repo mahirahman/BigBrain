@@ -1,4 +1,3 @@
-// Test Search Comp
 import React from 'react';
 import { render } from '@testing-library/react';
 // import { createMemoryHistory } from 'history';
@@ -7,9 +6,9 @@ import '@testing-library/jest-dom';
 import AddGameModal from '../../component/AddGameModal';
 import { describe } from 'eslint/lib/rule-tester/rule-tester';
 
-describe('Test register component', () => {
-  // test user list card show
-  test('test AddGameModal component', () => {
+describe('Test AddGameModal component', () => {
+  // test create card shown
+  test('test addGameModal component', () => {
     const { container } = render(<AddGameModal />);
     container.querySelector('.form-control');
     container.querySelector('.btn.btn-primary');

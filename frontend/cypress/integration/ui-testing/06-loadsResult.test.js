@@ -17,6 +17,6 @@ describe('UI testing', () => {
     // load result page
     cy.get('.btn-success').click();
     // show the result page
-    cy.contains('404');
+    cy.contains('Results');
   });
 });
