@@ -5,6 +5,7 @@ import '@testing-library/jest-dom';
 import RegisterForm from '../../component/RegisterForm';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import { it } from 'eslint/lib/rule-tester/rule-tester';
 
 configure({ adapter: new Adapter() });
 
@@ -20,6 +21,13 @@ describe('<RegisterForm>', () => {
       1
     );
     expect(wrapper.find('button[type="button"]')).toHaveLength(0);
+  });
+
+  it('register button is shown', async () => {
+    render(<RegisterForm success={'registerUser()'} />);
+    expect(
+      await screen.findByRole('button', { name: /Sign Up/i })
+    ).toBeEnabled();
   });
 
   it('test register form component', () => {

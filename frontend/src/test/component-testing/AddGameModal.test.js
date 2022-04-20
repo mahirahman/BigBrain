@@ -7,15 +7,6 @@ import '@testing-library/jest-dom';
 import AddGameModal from '../../component/AddGameModal';
 import { describe } from 'eslint/lib/rule-tester/rule-tester';
 
-// const mockListing = {
-//   name: 'component test',
-//   owner: 'component@gmail.com',
-//   questions: [],
-//   thumbnail: null,
-//   active: null,
-//   createdAt: '2022-04-18T02:47:19.063Z'
-// };
-
 describe('Test register component', () => {
   // test user list card show
   test('test AddGameModal component', () => {
