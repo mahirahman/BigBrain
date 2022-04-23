@@ -16,7 +16,7 @@ export function StartQuizModal (props) {
 
   // On click it will copy the play quiz url to clipboard
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(`http://localhost:3000/quiz/${props.sessionId}`);
+    navigator.clipboard.writeText(`https://bigbrainquiz.herokuapp.com/quiz/${props.sessionId}`);
     setShow(!show);
   };
 
