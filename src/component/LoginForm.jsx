@@ -16,7 +16,7 @@ export function LoginForm ({ success }) {
 
   // Using the login API to log in the user
   const loginUser = async (email, password) => {
-    const data = await loginAPI(email, password);
+    const data = await loginAPI(email.toLowerCase(), password);
     if (data.error) {
       alert(data.error);
       return;
