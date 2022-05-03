@@ -84,7 +84,6 @@ export function QuizCard (props) {
     if (sessionId) {
       const sessionData = await getSessionStatusAdminAPI(sessionId);
       if (sessionData.results.questions.length === sessionData.results.position + 2) {
-        console.log('display the end quiz btn');
         setRenderEndQuizBtn(true);
       }
     }

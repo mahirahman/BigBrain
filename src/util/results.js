@@ -50,7 +50,6 @@ export const getTotalScoreUser = (resultAnswers, questions) => {
 export const getavg = (resultAnswers, questionsLength) => {
   // Create a zero array of size questionsLength
   const correctAnswersArr = new Array(questionsLength).fill(0);
-  console.log(correctAnswersArr);
 
   resultAnswers.forEach((resultAnswer, index) => {
     if (resultAnswer.correct) {
