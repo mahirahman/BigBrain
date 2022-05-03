@@ -121,7 +121,10 @@ export function QuizCard (props) {
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>Created {formatDateString(props.date)}</Card.Text>
-          <Card.Text>{data.questions ? `${data.questions.length} Questions` : 'Loading...'} | {data.questions ? `Time: ${getTotalTimeTaken(data)}` : 'Loading...'}</Card.Text>
+          <div className={style.quiz_meta_data}>
+            <Card.Text>{data.questions ? `${data.questions.length} Question(s)` : 'Loading...'}</Card.Text>
+            <Card.Text>{data.questions ? `Time: ${getTotalTimeTaken(data)}` : 'Loading...'}</Card.Text>
+          </div>
           <Button className={style.start_end_btn} variant='outline-success' onClick={(e) => showStartQuizModal(e)}><VscDebugStart/> Start Quiz</Button>
           {!renderEndQuizBtn &&
             <Button className={style.start_end_btn} variant='outline-dark' onClick={(e) => advanceNextQuestion(e)}><GrFormNextLink/> Next Question</Button>

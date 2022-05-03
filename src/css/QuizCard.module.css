@@ -32,3 +32,8 @@
   width: 100%;
   margin-bottom: 10px;
 }
+
+.quiz_meta_data {
+  display: flex;
+  justify-content: space-between;
+}
