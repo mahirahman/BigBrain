@@ -5,12 +5,13 @@ import { getQuizDataAPI } from '../util/api';
 import EditQuizCard from '../component/EditQuizCard';
 import ViewQuestionCard from '../component/ViewQuestionCard';
 import noThumb from '../img/quiz_no_thumbnail.png';
+import { getTokenLocalStorage } from '../util/helper';
 
 export function EditQuiz () {
   const params = useParams();
   const navigate = useNavigate();
   const [quizData, setQuizData] = React.useState({});
-  const token = localStorage.getItem('authToken');
+  const token = getTokenLocalStorage();
 
   const fetchData = async () => {
     const data = await getQuizDataAPI(params.quizId);

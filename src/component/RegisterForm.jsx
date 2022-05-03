@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import style from '../css/LoginRegisterForm.module.css';
+import { setTokenLocalStorage } from '../util/helper';
 
 export function RegisterForm ({ success }) {
   RegisterForm.propTypes = {
@@ -43,7 +44,7 @@ export function RegisterForm ({ success }) {
       alert(data.error);
       return;
     }
-    localStorage.setItem('authToken', data.token);
+    setTokenLocalStorage(data.token);
     success();
   };
 

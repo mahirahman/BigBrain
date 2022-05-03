@@ -5,13 +5,14 @@ import QuizCard from '../component/QuizCard';
 import style from '../css/Quizzes.module.css';
 import { getAllQuizDataAPI } from '../util/api';
 import noThumb from '../img/quiz_no_thumbnail.png';
+import { getTokenLocalStorage } from '../util/helper';
 
 export function Quizzes () {
   const [quizCards, addQuizCard] = React.useState([]);
   const [render, reRender] = React.useState(false);
 
   const navigate = useNavigate();
-  const token = localStorage.getItem('authToken');
+  const token = getTokenLocalStorage();
 
   const fetchData = async () => {
     const data = await getAllQuizDataAPI();

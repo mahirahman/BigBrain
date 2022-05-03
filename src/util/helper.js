@@ -91,3 +91,13 @@ export const getTotalTimeTaken = (data) => {
   }
   return `${(totalTime / 60).toFixed(2)} min(s)`;
 };
+
+// Set the authToken in localStorage
+export const setTokenLocalStorage = (token) => {
+  localStorage.setItem('authToken', token);
+};
+
+// Get the authToken from localStorage
+export const getTokenLocalStorage = () => {
+  return localStorage.getItem('authToken');
+};

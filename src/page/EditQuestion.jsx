@@ -3,11 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import EditQuestionCard from '../component/EditQuestionCard';
 import NavigationMenu from '../component/NavigationMenu';
 import { getQuizDataAPI } from '../util/api';
+import { getTokenLocalStorage } from '../util/helper';
 
 function EditQuestion () {
   const params = useParams();
   const navigate = useNavigate();
-  const token = localStorage.getItem('authToken');
+  const token = getTokenLocalStorage();
 
   const [questionData, setQuestionData] = React.useState({});
   const [questionList, setQuestionList] = React.useState([]);

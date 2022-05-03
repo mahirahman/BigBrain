@@ -1,3 +1,5 @@
+import { getTokenLocalStorage } from "./helper";
+
 // Base function for fetching the API, processes the method, header, auth and body
 const fetchAPI = async (path, method, body) => {
   const init = {
@@ -8,7 +10,7 @@ const fetchAPI = async (path, method, body) => {
         path === '/admin/auth/logout' ||
         path.includes('/admin/quiz') ||
         path.includes('/admin/session')
-          ? `Bearer ${localStorage.getItem('authToken')}`
+          ? `Bearer ${getTokenLocalStorage()}`
           : undefined
     },
     body: method === 'GET' ||
