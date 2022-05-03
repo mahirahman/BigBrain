@@ -53,6 +53,7 @@ export function PlayQuestionCard (props) {
         props.setRenderCorrectAnswer(false);
         props.setCurrentTime(data.question.timeLimit);
         props.setAnswerIds([]);
+        setCorrectAnswer([]);
         // Remove disabled attribute from inputs
         disableInputs(false);
         // Unchecks all checkboxes/radio inputs
