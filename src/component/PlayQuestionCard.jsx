@@ -139,7 +139,9 @@ export function PlayQuestionCard (props) {
         <Card.Footer>
           <div className={style.footer_container}>
             <div className={style.question_data}>
-              <div className={style.footer_data}><FaGem/>{props.currentQuestionObj.points} Gems</div>
+              <div className={style.footer_data}><FaGem/>{props.currentQuestionObj.points}
+              {props.currentQuestionObj.points > 1 ? ' Gems' : ' Gem'}
+              </div>
               <div className={style.footer_data}><FaClock/>{props.currentQuestionObj.timeLimit} secs</div>
             </div>
             <div>ID: {props.currentQuestionObj.questionId}</div>
