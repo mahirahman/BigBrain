@@ -8,6 +8,7 @@ import { MdQuiz } from 'react-icons/md';
 import AddQuestionModal from './AddQuestionModal';
 import { QuizQuestionCard } from './QuizQuestionCard';
 import noThumb from '../img/quiz_no_thumbnail.png';
+import LoadingWheel from './LoadingWheel';
 
 export function ViewQuestionCard (props) {
   ViewQuestionCard.propTypes = {
@@ -44,24 +45,28 @@ export function ViewQuestionCard (props) {
             <Button variant="primary" onClick={ handleShow }><MdQuiz className={style.quiz_icon}/>Add New Question</Button>
           </div>
         </Card.Body>
+        {!questionList
+          ? <LoadingWheel variant='dark'/>
+          : JSON.stringify(questionList) === '[]'
+            ? <div className={style.no_question_text}>No Questions 😴</div>
+            : questionList?.map((question, index) => {
+              return <QuizQuestionCard
+              key = {(Math.random() + 1).toString(36).substring(7)}
+              questionNum = {index + 1}
+              quizId = {props.quizID}
+              questionId = {question.questionId}
+              question = {question.question}
+              questionType = {question.type}
+              questionTime = {question.timeLimit}
+              questionPoints = {question.points}
+              questionEmbed = {question.embed ? question.embed : noThumb}
+              questionsList = {questionList}
+              setQuestionsList = {setQuestionsList}
+              />
+            })
+        }
         {/* Render when there is no questions otherwise render question cards */}
-        {JSON.stringify(questionList) === '[]'
-          ? <div className={style.no_question_text}>No Questions here 😴</div>
-          : questionList?.map((question, index) => {
-            return <QuizQuestionCard
-            key = {(Math.random() + 1).toString(36).substring(7)}
-            questionNum = {index + 1}
-            quizId = {props.quizID}
-            questionId = {question.questionId}
-            question = {question.question}
-            questionType = {question.type}
-            questionTime = {question.timeLimit}
-            questionPoints = {question.points}
-            questionEmbed = {question.embed ? question.embed : noThumb}
-            questionsList = {questionList}
-            setQuestionsList = {setQuestionsList}
-            />
-          })}
+
       </Card>
       <AddQuestionModal questions={questionList} handleClose={handleClose} show={show} setQuestionsList={setQuestionsList}/>
     </>

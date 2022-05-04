@@ -28,7 +28,7 @@ function EditQuestionCard (props) {
   const [embedYoutubeMedia, setEmbedYoutubeMedia] = React.useState(null);
   // Set the state of the image url
   const [embedImageMediaFileObj, setEmbedImageMediaFileObj] = React.useState({});
-  const [embedImageMediaBase64, setEmbedImageMediaBase64] = React.useState({});
+  const [defaultEmbedMedia, setDefaultEmbedMedia] = React.useState({});
 
   const [questionName, setQuestionName] = React.useState('');
   const [answerInputs, setAnswerInputs] = React.useState([{ id: 1 }, { id: 2 }]);
@@ -48,8 +48,7 @@ function EditQuestionCard (props) {
     if (validateYoutubeMedia(props.questionData.embed ? props.questionData.embed : null)) {
       setEmbedYoutubeMedia(props.questionData.embed);
     }
-    const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
-    setEmbedImageMediaBase64(base64regex.test(props.questionData.embed) ? 'Loading...' : props.questionData.embed);
+    setDefaultEmbedMedia(props.questionData.embed)
   }, [props]);
 
   // Updates the input type
@@ -116,7 +115,7 @@ function EditQuestionCard (props) {
       correctAnswer: correctAnswerValid,
       timeLimit: parseInt(timeLimit),
       points: parseInt(points),
-      embed: !embedMedia ? embedImageMediaBase64 : embedMedia,
+      embed: !embedMedia ? defaultEmbedMedia : embedMedia,
     };
   };
 
@@ -155,7 +154,7 @@ function EditQuestionCard (props) {
         <Card.Body className={style.center_btn}>
         <InputGroup className={style.input_spacing}>
             <InputGroup.Text>Question</InputGroup.Text>
-            <FormControl placeholder={props.questionData.question} aria-label="Question"
+            <FormControl placeholder={!props.questionData.question ? 'Loading...' : props.questionData.question} aria-label="Question"
             onChange={ (e) => setQuestionName(e.currentTarget.value)}/>
         </InputGroup>
         <div className={`${style.question_type_container} ${style.input_spacing}`}>
@@ -173,21 +172,21 @@ function EditQuestionCard (props) {
                 <FormControl placeholder={answers.answer} aria-label="Answer" onChange={(e) => updateAnswerInput(e.currentTarget.value, answers.id)}/>
               </InputGroup>
             ))
-          : <LoadingWheel/>}
+          : <LoadingWheel variant='dark'/>}
           <Button className={style.add_remove_input_box} variant='outline-danger' onClick={() => removeAnswerInput('hi')}>Remove Previous Answer</Button>
           <Button className={style.add_remove_input_box} variant='outline-primary' onClick={() => addAnswerInput('hi')}>Add Another Answer</Button>
           <InputGroup className={style.input_spacing}>
             <InputGroup.Text>Correct Answer</InputGroup.Text>
-            <FormControl placeholder={props.questionData.correctAnswer} aria-label="Correct Answer" onChange={(e) => setCorrectAnswer(e.currentTarget.value)}/>
+            <FormControl placeholder={!props.questionData.correctAnswer ? 'Loading...' : props.questionData.correctAnswer} aria-label="Correct Answer" onChange={(e) => setCorrectAnswer(e.currentTarget.value)}/>
           </InputGroup>
           <InputGroup className={style.input_spacing}>
             <InputGroup.Text>Time Limit</InputGroup.Text>
-            <FormControl type="number" min="10" max="90" placeholder={`${props.questionData.timeLimit} secs`} aria-label="Time Limit"
+            <FormControl type="number" min="10" max="90" placeholder={!props.questionData.timeLimit ? 'Loading...' : `${props.questionData.timeLimit} secs`} aria-label="Time Limit"
             onChange={ (e) => setTimeLimit(e.currentTarget.value)}/>
           </InputGroup>
           <InputGroup className={style.input_spacing}>
             <InputGroup.Text>Points</InputGroup.Text>
-            <FormControl type="number" min="1" max="100" placeholder={props.questionData.points} aria-label="Points"
+            <FormControl type="number" min="1" max="100" placeholder={!props.questionData.points ? 'Loading...' : props.questionData.points} aria-label="Points"
             onChange={ (e) => setPoints(e.currentTarget.value)}/>
           </InputGroup>
           <ButtonGroup className={style.embed_btn}>

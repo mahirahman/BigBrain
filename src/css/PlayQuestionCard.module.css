@@ -95,6 +95,10 @@
   color: #198754;
 }
 
+.loading_margin {
+  margin: 40vh;
+}
+
 @media only screen and (max-width: 1024px) {
   .container {
     margin: 10px;

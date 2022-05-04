@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getSessionQuestionAPI, getSessionStatusAPI, submitQuestionAnswerAPI } from '../util/api';
 import LoadingWheel from '../component/LoadingWheel';
 import PlayQuestionCard from '../component/PlayQuestionCard';
+import style from '../css/PlayQuestionCard.module.css';
 import { disableInputs } from '../util/helper';
 
 export function PlayQuiz () {
@@ -128,7 +129,9 @@ export function PlayQuiz () {
         renderCorrectAnswer={renderCorrectAnswer}
         playerId={playerId}
         />
-        : <LoadingWheel/>
+        : <div className={style.loading_margin}>
+          <LoadingWheel variant='light'/>
+        </div>
       }
     </>
   );
