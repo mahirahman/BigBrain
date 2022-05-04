@@ -106,8 +106,6 @@ function EditQuestionCard (props) {
       embedMedia = embedYoutubeMedia;
     } else if (radioValue === 'img') {
       embedMedia = await getBase64(embedImageMediaFileObj);
-    } else if (!embedMedia) {
-      embedMedia = embedImageMediaBase64;
     }
 
     return {
@@ -118,7 +116,7 @@ function EditQuestionCard (props) {
       correctAnswer: correctAnswerValid,
       timeLimit: parseInt(timeLimit),
       points: parseInt(points),
-      embed: embedMedia,
+      embed: !embedMedia ? embedImageMediaBase64 : embedMedia,
     };
   };
 
@@ -138,9 +136,6 @@ function EditQuestionCard (props) {
     // If every field is valid, we can construct the question object
     const questionObj = await generateQuestionObject(correctAnswerValid);
     // Find props.questionData.questionId in props.questionList and replace it with questionObj
-    // console.log(props.questionData.questionId);
-    // console.log(props.questionList);
-    // console.log(questionObj);
     // Find the correct index of the question and replace it with the new question object
     props.questionList.forEach((question, index) => {
       if (question.questionId === props.questionData.questionId) {
