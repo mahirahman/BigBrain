@@ -74,7 +74,7 @@ export function EditQuizCard (props) {
           <div className={style.quiz_update_details}>
             <InputGroup className={style.input_spacing}>
               <InputGroup.Text >Quiz Name</InputGroup.Text>
-              <FormControl placeholder={quizName} aria-label="Quiz Name" onChange={event => setQuizName(event.target.value)}/>
+              <FormControl placeholder={!quizName ? 'Loading...' : quizName} aria-label="Quiz Name" onChange={event => setQuizName(event.target.value)}/>
             </InputGroup>
             <InputGroup className={style.input_spacing}>
               <InputGroup.Text >Thumbnail</InputGroup.Text>
