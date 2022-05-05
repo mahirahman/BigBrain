@@ -138,16 +138,36 @@ function EditQuestionCard (props) {
   // Submit the question to the API
   const submitQuestion = async () => {
     // Validate each field
-    if (!validateQuestionName(questionName)) return;
-    else if (!validateQuestionTimeLimit(timeLimit)) return;
-    else if (!validateQuestionPoints(points)) return;
-    else if (!validateAnswerInputs(answerInputs)) return;
-    else if (!validateCorrectAnswer(correctAnswer, questionType, answerInputs)[0]) return;
-    else if (!validateYoutubeMedia(embedYoutubeMedia)) {
+    const validateName = validateQuestionName(questionName);
+    if (!validateName[0]) {
+      addNotification('Error', validateName[1], 'danger', true);
+      return;
+    }
+    const validateAnswer = validateAnswerInputs(answerInputs);
+    if (!validateAnswer[0]) {
+      addNotification('Error', validateAnswer[1], 'danger', true);
+      return;
+    }
+    const validateCorrectAnswers = validateCorrectAnswer(correctAnswer, questionType, answerInputs);
+    if (!validateCorrectAnswers[0]) {
+      addNotification('Error', validateCorrectAnswers[1], 'danger', true);
+      return;
+    }
+    const validateTimeLimit = validateQuestionTimeLimit(timeLimit);
+    if (!validateTimeLimit[0]) {
+      addNotification('Error', validateTimeLimit[1], 'danger', true);
+      return;
+    }
+    const validatePoints = validateQuestionPoints(points);
+    if (!validatePoints[0]) {
+      addNotification('Error', validatePoints[1], 'danger', true);
+      return;
+    }
+    if (!validateYoutubeMedia(embedYoutubeMedia)) {
       addNotification('Error', 'Please enter a valid youtube video', 'danger', true);
       return;
     }
-    const correctAnswerValid = validateCorrectAnswer(correctAnswer, questionType, answerInputs)[1];
+    const correctAnswerValid = validateCorrectAnswers[1];
     // If every field is valid, we can construct the question object
     const questionObj = await generateQuestionObject(correctAnswerValid);
     // Find props.questionData.questionId in props.questionList and replace it with questionObj
