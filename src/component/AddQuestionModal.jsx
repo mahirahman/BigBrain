@@ -7,6 +7,7 @@ import {
   validateQuestionTimeLimit, validateQuestionPoints,
   validateAnswerInputs, validateCorrectAnswer, getBase64
 } from '../util/validate';
+import Notification from './Notification';
 
 export function AddQuestionModal (props) {
   AddQuestionModal.propTypes = {
@@ -35,6 +36,21 @@ export function AddQuestionModal (props) {
     { name: 'Image', value: 'img' },
   ];
 
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notifcationMsg, setNotifcationMsg] = React.useState('');
+  const [notificationTitle, setNotifcationTitle] = React.useState('');
+  const [variant, setVariant] = React.useState('primary');
+  const [error, setError] = React.useState(true);
+
+  // Adds a custom notification to the page
+  const addNotification = (title, msg, variant, error) => {
+    setNotifcationTitle(title);
+    setNotifcationMsg(msg);
+    setVariant(variant);
+    setError(error);
+    setShowNotification(true);
+  };
+
   const updateInputType = (value) => {
     setQuestionType(value);
     // if value is single-choice, remove every element after the second element
@@ -55,7 +71,7 @@ export function AddQuestionModal (props) {
   const addAnswerInput = () => {
     // Checks if user can add a new answer input
     if (answerInputs.length + 1 > 6) {
-      alert('You can only have a maximum of 6 answers');
+      addNotification('Error', 'You can only have a maximum of 6 answers', 'danger', true);
       return;
     }
     // Add answer input
@@ -65,10 +81,10 @@ export function AddQuestionModal (props) {
   const removeAnswerInput = () => {
     // Checks user must have minimum input boxes depending on answer type
     if (questionType === 'single-choice' && answerInputs.length === 2) {
-      alert('You must have at least 2 answers');
+      addNotification('Error', 'You must have at least 2 answers', 'danger', true);
       return;
     } else if (questionType === 'multiple-choice' && answerInputs.length === 3) {
-      alert('You must have at least 3 answers');
+      addNotification('Error', 'You must have at least 3 answers', 'danger', true);
       return;
     }
     // Remove answer input
@@ -117,16 +133,36 @@ export function AddQuestionModal (props) {
   // Submits a question to the API
   const submitQuestion = async () => {
     // Validate each field
-    if (!validateQuestionName(questionName)) return;
-    else if (!validateQuestionTimeLimit(timeLimit)) return;
-    else if (!validateQuestionPoints(points)) return;
-    else if (!validateAnswerInputs(answerInputs)) return;
-    if (!validateCorrectAnswer(correctAnswer, questionType, answerInputs)[0]) return;
-    else if (!validateYoutubeMedia(embedYoutubeMedia)) {
-      alert('Please enter a valid youtube link');
+    const validateName = validateQuestionName(questionName);
+    if (!validateName[0]) {
+      addNotification('Error', validateName[1], 'danger', true);
       return;
     }
-    const correctAnswerValid = validateCorrectAnswer(correctAnswer, questionType, answerInputs)[1];
+    const validateAnswer = validateAnswerInputs(answerInputs);
+    if (!validateAnswer[0]) {
+      addNotification('Error', validateAnswer[1], 'danger', true);
+      return;
+    }
+    const validateCorrectAnswers = validateCorrectAnswer(correctAnswer, questionType, answerInputs);
+    if (!validateCorrectAnswers[0]) {
+      addNotification('Error', validateCorrectAnswers[1], 'danger', true);
+      return;
+    }
+    const validateTimeLimit = validateQuestionTimeLimit(timeLimit);
+    if (!validateTimeLimit[0]) {
+      addNotification('Error', validateTimeLimit[1], 'danger', true);
+      return;
+    }
+    const validatePoints = validateQuestionPoints(points);
+    if (!validatePoints[0]) {
+      addNotification('Error', validatePoints[1], 'danger', true);
+      return;
+    }
+    if (!validateYoutubeMedia(embedYoutubeMedia)) {
+      addNotification('Error', 'Please enter a valid youtube video', 'danger', true);
+      return;
+    }
+    const correctAnswerValid = validateCorrectAnswers[1];
     // If every field is valid, we can construct the question object
     const questionObj = await generateQuestionObject(correctAnswerValid);
     // Reset the form
@@ -218,6 +254,14 @@ export function AddQuestionModal (props) {
           </Button>
         </Modal.Footer>
       </Modal>
+      <Notification
+        setShowNotification={setShowNotification}
+        showNotification={showNotification}
+        message={notifcationMsg}
+        notificationTitle={notificationTitle}
+        variant={variant}
+        error={error}
+      />
     </>
   );
 }

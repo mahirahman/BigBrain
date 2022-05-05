@@ -1,0 +1,12 @@
+.header_content_gap {
+  display: flex;
+  gap: 5px;
+}
+
+.z_index {
+  z-index: 9999;
+}
+
+.text_center {
+  text-align: center;
+}

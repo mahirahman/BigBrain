@@ -23,8 +23,8 @@ const fetchAPI = async (path, method, body) => {
   let response;
   try {
     response = await fetch(`https://bigbrainbackend.herokuapp.com${path}`, init);
-  } catch (error) {
-    alert(`Error: ${error}`);
+  } catch (e) {
+    console.warn(e);
   }
   return await response.json();
 };

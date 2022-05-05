@@ -18,41 +18,33 @@ export const validateYoutubeMedia = (url) => {
 
 export const validateQuestionName = (questionName) => {
   if (!questionName.length) {
-    alert('Please enter a name for your new question');
-    return false;
+    return [false, 'Please enter a name for your new question'];
   } else if (questionName.length > 64) {
-    alert('Game name must be less than 64 characters');
-    return false;
+    return [false, 'Game name must be less than 64 characters'];
   }
-  return true;
+  return [true, ''];
 };
 
 export const validateQuestionTimeLimit = (timeLimit) => {
   if (timeLimit === null) {
-    alert('Please enter a time limit for your question');
-    return false;
+    return [false, 'Please enter a time limit for your question'];
   } else if (timeLimit < 10) {
-    alert('Time limit must be at least 10 seconds');
-    return false;
+    return [false, 'Time limit must be at least 10 seconds'];
   } else if (timeLimit > 90) {
-    alert('Time limit must not exceed 90 seconds');
-    return false;
+    return [false, 'Time limit must not exceed 90 seconds'];
   }
-  return true;
+  return [true, ''];
 };
 
 export const validateQuestionPoints = (points) => {
   if (points === null) {
-    alert('Please enter a point value for your question');
-    return false;
+    return [false, 'Please enter a point value for your question'];
   } else if (points < 1) {
-    alert('Point value must be at least 1');
-    return false;
+    return [false, 'Point value must be at least 1'];
   } else if (points > 10000) {
-    alert('Point value must not exceed 10000');
-    return false;
+    return [false, 'Point value must not exceed 10000'];
   }
-  return true;
+  return [true, ''];
 };
 
 export const validateAnswerInputs = (answerInputs) => {
@@ -68,16 +60,14 @@ export const validateAnswerInputs = (answerInputs) => {
     }
   });
   if (emptyAnswerInputs.length > 0) {
-    alert('Please enter an answer for all the answer inputs');
-    return false;
+    return [false, 'Please enter an answer for all the answer inputs'];
   }
-  return true;
+  return [true, ''];
 };
 
 export const validateCorrectAnswer = (correctAnswer, questionType, answerInputs) => {
   if (correctAnswer.length === 0) {
-    alert('Please select a correct answer');
-    return false;
+    return [false, 'Please select a correct answer'];
   }
   const split = correctAnswer.split(',');
   // Convert the string of correct answers to an array of integers
@@ -96,22 +86,18 @@ export const validateCorrectAnswer = (correctAnswer, questionType, answerInputs)
     }
   });
   if (correctAnswersInAnswerInputs.length !== uniqueCorrectAnswersNum.length) {
-    alert('Please select a correct answer that is in the answer inputs');
-    return false;
+    return [false, 'Please select a correct answer that is in the answer inputs'];
   }
 
   if (questionType === 'single-choice') {
     if (correctAnswersInAnswerInputs.length > 1) {
-      alert('Please select only 1 correct answer');
-      return false;
+      return [false, 'Please select only 1 correct answer'];
     }
   } else if (questionType === 'multiple-choice') {
     if (correctAnswersInAnswerInputs.length < 2) {
-      alert('Please select at least 2 correct answers');
-      return false;
+      return [false, 'Please select at least 2 correct answers'];
     } else if (correctAnswersInAnswerInputs.length > answerInputs.length) {
-      alert('Please select no more than the number of answers');
-      return false;
+      return [false, 'Please select no more than the number of answers'];
     }
   }
   return [true, correctAnswersInAnswerInputs];

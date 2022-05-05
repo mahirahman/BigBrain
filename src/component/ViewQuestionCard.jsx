@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { MdQuiz } from 'react-icons/md';
 import AddQuestionModal from './AddQuestionModal';
 import { QuizQuestionCard } from './QuizQuestionCard';
-import noThumb from '../img/quiz_no_thumbnail.png';
+import noThumb from '../img/question_no_thumbnail.svg';
 import LoadingWheel from './LoadingWheel';
 
 export function ViewQuestionCard (props) {

@@ -5,6 +5,7 @@ import LoadingWheel from '../component/LoadingWheel';
 import PlayQuestionCard from '../component/PlayQuestionCard';
 import style from '../css/PlayQuestionCard.module.css';
 import { disableInputs } from '../util/helper';
+import Notification from '../component/Notification';
 
 export function PlayQuiz () {
   const navigate = useNavigate();
@@ -14,6 +15,21 @@ export function PlayQuiz () {
   const [answerIds, setAnswerIds] = React.useState([]);
   const [currentTime, setCurrentTime] = React.useState(null);
   const [renderCorrectAnswer, setRenderCorrectAnswer] = React.useState(false);
+
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notifcationMsg, setNotifcationMsg] = React.useState('');
+  const [notificationTitle, setNotifcationTitle] = React.useState('');
+  const [variant, setVariant] = React.useState('primary');
+  const [error, setError] = React.useState(true);
+
+  // Adds a custom notification to the page
+  const addNotification = (title, msg, variant, error) => {
+    setNotifcationTitle(title);
+    setNotifcationMsg(msg);
+    setVariant(variant);
+    setError(error);
+    setShowNotification(true);
+  };
 
   // Get the playerId from the previous play join page
   // and store it in a state variable
@@ -85,7 +101,7 @@ export function PlayQuiz () {
       const data = await submitQuestionAnswerAPI(playerId, answerIds);
       if (data.error) {
         disableInputs(true);
-        console.warn(data.error);
+        addNotification('Warning', data.error, 'warning', true);
       }
     } else {
       isMountedAnswerIds.current = true;
@@ -133,6 +149,14 @@ export function PlayQuiz () {
           <LoadingWheel variant='light'/>
         </div>
       }
+      <Notification
+        setShowNotification={setShowNotification}
+        showNotification={showNotification}
+        message={notifcationMsg}
+        notificationTitle={notificationTitle}
+        variant={variant}
+        error={error}
+      />
     </>
   );
 }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import style from '../css/LoginRegisterForm.module.css';
 import { playJoinAPI } from '../util/api';
 import { useNavigate } from 'react-router-dom';
+import Notification from './Notification';
 
 export function JoinGameForm (props) {
   JoinGameForm.propTypes = {
@@ -13,17 +14,36 @@ export function JoinGameForm (props) {
   const navigate = useNavigate();
   const [username, setUsername] = React.useState('');
 
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notifcationMsg, setNotifcationMsg] = React.useState('');
+  const [notificationTitle, setNotifcationTitle] = React.useState('');
+  const [variant, setVariant] = React.useState('primary');
+  const [error, setError] = React.useState(true);
+
+  // Adds a custom notification to the page
+  const addNotification = (title, msg, variant, error) => {
+    setNotifcationTitle(title);
+    setNotifcationMsg(msg);
+    setVariant(variant);
+    setError(error);
+    setShowNotification(true);
+  };
+
   // Join a game
   const joinGame = async () => {
     // Check if user inputted a username
     if (!username) {
-      alert('Please enter a username');
+      addNotification('Error', 'Please enter a username', 'danger', true);
+      return;
+    }
+    else if (username.length > 20) {
+      addNotification('Error', 'Username must be less than 20 characters', 'danger', true);
       return;
     }
     // Allow the user to join the session using the API
     const data = await playJoinAPI(props.sessionId, username);
     if (data.error) {
-      alert(data.error);
+      addNotification('Error', data.error, 'danger', true);
       return;
     }
     // Navigate to the lobby page and send the playerId data as a location state object
@@ -41,6 +61,14 @@ export function JoinGameForm (props) {
         <Button className={style.join_game_btn} onClick={() => joinGame()} variant='success'>Join Game</Button>
         </Card.Body>
       </Card>
+      <Notification
+        setShowNotification={setShowNotification}
+        showNotification={showNotification}
+        message={notifcationMsg}
+        notificationTitle={notificationTitle}
+        variant={variant}
+        error={error}
+      />
     </>
   );
 }

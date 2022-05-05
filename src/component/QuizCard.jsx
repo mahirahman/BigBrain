@@ -13,6 +13,7 @@ import { AiOutlineStop } from 'react-icons/ai';
 import { GrFormNextLink } from 'react-icons/gr';
 import StartQuizModal from './StartQuizModal';
 import StopQuizModal from './StopQuizModal';
+import Notification from './Notification';
 
 // Card filter styled component that is created based on the props passed in
 const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
@@ -41,6 +42,21 @@ export function QuizCard (props) {
     setShow(true);
   }
 
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notifcationMsg, setNotifcationMsg] = React.useState('');
+  const [notificationTitle, setNotifcationTitle] = React.useState('');
+  const [variant, setVariant] = React.useState('primary');
+  const [error, setError] = React.useState(true);
+
+  // Adds a custom notification to the page
+  const addNotification = (title, msg, variant, error) => {
+    setNotifcationTitle(title);
+    setNotifcationMsg(msg);
+    setVariant(variant);
+    setError(error);
+    setShowNotification(true);
+  };
+
   const [endQuizModal, setEndQuizModal] = React.useState(false);
   const closeStopQuizModal = () => setEndQuizModal(false);
   const showStopQuizModal = async (e) => {
@@ -48,7 +64,7 @@ export function QuizCard (props) {
     setRenderEndQuizBtn(false);
     const data = await endQuizAPI(props.quizId);
     if (data.error) {
-      alert(data.error);
+      addNotification('Error', data.error, 'danger', true);
       return;
     }
     setEndQuizModal(true);
@@ -60,13 +76,13 @@ export function QuizCard (props) {
     // Start a quiz
     const startQuiz = await startQuizAPI(props.quizId);
     if (startQuiz.error) {
-      alert(startQuiz.error);
+      addNotification('Error', startQuiz.error, 'danger', true);
       return;
     }
     // Call the quiz data and set the session id as a state
     const quizData = await getQuizDataAPI(props.quizId);
     if (quizData.error) {
-      alert(quizData.error);
+      addNotification('Error', quizData.error, 'danger', true);
       return;
     }
     setSessionId(quizData.active)
@@ -89,7 +105,8 @@ export function QuizCard (props) {
     }
     const data = await advanceQuizQuestionAPI(props.quizId);
     if (data.error) {
-      alert(data.error);
+      addNotification('Error', data.error, 'danger', true);
+      return;
     }
   };
 
@@ -100,8 +117,9 @@ export function QuizCard (props) {
     setRenderQuiz(false);
     const data = await deleteQuizAPI(props.quizId);
     if (data.error) {
-      alert(data.error);
+      addNotification('Error', data.error, 'danger', true);
       setRenderQuiz(true);
+      return;
     }
     closeDeleteModal();
   };
@@ -139,6 +157,14 @@ export function QuizCard (props) {
       <StartQuizModal handleClose={closeStartQuizModal} show={startQuizModal} sessionId={sessionId}/>
       <StopQuizModal handleClose={closeStopQuizModal} show={endQuizModal} sessionId={sessionId}/>
       <ConfirmDeleteModal name={props.title} handleClose={closeDeleteModal} show={show} onSubmit={deleteQuiz} type={'quiz'}/>
+      <Notification
+        setShowNotification={setShowNotification}
+        showNotification={showNotification}
+        message={notifcationMsg}
+        notificationTitle={notificationTitle}
+        variant={variant}
+        error={error}
+      />
     </>
   );
 }

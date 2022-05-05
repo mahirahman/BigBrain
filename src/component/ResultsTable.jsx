@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getTotalScoreUser } from '../util/results';
 import { Table } from 'react-bootstrap';
-import style from '../css/charts.module.css';
+import style from '../css/Charts.module.css';
 
 export function ResultsTable (props) {
   ResultsTable.propTypes = {

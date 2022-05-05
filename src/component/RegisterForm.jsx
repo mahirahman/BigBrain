@@ -5,6 +5,7 @@ import { Card, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import style from '../css/LoginRegisterForm.module.css';
 import { setTokenLocalStorage } from '../util/helper';
+import Notification from './Notification';
 
 export function RegisterForm ({ success }) {
   RegisterForm.propTypes = {
@@ -16,32 +17,47 @@ export function RegisterForm ({ success }) {
   const [registerPassword, setRegisterPassword] = React.useState('');
   const [registerConfirmPassword, setRegisterConfirmPassword] = React.useState('');
 
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notifcationMsg, setNotifcationMsg] = React.useState('');
+  const [notificationTitle, setNotifcationTitle] = React.useState('');
+  const [variant, setVariant] = React.useState('primary');
+  const [error, setError] = React.useState(true);
+
+  // Adds a custom notification to the page
+  const addNotification = (title, msg, variant, error) => {
+    setNotifcationTitle(title);
+    setNotifcationMsg(msg);
+    setVariant(variant);
+    setError(error);
+    setShowNotification(true);
+  };
+
   const registerUser = async (registerEmail, registerName, registerPassword, registerConfirmPassword) => {
     // Check if user had enetered all required fields
     if (!registerEmail || !registerName || !registerPassword) {
-      alert('Please fill in all fields.');
+      addNotification('Error', 'Please fill in all fields', 'danger', true);
       return;
     }
     // Check if email is valid regex
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(registerEmail)) {
-      alert('Please enter a valid email address.');
+      addNotification('Error', 'Please enter a valid email address', 'danger', true);
       return;
     }
     // Check registerPassword length is => 8
     if (registerPassword.length < 8) {
-      alert('Password must be at least 8 characters long.');
+      addNotification('Error', 'Password must be at least 8 characters long', 'danger', true);
       return;
     }
     // Check if passwords match
     if (registerPassword !== registerConfirmPassword) {
-      alert('The two passwords do not match.');
+      addNotification('Error', 'The passwords do not match', 'danger', true);
       return;
     }
 
     // If all the inputs are succesfull then register the user
     const data = await registerAPI(registerName, registerEmail.toLowerCase(), registerPassword);
     if (data.error) {
-      alert(data.error);
+      addNotification('Error', data.error, 'danger', true);
       return;
     }
     setTokenLocalStorage(data.token);
@@ -63,6 +79,14 @@ export function RegisterForm ({ success }) {
           <Button className={style.btn_width} onClick={() => registerUser(registerEmail, registerName, registerPassword, registerConfirmPassword)} variant='success'>Sign Up</Button>
         </Card.Body>
       </Card>
+      <Notification
+        setShowNotification={setShowNotification}
+        showNotification={showNotification}
+        message={notifcationMsg}
+        notificationTitle={notificationTitle}
+        variant={variant}
+        error={error}
+      />
     </>
   );
 }

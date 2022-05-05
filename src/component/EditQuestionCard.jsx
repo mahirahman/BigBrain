@@ -10,6 +10,7 @@ import { updateQuizAPI } from '../util/api';
 import style from '../css/AddEditQuestion.module.css';
 import { useNavigate } from 'react-router-dom';
 import LoadingWheel from './LoadingWheel';
+import Notification from './Notification';
 
 function EditQuestionCard (props) {
   EditQuestionCard.propTypes = {
@@ -36,6 +37,21 @@ function EditQuestionCard (props) {
   const [correctAnswer, setCorrectAnswer] = React.useState('');
   const [timeLimit, setTimeLimit] = React.useState(null);
   const [points, setPoints] = React.useState(null);
+
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notifcationMsg, setNotifcationMsg] = React.useState('');
+  const [notificationTitle, setNotifcationTitle] = React.useState('');
+  const [variant, setVariant] = React.useState('primary');
+  const [error, setError] = React.useState(true);
+
+  // Adds a custom notification to the page
+  const addNotification = (title, msg, variant, error) => {
+    setNotifcationTitle(title);
+    setNotifcationMsg(msg);
+    setVariant(variant);
+    setError(error);
+    setShowNotification(true);
+  };
 
   // Set the default input fields when props are loaded in
   React.useEffect(() => {
@@ -73,7 +89,7 @@ function EditQuestionCard (props) {
   const addAnswerInput = () => {
     // Maximum of 6 answer inputs for all question types
     if (answerInputs.length + 1 > 6) {
-      alert('You can only have a maximum of 6 answers');
+      addNotification('Error', 'You can only have a maximum of 6 answers', 'danger', true);
       return;
     }
     setAnswerInputs([...answerInputs, { id: answerInputs.length + 1 }]);
@@ -83,10 +99,10 @@ function EditQuestionCard (props) {
   const removeAnswerInput = () => {
     // Check the minimum answer inputs for each type
     if (questionType === 'single-choice' && answerInputs.length === 2) {
-      alert('You must have at least 2 answers');
+      addNotification('Error', 'You must have at least 2 answers', 'danger', true);
       return;
     } else if (questionType === 'multiple-choice' && answerInputs.length === 3) {
-      alert('You must have at least 3 answers');
+      addNotification('Error', 'You must have at least 3 answers', 'danger', true);
       return;
     }
     // Set the new answer input
@@ -128,7 +144,7 @@ function EditQuestionCard (props) {
     else if (!validateAnswerInputs(answerInputs)) return;
     else if (!validateCorrectAnswer(correctAnswer, questionType, answerInputs)[0]) return;
     else if (!validateYoutubeMedia(embedYoutubeMedia)) {
-      alert('Please enter a valid youtube link');
+      addNotification('Error', 'Please enter a valid youtube video', 'danger', true);
       return;
     }
     const correctAnswerValid = validateCorrectAnswer(correctAnswer, questionType, answerInputs)[1];
@@ -143,8 +159,10 @@ function EditQuestionCard (props) {
     });
     const data = await updateQuizAPI(props.quizId, props.questionList, null, null);
     if (data.error) {
-      navigate('/quizzes');
+      addNotification('Error', data.error, 'danger', true);
+      return;
     }
+    addNotification('Success', 'Question updated successfully', 'success', false);
   };
 
   return (
@@ -228,6 +246,14 @@ function EditQuestionCard (props) {
           </Button>
         </Card.Footer>
       </Card>
+      <Notification
+        setShowNotification={setShowNotification}
+        showNotification={showNotification}
+        message={notifcationMsg}
+        notificationTitle={notificationTitle}
+        variant={variant}
+        error={error}
+      />
     </>
   );
 }

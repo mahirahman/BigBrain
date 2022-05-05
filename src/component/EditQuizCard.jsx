@@ -5,6 +5,7 @@ import style from '../css/EditQuizCard.module.css';
 import styled from 'styled-components';
 import { updateQuizAPI } from '../util/api';
 import { fileToDataUrl } from '../util/helper';
+import Notification from './Notification';
 
 const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
 
@@ -19,6 +20,22 @@ export function EditQuizCard (props) {
   const [quizName, setQuizName] = React.useState(props.name);
   const [quizThumbnailBase64, setQuizThumbnailBase64] = React.useState(props.thumbnail);
   const [quizThumbnailFileObj, setQuizThumbnailFileObj] = React.useState({});
+
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notifcationMsg, setNotifcationMsg] = React.useState('');
+  const [notificationTitle, setNotifcationTitle] = React.useState('');
+  const [variant, setVariant] = React.useState('primary');
+  const [error, setError] = React.useState(true);
+
+  // Adds a custom notification to the page
+  const addNotification = (title, msg, variant, error) => {
+    setNotifcationTitle(title);
+    setNotifcationMsg(msg);
+    setVariant(variant);
+    setError(error);
+    setShowNotification(true);
+  };
+
   // const [defaultImageColour, setDefaultImageColour] = React.useState(props.randColour);
   // console.log(props.randColour);
   // console.log(defaultImageColour);
@@ -27,7 +44,8 @@ export function EditQuizCard (props) {
   const updateData = async (base64Image) => {
     const data = await updateQuizAPI(props.quizID, null, quizName, base64Image);
     if (data.error) {
-      alert(data.error);
+      addNotification('Error', data.error, 'danger', true);
+      return;
     }
     if (base64Image) {
       setQuizThumbnailBase64(base64Image);
@@ -40,10 +58,10 @@ export function EditQuizCard (props) {
   const updateQuizDetails = async () => {
     // Validate the name length
     if (quizName.length < 4) {
-      alert('Please enter a name with at least 4 characters');
+      addNotification('Error', 'Please enter a name with at least 4 characters', 'danger', true);
       return;
     } else if (quizName.length > 36) {
-      alert('Quiz name must be less than 36 characters');
+      addNotification('Error', 'Quiz name must be less than 36 characters', 'danger', true);
       return;
     }
     // Attempt to create a base64 image from file object
@@ -54,6 +72,7 @@ export function EditQuizCard (props) {
       base64Image = null;
     }
     updateData(base64Image);
+    addNotification('Success', 'Quiz updated successfully', 'success', false);
   }
 
   // Set the current quiz thumbnail and name when props load
@@ -85,6 +104,14 @@ export function EditQuizCard (props) {
           </div>
         </Card.Body>
       </Card>
+      <Notification
+        setShowNotification={setShowNotification}
+        showNotification={showNotification}
+        message={notifcationMsg}
+        notificationTitle={notificationTitle}
+        variant={variant}
+        error={error}
+      />
     </>
   )
 }

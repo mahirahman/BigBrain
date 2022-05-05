@@ -4,10 +4,11 @@ import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import style from '../css/PlayQuestionCard.module.css';
 import { FaGem, FaClock } from 'react-icons/fa';
-import noThumbnail from '../img/quiz_no_thumbnail.png';
+import noThumbnail from '../img/question_no_thumbnail.svg';
 import { getSessionAnswerAPI, getSessionQuestionAPI } from '../util/api';
 import { capitaliseFirstLetterString, checkInputs, disableInputs } from '../util/helper';
 import EmbedMedia from './EmbedMedia';
+import Notification from './Notification';
 
 export function PlayQuestionCard (props) {
   PlayQuestionCard.propTypes = {
@@ -25,12 +26,27 @@ export function PlayQuestionCard (props) {
   const [answer, setAnswer] = React.useState({});
   const [correctAnswer, setCorrectAnswer] = React.useState([]);
 
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notifcationMsg, setNotifcationMsg] = React.useState('');
+  const [notificationTitle, setNotifcationTitle] = React.useState('');
+  const [variant, setVariant] = React.useState('primary');
+  const [error, setError] = React.useState(true);
+
+  // Adds a custom notification to the page
+  const addNotification = (title, msg, variant, error) => {
+    setNotifcationTitle(title);
+    setNotifcationMsg(msg);
+    setVariant(variant);
+    setError(error);
+    setShowNotification(true);
+  };
+
   // Get the answer of the current question when the render changes to correct answer
   React.useEffect(async () => {
     if (props.renderCorrectAnswer) {
       const data = await getSessionAnswerAPI(props.playerId);
       if (data.error) {
-        alert(data.error);
+        addNotification('Error', data.error, 'danger', true);
         return;
       }
       setAnswer(data.answerIds);
@@ -43,7 +59,7 @@ export function PlayQuestionCard (props) {
     const interval = setInterval(async () => {
       const data = await getSessionQuestionAPI(props.playerId);
       if (data.error) {
-        console.warn(data.error);
+        addNotification('Warning', data.error, 'warning', true);
         return;
       }
       if (data.question.questionId !== props.currentQuestionObj.questionId) {
@@ -101,7 +117,7 @@ export function PlayQuestionCard (props) {
           {props.renderCorrectAnswer && (
             <div className={style.center}>
               <h3 className={style.correct_answer_title}>
-              {props.currentQuestionObj.type === 'multiple-choice' ? 'The correct answers were' : 'The correct answer was'}
+                {props.currentQuestionObj.type === 'multiple-choice' ? 'The correct answers were' : 'The correct answer was'}
               </h3>
               <div className={style.correct_answers}>
               {correctAnswer.map(answer =>
@@ -149,6 +165,14 @@ export function PlayQuestionCard (props) {
           </div>
         </Card.Footer>
       </Card>
+      <Notification
+        setShowNotification={setShowNotification}
+        showNotification={showNotification}
+        message={notifcationMsg}
+        notificationTitle={notificationTitle}
+        variant={variant}
+        error={error}
+      />
     </>
   );
 }
