@@ -8,6 +8,8 @@ import { getAverageAnswerTime, getTotalAnswers, numberOfCorrectAnswers, numberOf
 import LineChart from '../component/LineChart';
 import ReactCanvasConfetti from "react-canvas-confetti";
 import useWindowDimensions from "../component/useWindowDimensions";
+import { Howl } from "howler";
+import resultsAudio from '../audio/inResult.wav';
 
 export function ResultsQuiz () {
   const navigate = useNavigate();
@@ -25,6 +27,12 @@ export function ResultsQuiz () {
 
     const data = await getSessionResultsAPI(playerIdFromPreviousPage);
     setResults(data);
+    // Play results audio
+    new Howl({
+      src: [resultsAudio],
+      autoplay: true,
+      volume: 0.5
+    });
     fire();
   }, []);
 

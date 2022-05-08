@@ -9,6 +9,9 @@ import { getSessionAnswerAPI, getSessionQuestionAPI } from '../util/api';
 import { capitaliseFirstLetterString, checkInputs, disableInputs } from '../util/helper';
 import EmbedMedia from './EmbedMedia';
 import Notification from './Notification';
+import { Howl, Howler } from 'howler';
+import questionAudio from '../audio/inQuestion.wav';
+import { GoMute, GoUnmute } from 'react-icons/go';
 
 export function PlayQuestionCard (props) {
   PlayQuestionCard.propTypes = {
@@ -21,10 +24,12 @@ export function PlayQuestionCard (props) {
     currTime: PropTypes.number,
     renderCorrectAnswer: PropTypes.bool.isRequired,
     playerId: PropTypes.number.isRequired,
+    setQuestionSound: PropTypes.func.isRequired,
   };
 
   const [answer, setAnswer] = React.useState({});
   const [correctAnswer, setCorrectAnswer] = React.useState([]);
+  const [isMuted, setIsMuted] = React.useState(false);
 
   const [showNotification, setShowNotification] = React.useState(false);
   const [notifcationMsg, setNotifcationMsg] = React.useState('');
@@ -64,7 +69,7 @@ export function PlayQuestionCard (props) {
       }
       if (data.question.questionId !== props.currentQuestionObj.questionId) {
         // Reset the state of the question
-        clearInterval(interval);
+        Howler.stop();
         props.setCurrentQuestionObj(data.question);
         props.setRenderCorrectAnswer(false);
         props.setCurrentTime(data.question.timeLimit);
@@ -74,6 +79,13 @@ export function PlayQuestionCard (props) {
         disableInputs(false);
         // Unchecks all checkboxes/radio inputs
         checkInputs(false);
+        // Play question sound
+        props.setQuestionSound(new Howl({
+          src: [questionAudio],
+          autoplay: true,
+          volume: 0.5
+        }));
+        return () => clearInterval(interval);
       }
     }
     , 500);
@@ -94,10 +106,19 @@ export function PlayQuestionCard (props) {
     }
   }, [answer]);
 
+  // Unmute/Mute the current audio stream
+  const muteAudio = () => {
+    setIsMuted(!isMuted);
+    Howler.mute(!isMuted);
+  };
+
   return (
     <>
       <Card className={style.container}>
         <Card.Body>
+          <div className={style.volume_btn}>
+            {isMuted ? <GoUnmute onClick={muteAudio} title='Unmute Audio'/> : <GoMute onClick={muteAudio} title='Mute Audio'/>}
+          </div>
           <h1 className={style.game_question_title}>{props.currentQuestionObj.question}</h1>
           {!props.renderCorrectAnswer && (
             <div className={style.game_meta_data}>

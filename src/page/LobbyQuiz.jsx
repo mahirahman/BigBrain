@@ -3,7 +3,7 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { getSessionStatusAPI } from '../util/api';
 import style from '../css/LobbyQuiz.module.css';
 import Notification from '../component/Notification';
-import { Howl } from 'howler';
+import { Howl, Howler } from 'howler';
 import lobbyAudio from '../audio/lobby.wav';
 
 export function LobbyQuiz () {
@@ -50,6 +50,8 @@ export function LobbyQuiz () {
           return;
         }
         if (data.started) {
+          // Remove the audio
+          Howler.stop();
           navigate(`/quiz/play/${params.sessionId}`, { state: { playerIdFromPreviousPage: playerId, sessionIdFromPreviousPage: params.sessionId } });
         }
       }, 500);

@@ -6,6 +6,9 @@ import PlayQuestionCard from '../component/PlayQuestionCard';
 import style from '../css/PlayQuestionCard.module.css';
 import { disableInputs } from '../util/helper';
 import Notification from '../component/Notification';
+import { Howl, Howler } from 'howler';
+import questionAudio from '../audio/inQuestion.wav';
+import answerAudio from '../audio/inAnswer.wav';
 
 export function PlayQuiz () {
   const navigate = useNavigate();
@@ -15,6 +18,7 @@ export function PlayQuiz () {
   const [answerIds, setAnswerIds] = React.useState([]);
   const [currentTime, setCurrentTime] = React.useState(null);
   const [renderCorrectAnswer, setRenderCorrectAnswer] = React.useState(false);
+  const [questionSound, setQuestionSound] = React.useState(null);
 
   const [showNotification, setShowNotification] = React.useState(false);
   const [notifcationMsg, setNotifcationMsg] = React.useState('');
@@ -49,10 +53,18 @@ export function PlayQuiz () {
       const data = await getSessionStatusAPI(playerIdFromPreviousPage);
       if (data.error) {
         clearInterval(interval);
+        Howler.stop();
         navigate(`/quiz/results/${sessionIdFromPreviousPage}`, { state: { playerIdFromPreviousPage: playerIdFromPreviousPage } });
       }
     }
     , 500);
+
+    // Play question audio
+    setQuestionSound(new Howl({
+      src: [questionAudio],
+      autoplay: true,
+      volume: 0.5
+    }))
     return () => clearInterval(interval);
   }, []);
 
@@ -65,11 +77,13 @@ export function PlayQuiz () {
         return;
       }
       // If the current question has passed the time limit, then go to the results page
-      // instead of rendering the question
+      // instead of rendering the question (Used for hard refreshes)
       const dt = new Date(sessionQuestion.question.isoTimeLastQuestionStarted)
       const expectedFinishTime = dt.setSeconds(dt.getSeconds() + sessionQuestion.question.timeLimit);
       if (Date.now() > expectedFinishTime) {
+        Howler.stop();
         setRenderCorrectAnswer(true);
+        disableInputs(true);
       }
       setCurrentQuestionObj(sessionQuestion.question);
       setCurrentTime(sessionQuestion.question.timeLimit);
@@ -111,19 +125,38 @@ export function PlayQuiz () {
   React.useEffect(() => {
     // Stopping the counter when reaching 0.
     if (currentTime === 0) {
-      // setAnswerIds([]);
       setRenderCorrectAnswer(true);
       // Set all inputs as disabled attribute
       disableInputs(true);
       return;
     }
     // Decrement currentTime by 1 every second
-    const intervalId = setInterval(() => {
+    const intervalTime = setInterval(() => {
       setCurrentTime(currentTime - 1);
+      var dt = new Date(currentQuestionObj.isoTimeLastQuestionStarted);
+      dt.setSeconds(dt.getSeconds() + currentQuestionObj.timeLimit);
+      // Check if the current time is greater than the expected finish time
+      if (Date.now() > dt.getTime()) {
+        questionSound.stop();
+        setRenderCorrectAnswer(true);
+        disableInputs(true);
+        return () => clearInterval(intervalTime);
+      }
+      // Fade the question audio at last 3 seconds
+      // and play the answer audio
+      if (currentTime === 3) {
+        questionSound.fade(0.5, 0.0, 3000);
+        // Play answer audio
+        new Howl({
+          src: [answerAudio],
+          autoplay: true,
+          volume: 1.0
+        });
+      }
     }, 1000);
 
     // clear interval on re-render to avoid memory leaks
-    return () => clearInterval(intervalId);
+    return () => clearInterval(intervalTime);
   }, [currentTime]);
 
   return (
@@ -139,6 +172,7 @@ export function PlayQuiz () {
         currTime={currentTime}
         renderCorrectAnswer={renderCorrectAnswer}
         playerId={playerId}
+        setQuestionSound={setQuestionSound}
         />
         : <div className={style.loading_margin}>
           <LoadingWheel variant='light'/>
