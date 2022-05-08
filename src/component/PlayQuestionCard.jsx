@@ -10,7 +10,7 @@ import { capitaliseFirstLetterString, checkInputs, disableInputs } from '../util
 import EmbedMedia from './EmbedMedia';
 import Notification from './Notification';
 import { Howl, Howler } from 'howler';
-import questionAudio from '../audio/inQuestion.wav';
+import questionAudio from '../audio/inQuestion.webm';
 import { GoMute, GoUnmute } from 'react-icons/go';
 
 export function PlayQuestionCard (props) {

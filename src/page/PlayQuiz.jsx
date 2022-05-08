@@ -7,8 +7,8 @@ import style from '../css/PlayQuestionCard.module.css';
 import { disableInputs } from '../util/helper';
 import Notification from '../component/Notification';
 import { Howl, Howler } from 'howler';
-import questionAudio from '../audio/inQuestion.wav';
-import answerAudio from '../audio/inAnswer.wav';
+import questionAudio from '../audio/inQuestion.webm';
+import answerAudio from '../audio/inAnswer.webm';
 
 export function PlayQuiz () {
   const navigate = useNavigate();

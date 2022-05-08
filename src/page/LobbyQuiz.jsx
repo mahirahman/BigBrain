@@ -4,7 +4,7 @@ import { getSessionStatusAPI } from '../util/api';
 import style from '../css/LobbyQuiz.module.css';
 import Notification from '../component/Notification';
 import { Howl, Howler } from 'howler';
-import lobbyAudio from '../audio/lobby.wav';
+import lobbyAudio from '../audio/lobby.webm';
 
 export function LobbyQuiz () {
   const navigate = useNavigate();

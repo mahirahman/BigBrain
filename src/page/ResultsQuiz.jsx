@@ -9,7 +9,7 @@ import LineChart from '../component/LineChart';
 import ReactCanvasConfetti from "react-canvas-confetti";
 import useWindowDimensions from "../component/useWindowDimensions";
 import { Howl } from "howler";
-import resultsAudio from '../audio/inResult.wav';
+import resultsAudio from '../audio/inResult.webm';
 
 export function ResultsQuiz () {
   const navigate = useNavigate();
