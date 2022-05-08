@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useRef } from "react";
 import { Card } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getSessionResultsAPI } from '../util/api';
@@ -6,6 +6,8 @@ import style from '../css/ResultsQuiz.module.css';
 import PieChart from '../component/PieChart';
 import { getAverageAnswerTime, getTotalAnswers, numberOfCorrectAnswers, numberOfIncorrectAnswers, timeTakenToAnswer } from '../util/results';
 import LineChart from '../component/LineChart';
+import ReactCanvasConfetti from "react-canvas-confetti";
+import useWindowDimensions from "../component/useWindowDimensions";
 
 export function ResultsQuiz () {
   const navigate = useNavigate();
@@ -23,11 +25,60 @@ export function ResultsQuiz () {
 
     const data = await getSessionResultsAPI(playerIdFromPreviousPage);
     setResults(data);
+    fire();
   }, []);
+
+  const { height, width } = useWindowDimensions();
+
+  // Handle particle fire
+  const refAnimationInstance = useRef(null);
+
+  const getInstance = useCallback((instance) => {
+    refAnimationInstance.current = instance;
+  }, []);
+
+  const makeShot = useCallback((particleRatio, opts) => {
+    refAnimationInstance.current &&
+      refAnimationInstance.current({
+        ...opts,
+        origin: { y: 0.7 },
+        particleCount: Math.floor(300 * particleRatio)
+      });
+  }, []);
+
+  const fire = useCallback(() => {
+    makeShot(0.25, {
+      spread: 200,
+      startVelocity: 55
+    });
+
+    makeShot(0.2, {
+      spread: 100
+    });
+
+    makeShot(0.35, {
+      spread: 100,
+      decay: 0.91,
+      scalar: 0.8
+    });
+
+    makeShot(0.1, {
+      spread: 100,
+      startVelocity: 25,
+      decay: 0.95,
+      scalar: 1.2
+    });
+
+    makeShot(0.1, {
+      spread: 100,
+      startVelocity: 45
+    });
+  }, [makeShot]);
 
   return (
     <>
       <Card className={style.container}>
+      <ReactCanvasConfetti refConfetti={getInstance} width={width} height={height} className={style.confetti}/>
         <Card.Header>Results</Card.Header>
         <Card.Body>
           <div className={style.charts_container}>

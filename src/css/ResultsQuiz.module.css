@@ -25,6 +25,12 @@
   margin-top: 30px;
 }
 
+.confetti {
+  position: absolute;
+  width: 100%;
+  z-index: 999;
+}
+
 @media only screen and (max-width: 1024px) {
   .container {
     margin: 10px;
