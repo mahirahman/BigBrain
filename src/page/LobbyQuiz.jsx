@@ -3,6 +3,8 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { getSessionStatusAPI } from '../util/api';
 import style from '../css/LobbyQuiz.module.css';
 import Notification from '../component/Notification';
+import { Howl } from 'howler';
+import lobbyAudio from '../audio/lobby.wav';
 
 export function LobbyQuiz () {
   const navigate = useNavigate();
@@ -53,6 +55,13 @@ export function LobbyQuiz () {
       }, 500);
       return () => clearInterval(interval);
     }
+    // Play lobby audio
+    new Howl({
+      src: [lobbyAudio],
+      autoplay: true,
+      loop: true,
+      volume: 0.5
+    });
   }, [playerId]);
 
   return (

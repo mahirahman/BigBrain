@@ -126,11 +126,6 @@ export function PlayQuiz () {
     return () => clearInterval(intervalId);
   }, [currentTime]);
 
-  // Using the return data from the above GET request we want to (GET /play/{playerid}/question)
-  // and find the answer string from the id and display it on a card with other data such as points and time.
-
-  // After last question is answered, redirect to result page (How can I detect last Question?)
-
   return (
     <>
       {currentQuestionObj
