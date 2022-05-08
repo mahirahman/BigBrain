@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { updateQuizAPI } from '../util/api';
 import { fileToDataUrl } from '../util/helper';
 import Notification from './Notification';
+import LoadingWheel from './LoadingWheel';
 
 const CardFilter = styled.div`filter: hue-rotate(${props => props.colour}deg)`;
 
@@ -36,9 +37,7 @@ export function EditQuizCard (props) {
     setShowNotification(true);
   };
 
-  // const [defaultImageColour, setDefaultImageColour] = React.useState(props.randColour);
-  // console.log(props.randColour);
-  // console.log(defaultImageColour);
+  const [defaultImageColour, setDefaultImageColour] = React.useState(props.randColour);
 
   // Update the quiz name and image using the API
   const updateData = async (base64Image) => {
@@ -49,8 +48,7 @@ export function EditQuizCard (props) {
     }
     if (base64Image) {
       setQuizThumbnailBase64(base64Image);
-      // setDefaultImageColour(0);
-      // console.log(defaultImageColour);
+      setDefaultImageColour(0);
     }
   }
 
@@ -80,16 +78,18 @@ export function EditQuizCard (props) {
     setQuizThumbnailBase64(props.thumbnail);
     setQuizName(props.name);
   }
-  , [props])
+  , [props]);
 
   return (
     <>
       <Card className={style.card_container}>
         <Card.Header>Edit Game</Card.Header>
         <Card.Body className={style.card_body_container}>
-          <CardFilter colour = {props.randColour}>
+          {isNaN(props.randColour) && props.thumbnail.includes('no_thumbnail')
+          ? <LoadingWheel variant='dark'/>
+          : <CardFilter colour = {isNaN(defaultImageColour) ? props.randColour : defaultImageColour}>
             <img className={style.image_dimensions} src={quizThumbnailBase64} alt="Quiz Thumbnail"/>
-          </CardFilter>
+            </CardFilter>}
           <div className={style.quiz_update_details}>
             <InputGroup className={style.input_spacing}>
               <InputGroup.Text >Quiz Name</InputGroup.Text>
