@@ -2,7 +2,7 @@
 
 ![Image](/src/img/logo_brain.png)
 
-An innovative lightweight quiz platform for all ages. 🧠
+An innovative lightweight quiz platform for all ages 🧠
 
 Live Deployment: [big-brain.vercel.app](https://big-brain.vercel.app)
 
