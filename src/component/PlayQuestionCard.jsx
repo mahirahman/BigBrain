@@ -85,7 +85,7 @@ export function PlayQuestionCard (props) {
           autoplay: true,
           volume: 0.5
         }));
-        return () => clearInterval(interval);
+        clearInterval(interval);
       }
     }
     , 500);

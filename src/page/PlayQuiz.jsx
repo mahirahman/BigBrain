@@ -133,18 +133,9 @@ export function PlayQuiz () {
     // Decrement currentTime by 1 every second
     const intervalTime = setInterval(() => {
       setCurrentTime(currentTime - 1);
-      var dt = new Date(currentQuestionObj.isoTimeLastQuestionStarted);
-      dt.setSeconds(dt.getSeconds() + currentQuestionObj.timeLimit);
-      // Check if the current time is greater than the expected finish time
-      if (Date.now() > dt.getTime()) {
-        questionSound.stop();
-        setRenderCorrectAnswer(true);
-        disableInputs(true);
-        return () => clearInterval(intervalTime);
-      }
       // Fade the question audio at last 3 seconds
       // and play the answer audio
-      if (currentTime === 3) {
+      if (currentTime === 3 && !renderCorrectAnswer) {
         questionSound.fade(0.5, 0.0, 3000);
         // Play answer audio
         new Howl({
