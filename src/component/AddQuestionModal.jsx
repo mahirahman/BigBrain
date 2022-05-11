@@ -243,7 +243,7 @@ export function AddQuestionModal (props) {
           {radioValue === 'img' &&
             <InputGroup className={style.input_spacing}>
             <InputGroup.Text >Thumbnail</InputGroup.Text>
-            <FormControl title="your text" type="file" accept="image/jpeg, image/png, image/jpg" aria-label="Thumbnail"
+            <FormControl title="Add a thumbnail to the question" type="file" accept="image/jpeg, image/png, image/jpg, image/webp, image/gif, image/tiff" aria-label="Thumbnail"
               onChange={event => setEmbedImageMediaFileObj(event.target.files[0])}/>
           </InputGroup>
           }

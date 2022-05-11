@@ -4,8 +4,6 @@ import { useParams } from 'react-router-dom';
 import style from '../css/ResultsAdmin.module.css';
 import { getSessionResultsAdminAPI, getSessionStatusAdminAPI } from '../util/api';
 import Notification from './Notification';
-// import { getavg } from '../util/results';
-// import BarChart from './BarChart';
 import ResultsTable from './ResultsTable';
 
 export function ResultsAdmin () {
@@ -57,11 +55,6 @@ export function ResultsAdmin () {
             results={results}
             questions={allQuestions}
             />
-            {/* BarChart for more stats */}
-            {/* <BarChart
-            labels={allQuestions.map((x, index) => `Question ${index + 1}`)}
-            data={results.map((x) => getavg(x.answers, allQuestions.length))}
-            /> */}
             </>
           }
         </Card.Body>

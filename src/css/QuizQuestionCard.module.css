@@ -5,7 +5,7 @@
 .image_media {
   float: right;
   width: 200px;
-  height: 200px;
+  height: 207px;
 }
 
 .container_flex {
@@ -40,6 +40,11 @@
 }
 
 .media_container {
+  margin: -16px;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.media_container_noThumb {
   margin: -16px;
   margin-right: 5px;
   border-bottom-right-radius: 0.25rem;

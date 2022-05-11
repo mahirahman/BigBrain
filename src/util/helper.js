@@ -32,11 +32,11 @@ export const formatDateString = (date) => {
 // Converts File objects to Base64 images
 // By Hayden Smith - COMP6080
 export const fileToDataUrl = (file) => {
-  const validFileTypes = ['image/jpeg', 'image/png', 'image/jpg']
+  const validFileTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/gif', 'image/tiff']
   const valid = validFileTypes.find(type => type === file.type);
   // Bad data, let's walk away.
   if (!valid) {
-    throw Error('provided file is not a png, jpg or jpeg image.');
+    throw Error('Provided File is not a valid image');
   }
 
   const reader = new FileReader();

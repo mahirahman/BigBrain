@@ -97,7 +97,7 @@ export function EditQuizCard (props) {
             </InputGroup>
             <InputGroup className={style.input_spacing}>
               <InputGroup.Text >Thumbnail</InputGroup.Text>
-              <FormControl type="file" accept="image/jpeg, image/png, image/jpg" aria-label="Quiz Name"
+              <FormControl type="file" accept="image/jpeg, image/png, image/jpg, image/webp, image/gif, image/tiff" aria-label="Quiz Name"
               onChange={event => setQuizThumbnailFileObj(event.target.files[0])}/>
             </InputGroup>
             <Button variant="success" className={style.save_changes} onClick={updateQuizDetails}>Save Changes</Button>

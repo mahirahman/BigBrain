@@ -46,16 +46,3 @@ export const getTotalScoreUser = (resultAnswers, questions) => {
   })
   return totalScore;
 };
-
-export const getavg = (resultAnswers, questionsLength) => {
-  // Create a zero array of size questionsLength
-  const correctAnswersArr = new Array(questionsLength).fill(0);
-
-  resultAnswers.forEach((resultAnswer, index) => {
-    if (resultAnswer.correct) {
-      // correctAnswer += 1;
-      correctAnswersArr[index] += 1;
-    }
-  });
-  return correctAnswersArr;
-};

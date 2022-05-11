@@ -55,7 +55,7 @@ export function QuizQuestionCard (props) {
             </div>
               <EmbedMedia
               questionEmbed={props.questionEmbed}
-              mediaContainer={style.media_container}
+              mediaContainer={props.questionEmbed.includes('no_thumbnail') ? style.media_container_noThumb : style.media_container}
               imageMedia={style.image_media}
               />
           </div>
