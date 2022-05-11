@@ -86,7 +86,7 @@ export function ResultsQuiz () {
   return (
     <>
       <Card className={style.container}>
-      <ReactCanvasConfetti refConfetti={getInstance} width={width} height={height} className={style.confetti}/>
+        <ReactCanvasConfetti refConfetti={getInstance} width={width} height={height} className={style.confetti}/>
         <Card.Header>Results</Card.Header>
         <Card.Body>
           <div className={style.charts_container}>
