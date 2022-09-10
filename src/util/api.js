@@ -22,7 +22,7 @@ const fetchAPI = async (path, method, body) => {
 
   let response;
   try {
-    response = await fetch(`https://agate-ribbon-peripheral.glitch.me${path}`, init);
+    response = await fetch(`https://bigbrainbackend.onrender.com${path}`, init);
   } catch (e) {
     console.warn(e);
   }
