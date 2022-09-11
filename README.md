@@ -42,7 +42,7 @@ styled-components": ^5.3.5
 
 The landing page is the login/register page. Here a user can log in with an existing account or register a new account.
 Upon success, they would be redirected to the quizzes dashboard page where they can manage and create quizzes.
-They can decide to start a game and share a the game URL to their friends to participate.
+They can decide to start a game and share the game URL to their friends to participate.
 
 ## Pages
 
