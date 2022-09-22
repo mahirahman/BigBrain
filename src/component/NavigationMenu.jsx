@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../img/logo_brain.png';
+import logo from '../img/logo_brain.webp';
 import style from '../css/NavigationMenu.module.css';
 import { IoGameControllerOutline } from 'react-icons/io5';
 import { BsPlusCircle } from 'react-icons/bs';

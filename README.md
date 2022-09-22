@@ -1,6 +1,6 @@
 # BigBrain Quiz App 🤔
 
-![Image](/src/img/logo_brain.png)
+![Image](/src/img/logo_brain.webp)
 
 An innovative lightweight quiz platform for all ages 🧠
 
@@ -48,37 +48,37 @@ They can decide to start a game and share the game URL to their friends to parti
 
 ### Landing
 
-![Image](/screenshots/sign_in.png)
+![Image](/screenshots/sign_in.webp)
 
-![Image](/screenshots/register.png)
+![Image](/screenshots/register.webp)
 
 ### Dashboard
 
-![Image](/screenshots/dashboard.png)
+![Image](/screenshots/dashboard.webp)
 
-![Image](/screenshots/create_quiz.png)
+![Image](/screenshots/create_quiz.webp)
 
 ### Edit Quiz
 
-![Image](/screenshots/edit_quiz1.png)
+![Image](/screenshots/edit_quiz1.webp)
 
-![Image](/screenshots/edit_quiz2.png)
+![Image](/screenshots/edit_quiz2.webp)
 
-![Image](/screenshots/add_question.png)
+![Image](/screenshots/add_question.webp)
 
 ### Edit Question
 
-![Image](/screenshots/edit_question.png)
+![Image](/screenshots/edit_question.webp)
 
 ### Play Quiz
 
-![Image](/screenshots/lobby.png)
+![Image](/screenshots/lobby.webp)
 
-![Image](/screenshots/in_question.png)
+![Image](/screenshots/in_question.webp)
 
-![Image](/screenshots/in_answer.png)
+![Image](/screenshots/in_answer.webp)
 
-![Image](/screenshots/results.png)
+![Image](/screenshots/results.webp)
 
 ## Built With
 
