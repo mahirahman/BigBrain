@@ -4,7 +4,7 @@ import NavigationMenu from '../component/NavigationMenu';
 import QuizCard from '../component/QuizCard';
 import style from '../css/Quizzes.module.css';
 import { getAllQuizDataAPI } from '../util/api';
-import noThumb from '../img/quiz_no_thumbnail.png';
+import noThumb from '../img/quiz_no_thumbnail.webp';
 import { getTokenLocalStorage } from '../util/helper';
 
 export function Quizzes () {

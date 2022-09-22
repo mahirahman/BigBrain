@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getQuizDataAPI } from '../util/api';
 import EditQuizCard from '../component/EditQuizCard';
 import ViewQuestionCard from '../component/ViewQuestionCard';
-import noThumb from '../img/quiz_no_thumbnail.png';
+import noThumb from '../img/quiz_no_thumbnail.webp';
 import { getTokenLocalStorage } from '../util/helper';
 
 export function EditQuiz () {
